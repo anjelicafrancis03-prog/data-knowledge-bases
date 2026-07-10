@@ -1,0 +1,378 @@
+{
+ "generated_at": "2026-07-11 05:09",
+ "kpi": {
+  "documents_total": 2161,
+  "documents_s": 93,
+  "documents_with_prediction": 452,
+  "claims_total": 1697,
+  "claims_high_signal": 1369,
+  "claims_top_signal": 490,
+  "verifications_total": 41,
+  "verifications_fulfilled": 31,
+  "verifications_pending": 7,
+  "entities_total": 1233,
+  "relations_v2_total": 1398
+ },
+ "monthly": [
+  {
+   "month": "2024-07",
+   "total": 38,
+   "s": 5,
+   "a": 33,
+   "pred": 14
+  },
+  {
+   "month": "2024-08",
+   "total": 24,
+   "s": 1,
+   "a": 23,
+   "pred": 5
+  },
+  {
+   "month": "2024-09",
+   "total": 38,
+   "s": 3,
+   "a": 35,
+   "pred": 13
+  },
+  {
+   "month": "2024-10",
+   "total": 22,
+   "s": 6,
+   "a": 16,
+   "pred": 11
+  },
+  {
+   "month": "2024-11",
+   "total": 28,
+   "s": 21,
+   "a": 7,
+   "pred": 12
+  },
+  {
+   "month": "2024-12",
+   "total": 36,
+   "s": 26,
+   "a": 10,
+   "pred": 20
+  },
+  {
+   "month": "2025-01",
+   "total": 22,
+   "s": 14,
+   "a": 8,
+   "pred": 12
+  },
+  {
+   "month": "2025-02",
+   "total": 34,
+   "s": 12,
+   "a": 22,
+   "pred": 17
+  },
+  {
+   "month": "2025-03",
+   "total": 49,
+   "s": 5,
+   "a": 44,
+   "pred": 6
+  },
+  {
+   "month": "2025-04",
+   "total": 41,
+   "s": 0,
+   "a": 41,
+   "pred": 5
+  },
+  {
+   "month": "2025-05",
+   "total": 33,
+   "s": 0,
+   "a": 33,
+   "pred": 5
+  },
+  {
+   "month": "2025-06",
+   "total": 31,
+   "s": 0,
+   "a": 31,
+   "pred": 9
+  },
+  {
+   "month": "2025-07",
+   "total": 39,
+   "s": 0,
+   "a": 39,
+   "pred": 10
+  },
+  {
+   "month": "2025-08",
+   "total": 46,
+   "s": 0,
+   "a": 46,
+   "pred": 24
+  },
+  {
+   "month": "2025-09",
+   "total": 53,
+   "s": 0,
+   "a": 53,
+   "pred": 25
+  },
+  {
+   "month": "2025-10",
+   "total": 63,
+   "s": 0,
+   "a": 63,
+   "pred": 12
+  },
+  {
+   "month": "2025-11",
+   "total": 66,
+   "s": 0,
+   "a": 66,
+   "pred": 9
+  },
+  {
+   "month": "2025-12",
+   "total": 44,
+   "s": 0,
+   "a": 44,
+   "pred": 7
+  },
+  {
+   "month": "2026-01",
+   "total": 90,
+   "s": 0,
+   "a": 90,
+   "pred": 21
+  },
+  {
+   "month": "2026-02",
+   "total": 42,
+   "s": 0,
+   "a": 42,
+   "pred": 20
+  },
+  {
+   "month": "2026-03",
+   "total": 69,
+   "s": 0,
+   "a": 69,
+   "pred": 39
+  },
+  {
+   "month": "2026-04",
+   "total": 59,
+   "s": 0,
+   "a": 59,
+   "pred": 26
+  },
+  {
+   "month": "2026-05",
+   "total": 33,
+   "s": 0,
+   "a": 33,
+   "pred": 6
+  },
+  {
+   "month": "2026-06",
+   "total": 1,
+   "s": 0,
+   "a": 1,
+   "pred": 0
+  }
+ ],
+ "sw_bins": [
+  {
+   "bin": "50-69",
+   "n": 10
+  },
+  {
+   "bin": "70-79",
+   "n": 224
+  },
+  {
+   "bin": "80-89",
+   "n": 879
+  },
+  {
+   "bin": "<50",
+   "n": 2
+  },
+  {
+   "bin": ">=90",
+   "n": 490
+  },
+  {
+   "bin": "null",
+   "n": 92
+  }
+ ],
+ "verdicts": [
+  {
+   "verdict": "fulfilled",
+   "n": 31
+  },
+  {
+   "verdict": "pending",
+   "n": 7
+  },
+  {
+   "verdict": "partial",
+   "n": 2
+  },
+  {
+   "verdict": "unfulfilled",
+   "n": 1
+  }
+ ],
+ "recent_s": [
+  {
+   "id": "doc_zst_2025_stimulus_june",
+   "date": "2025-03-26",
+   "title": "6月，下一轮刺激组合拳的时间点",
+   "ps": 92,
+   "hp": 1,
+   "core_claim": "⭐神级预测:6 月将有重磅中美会晤+美联储 6-18 首次降息+中国仿 9-24 强刺激;消费贷加码=化债工具(争取降息黎明前时间),不是大棋"
+  },
+  {
+   "id": "doc_zst_2025_first_tiger",
+   "date": "2025-03-13",
+   "title": "两会后首虎，网红书记落马",
+   "ps": 88,
+   "hp": 1,
+   "core_claim": "两会后首虎周德睿(天津市委组织部长,湖南零陵-永州-常德-天津)落马,常德书记链 13/21/25 连续 3 任落马,网红书记包装=政治资本预警,跨省提拔后必有"
+  },
+  {
+   "id": "doc_zst_2025_musk_siege",
+   "date": "2025-03-07",
+   "title": "四面楚歌的马斯克",
+   "ps": 95,
+   "hp": 1,
+   "core_claim": "⭐神级预测:特斯拉销量直线下滑+马斯克口碑下坠=必然;马斯克=马省长翻版(996/公司20年讲话/挑战美联储敏感数据),没退路只能击碎敌人;一旦放弃懂王会抛弃,"
+  },
+  {
+   "id": "doc_zst_2025_tariff_3q",
+   "date": "2025-03-04",
+   "title": "特朗普关税的三道选择题",
+   "ps": 88,
+   "hp": 1,
+   "core_claim": "中美关税三阶段:①面子里子(芬太尼可解决)②投资问题(很疼,日韩台投资额是基准)③站队问题(棘手);万邦来朝(沙特6000亿/日本1万亿/苹果6000亿/软银/"
+  },
+  {
+   "id": "doc_zst_2025_lks_panama",
+   "date": "2025-03-01",
+   "title": "李嘉诚，捅了一个天大的篓子",
+   "ps": 92,
+   "hp": 1,
+   "core_claim": "李嘉诚卖巴拿马港口给贝莱德=触怒官方(大公报社评史无前例严厉,比 2021 滴滴 IPO 还愤怒),港口=AI 时代新基建入口战(类比 10 年前腾讯阿里),预"
+  },
+  {
+   "id": "doc_zst_2025_recovery_how_long",
+   "date": "2025-02-21",
+   "title": "本轮复苏，会持续多久？",
+   "ps": 92,
+   "hp": 1,
+   "core_claim": "中国'一放就乱一管就死'政治经济周期律:14放(双创)→17管(供给侧改革+贾汪王陈吴叶肖老板陨落)→18放(科创)→21管(反垄断+医疗地产教育整改+大基金被"
+  },
+  {
+   "id": "doc_zst_2025_swap_3steps",
+   "date": "2025-02-19",
+   "title": "特朗普换房本的三步走",
+   "ps": 95,
+   "hp": 1,
+   "core_claim": "美国政治换房本框架=四个权力基石:笔杆子(Fox/X/Tiktok=人民力量)+钱袋子(财政部/美联储/USAID=政府力量)+刀把子(FBI/CIA=情报力量"
+  },
+  {
+   "id": "doc_zst_2025_summit",
+   "date": "2025-02-18",
+   "title": "时隔六年，再迎重磅民企座谈会！/为什么是任正非王传福",
+   "ps": 95,
+   "hp": 1,
+   "core_claim": "2/17 民营经济座谈会(时隔六年)=14家企业'智能化'唯一主线(对比 2018 信息化+绿色化);浙深双引擎=14家中浙江5家(韦尔/宇树/正泰/阿里/总部"
+  },
+  {
+   "id": "doc_zst_2025_nezha_fengshen",
+   "date": "2025-02-17",
+   "title": "哪吒必须打赢封神",
+   "ps": 92,
+   "hp": 1,
+   "core_claim": "春节档电影对决=中国传统文化 vs 西方文化内核的话语权战争:封神2(乌尔善)=借封神演义壳子+西方魔幻内核(俄狄浦斯弑父+罗密欧朱丽叶+电车困境+哈姆雷特犹豫"
+  },
+  {
+   "id": "doc_zst_2025_6dragon",
+   "date": "2025-02-13",
+   "title": "为何六小龙只在杭州？",
+   "ps": 92,
+   "hp": 1,
+   "core_claim": "营商环境的时代切换:旧式(汉东-丁义珍-李达康-欧阳菁式)='大哥/大嫂'+权力交易所+花式退税返还+高房价转移纳税责任=帮重工业老板降成本=对劳动/土地/环境"
+  }
+ ],
+ "top_claims": [
+  {
+   "id": "claim_2025_152",
+   "doc_id": "doc_zst_2025_swap_3steps",
+   "sw": 98,
+   "claim": "⭐⭐⭐神级预测(2/19→2025-05-30兑现):'马斯克和Tiktok的重要性会大幅降低,做交易和获取权力都要抓紧时间'=三步走第二阶段后(钱袋子掌控完成)+特朗普团队将抛弃笔杆子伙伴;原因=笔杆子是工具不是核心+特朗普完成钱袋子掌控后不再需要外部杠杆;深层逻辑=政治权力归一性+暂时盟友必然过桥抽板",
+   "source_time": null,
+   "verified": null
+  },
+  {
+   "id": "claim_2025_138",
+   "doc_id": "doc_zst_2025_joint_harvest",
+   "sw": 98,
+   "claim": "⭐神级预测(提前25天):李嘉诚海外业务(巴拿马港口)被卖给美资=历史必然,中国不仅不会反制甚至会暗中配合;原因=老板上合后一直暴力清洗叶家政治力量+李嘉诚=叶家神仙的'姜子牙'(同fengshen_jiang框架);中美'皇室联合收割机'借《让子弹飞》黄老爷+张麻子隐喻=双方表面斗死活但联合割旧时代国际资本家韭菜",
+   "source_time": null,
+   "verified": null
+  },
+  {
+   "id": "claim_r056d_01",
+   "doc_id": "doc_zst_r056d",
+   "sw": 98,
+   "claim": "重庆市长胡衡华连续缺席三场核心活动(3/18理论学习+3/18德企会谈+3/19植树)=即将落马信号",
+   "source_time": null,
+   "verified": "1"
+  },
+  {
+   "id": "claim_doc_zst_0083_boundary_identity_conspiracy_not_fact_layer",
+   "doc_id": "doc_zst_0083",
+   "sw": 98,
+   "claim": "边界：“奥巴马信仰伊斯兰教”“念古兰经”“潜伏”“间谍”“今年一定会被媒体爆出来”等均为作者身份阴谋型强断言；不得把姓名、童年经历、多元宗教讲话或舆论谣言拼接成事实。",
+   "source_time": null,
+   "verified": null
+  },
+  {
+   "id": "claim_method_source_time_power_balance_standard_20260507",
+   "doc_id": null,
+   "sw": 96,
+   "claim": "方法标准：读 2016-2017 年旧政经文章时，必须先记录 source_time_power_balance。十九大前文章默认按 pre_19th_contested_equilibrium 审计，不能把后来的政治定局倒灌回源时间；团派、蓝票、李克强、共青团、媒体和政策通道都要按当时可行动能力分层。",
+   "source_time": null,
+   "verified": null
+  },
+  {
+   "id": "claim_doc_zst_0128_author_model_wanda_lenovo_fanhai_guangcai_network",
+   "doc_id": "doc_zst_0128",
+   "sw": 96,
+   "claim": "作者模型层：0128 把万达、联想、泛海、民生金融牌照、光彩事业、中民协/泰山会和统战口压成一张蓝色人物网络图；它是高价值追踪图谱，不是已闭合的统一控制集团事实。",
+   "source_time": null,
+   "verified": null
+  },
+  {
+   "id": "claim_doc_zst_0121_hidden_media_and_financial_chain_boundary",
+   "doc_id": "doc_zst_0121",
+   "sw": 96,
+   "claim": "边界：人民日报/新华社互泼脏水、温侯嫡系戴行长、老王秘书空降招行打爆、招商局/平安与温侯关系、车某被带走与天津大火反应链，均是高信号低证明内容；公开来源只支持节点，不支持统一隐藏指挥链。",
+   "source_time": null,
+   "verified": null
+  },
+  {
+   "id": "claim_doc_zst_0104_main_rescue_captain_resume_policy_signal_model",
+   "doc_id": "doc_zst_0104",
+   "sw": 96,
+   "claim": "主矛盾：作者把李鸿忠任天津解释为履历重叠、旧领导线、广东/湖北危机后修复、十八大后政策文本/宣讲能力和直辖市救火窗口的合流。该模型有多个公开锚，但“老板/派系/内部起草角色”仍是作者模型。",
+   "source_time": null,
+   "verified": null
+  }
+ ]
+}

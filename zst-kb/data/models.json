@@ -1,0 +1,3444 @@
+{
+ "generated_at": "2026-07-11 05:09",
+ "nodes": [
+  {
+   "id": "model_001",
+   "kind": "model",
+   "name": "全球斩杀线K公式",
+   "formula": "K = D / V",
+   "domains": [
+    "domain_k_formula"
+   ],
+   "doc_count": 6,
+   "aliases": [
+    "model_031"
+   ],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "K < 1/e → 被斩杀",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_002",
+   "kind": "model",
+   "name": "TACO三方默契模型",
+   "formula": "当诈唬者(Bluffer)面对过牌者(Checker)→被迫TACO→三方各取所需的面子工程",
+   "domains": [],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_003",
+   "kind": "model",
+   "name": "伊朗权力三角模型",
+   "formula": "伊朗政权 = 教士(道统) + 革命卫队(暴力+经济) + 官僚(行政)",
+   "domains": [
+    "domain_iran"
+   ],
+   "doc_count": 6,
+   "aliases": [],
+   "dynamics": "教士→军功转移=伊朗世俗化/利益化；反美从信仰驱动→利益驱动",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_004",
+   "kind": "model",
+   "name": "货币达尔文主义/企业斩杀线",
+   "formula": "新美联储=效率优先(哈耶克)取代公平优先(凯恩斯)→信贷从福利→AI新质生产力",
+   "domains": [
+    "domain_k_formula"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "不能创造AI时代价值的企业→被货币斩杀线清退",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_005",
+   "kind": "model",
+   "name": "美国制裁双层架构",
+   "formula": "一级制裁(国会成文法=总统无权解除) vs 二级制裁(行政令=白宫可豁免)",
+   "domains": [],
+   "doc_count": 3,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "谈判空间在二级制裁→伊朗真正要的是特朗普豁免二级制裁→中国资本合法流入",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_006",
+   "kind": "model",
+   "name": "日本首相=美国亚太OS的应用程序",
+   "formula": "美国亚太战略=OS→日本首相=App→中美战略U转=系统热更新→旧App崩溃",
+   "domains": [
+    "domain_japan"
+   ],
+   "doc_count": 6,
+   "aliases": [
+    "model_036"
+   ],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "判断当前中美关系方向→预判日本内阁兼容性→预判日本首相政治命运",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_007",
+   "kind": "model",
+   "name": "伊朗内部赛跑条件(Race Condition)",
+   "formula": "官僚(停火谈判速度) vs 卫队(军事政变速度) = 谁先完成谁掌权",
+   "domains": [
+    "domain_iran"
+   ],
+   "doc_count": 4,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "如果停火先于新领袖登基→官僚暂时掌权；反之卫队夺权",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_008",
+   "kind": "model",
+   "name": "权力黑暗森林四阶段",
+   "formula": "最高领袖离线→四阶段：①信息管道争夺(恐怖平衡)→②挟天子(信用透支)→③先发制人(武力政变)→④外部降维打击",
+   "domains": [
+    "domain_dark_forest"
+   ],
+   "doc_count": 30,
+   "aliases": [
+    "model_038"
+   ],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_009",
+   "kind": "model",
+   "name": "海峡武器化/咽喉经济账",
+   "formula": "控制全球6大海峡=抬高他国物流风险溢价→比关税更隐蔽的逆全球化→制造业被迫回流",
+   "domains": [
+    "domain_energy",
+    "domain_us_china"
+   ],
+   "doc_count": 7,
+   "aliases": [
+    "model_033"
+   ],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "新增咽喉控制行动→对应方向的航运保险费上升→相关产业链强制转移",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_010",
+   "kind": "model",
+   "name": "海南沙盒/平行运行系统",
+   "formula": "苏式体制+一个圈(海南)=平行OS→北向14亿+南向7亿+零关税+15%税+数据自由=全球最低成本新质组装区",
+   "domains": [
+    "domain_fiscal",
+    "domain_new_authority"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "海南封关数据(GDP/FDI/企业迁入)=判断制度型开放是否成功的领先指标",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_011",
+   "kind": "model",
+   "name": "中美易位/90年代重演",
+   "formula": "2025美国=1990s中国(对内经济建设/战略收缩/结束冷战)；日本=1990s巴铁/朝鲜(被收缩宗主国'背刺'的前线盟友)",
+   "domains": [
+    "domain_us_china"
+   ],
+   "doc_count": 10,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "美国战略收缩时→日本政治动荡(首相更迭)+加速军事化=必然产物",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_012",
+   "kind": "model",
+   "name": "TACO交易模型(正式版)",
+   "formula": "TACO = Trump Always Chickens Out：特朗普极限施压→触及自身政治成本天花板→必然退缩妥协",
+   "domains": [],
+   "doc_count": 8,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": "本系列最核心的预测模型之一=贯穿2025-2026全部对美分析"
+  },
+  {
+   "id": "model_013",
+   "kind": "model",
+   "name": "AI双黑洞/霸权竞争史瓦西模型",
+   "formula": "两超各自举国投入AI→谁先到史瓦西半径(AGI临界点)→谁的引力场吞噬对方生态圈",
+   "domains": [
+    "domain_ai"
+   ],
+   "doc_count": 4,
+   "aliases": [
+    "model_069"
+   ],
+   "dynamics": "",
+   "corollary": "美国强项中国必须有+中国强项美国也必须有=对称性竞争",
+   "threshold": "",
+   "inference_rule": "双黑洞形成→高烈度冲突反而可控(都忙着吞资源)→但在关键资源上寸步不让",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_014",
+   "kind": "model",
+   "name": "特朗普硬约束/命门模型",
+   "formula": "特朗普可以为所欲为 UNTIL 触碰命门：美债10Y>4.5% OR S&P500跌>10% → MUST TACO",
+   "domains": [
+    "domain_us_china"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_015",
+   "kind": "model",
+   "name": "全球特朗普化/AI失业→右转",
+   "formula": "AI取代劳动力→大规模失业→民粹右翼崛起→闭关/排外/贸易壁垒=全球不可逆趋势",
+   "domains": [],
+   "doc_count": 13,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "任何国家完成AI工业化→对未完成国家形成降维打击→未完成国家必然特朗普化(闭关自保)",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_016",
+   "kind": "model",
+   "name": "制造业集团vs金融集团/全球阶级分析",
+   "formula": "全球底层矛盾=制造业集团(实体/能源/军工) vs 金融集团(华尔街/索罗斯/全球化)→特朗普=制造业代理人",
+   "domains": [],
+   "doc_count": 3,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "判断特朗普下一步行动=看哪个行动最削弱金融集团→那就是他的选择",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_017",
+   "kind": "model",
+   "name": "一赢各表/面子外交模型",
+   "formula": "大国谈判结果=实质让步方(TACO方)需要'面子台阶'→双方默契各自宣称胜利→媒体配合各自叙事",
+   "domains": [],
+   "doc_count": 8,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "观察方法：对比谈判前后双方的实质条件变化→谁变化更大=谁TACO了",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_018",
+   "kind": "model",
+   "name": "AI信创/数据盐铁财政",
+   "formula": "政府数据+基建网络=新时代的盐铁专营→AI信创=强制政府/国企AI采购→需求侧驱动AI产业",
+   "domains": [
+    "domain_ai"
+   ],
+   "doc_count": 10,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "观察地方政府AI采购预算增速→增速>50%=AI信创正式启动",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_019",
+   "kind": "model",
+   "name": "三中全会七个转变/改革总纲",
+   "formula": "安全→发展 / 公有→混合 / 基建→消费 / 出口→内需 / 土地→数据 / 央企→民企 / 金融→科技",
+   "domains": [
+    "domain_new_authority"
+   ],
+   "doc_count": 6,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "判断政策方向：看是否在七个维度上持续从左到右→是=改革加速;否=回摆",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_020",
+   "kind": "model",
+   "name": "特朗普三板斧/赵匡胤先易后难",
+   "formula": "1.0先难后易(核武区)=全失败→2.0先易后难(软柿子)=3:0开局→滚雪球",
+   "domains": [
+    "domain_us_china"
+   ],
+   "doc_count": 6,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "预判特朗普下一个目标：排除核武区→排除有大国利益区→剩余中最弱的=下一个软柿子",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_021",
+   "kind": "model",
+   "name": "特朗普六步经济政策/卷上游不卷下游",
+   "formula": "低油价+高工资+关税壁垒+强美元+低税率+低监管→制造业利润最大化→新质生产力突破",
+   "domains": [
+    "domain_trade"
+   ],
+   "doc_count": 10,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "判断特朗普政策是否有效：看六步是否同步推进→任何一步卡住=链条断裂→利润转移失败",
+   "historical_precedent": "",
+   "evolution": "此模型→2025/1'三判断'(制造vs金融)→2025/2全球阶级分析=三次进化",
+   "note": ""
+  },
+  {
+   "id": "model_022",
+   "kind": "model",
+   "name": "改革内核=税改/阶级更替公式",
+   "formula": "税改方向→产业结构调整→统治阶级更替→国运改变",
+   "domains": [
+    "domain_fiscal"
+   ],
+   "doc_count": 9,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "观察税改方向→判断国家走霸道还是王道→预判哪个阶级将崛起/衰落",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_023",
+   "kind": "model",
+   "name": "中国不是日本/双轨撕裂模型",
+   "formula": "日本=补锅(第二次工革极致→分配)→停滞；中国=破旧(争第四次工革→发展)→双轨撕裂",
+   "domains": [
+    "domain_japan"
+   ],
+   "doc_count": 4,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "判断资产配置：增量轨资产(AI/新能源)=长期看多；存量轨资产(地产/旧金融)=长期看空→不可用日本经验",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_024",
+   "kind": "model",
+   "name": "美国政党=全球治理模式切换",
+   "formula": "民主党=全球君主制(大政府/事必躬亲/不能露头)→共和党=全球议会制(小政府/只管选区/要结党)",
+   "domains": [],
+   "doc_count": 4,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "看美国哪个党执政→选择对应策略：民主党=防守型外交；共和党=进攻型结盟",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_025",
+   "kind": "model",
+   "name": "新能源汽车双重逻辑/会行走的纳税人",
+   "formula": "换壳消费主义(刺激内需) + 夜间电力税(万亿财政) = 新能源不可逆",
+   "domains": [
+    "domain_fiscal"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "新能源政策不可逆→只会加码不会减码→资产配置长期看多新能源产业链",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_026",
+   "kind": "model",
+   "name": "生产路线vs消费路线切换",
+   "formula": "消费路线(反996/平均/内循环)→成本升+产业外迁→切换为生产路线(勤劳致富/差异/外循环)",
+   "domains": [],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "观察官媒叙事：鼓励消费/躺平=消费路线；鼓励奋斗/996=生产路线→据此判断政策周期",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_027",
+   "kind": "model",
+   "name": "土地财政终结/三铁饭碗打破定律",
+   "formula": "税源→利益集团→铁饭碗：旧税源终→旧利益清算；新税源立→新利益崛起",
+   "domains": [
+    "domain_fiscal"
+   ],
+   "doc_count": 3,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "观察税源切换→判断哪些行业铁饭碗将打破/哪些将新建",
+   "historical_precedent": "90年代无土地财政→三行业被赶出体制→土地财政后→回归铁饭碗→土地财政终→再被打破",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_028",
+   "kind": "model",
+   "name": "安全重商主义/中美政策趋同",
+   "formula": "AI赢家通吃→传统国家体制受威胁→两个超级大国同时走安全重商主义→争夺算力(芯片)+能量(能源)+认知(数据)",
+   "domains": [
+    "domain_trade"
+   ],
+   "doc_count": 3,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_029",
+   "kind": "model",
+   "name": "总督府模式/势力范围代管",
+   "formula": "超级大国不直接吞并→设'总督'控制支付通道→当地体系照旧只换发薪人→麦克阿瑟式改造",
+   "domains": [],
+   "doc_count": 4,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_030",
+   "kind": "model",
+   "name": "保交油模式/石油去金融化",
+   "formula": "抓独裁者→资金隔离(监管账户)→防止外流→派总督→白名单+开发贷→集采兜底→石油回归民生属性",
+   "domains": [
+    "domain_energy"
+   ],
+   "doc_count": 8,
+   "aliases": [
+    "model_040"
+   ],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_032",
+   "kind": "model",
+   "name": "双层斩杀线体系/国家+企业",
+   "formula": "全球斩杀线K=D/V(国家层面:资源/战略/军力/联盟) + 货币斩杀线(企业层面:信贷定向/AI优先/清退落后) = 特朗普帝国的双层淘汰",
+   "domains": [
+    "domain_k_formula"
+   ],
+   "doc_count": 3,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_034",
+   "kind": "model",
+   "name": "2026中国外交大战略/4-5-6-7",
+   "formula": "4月筑墙(防霍尔木兹)→5月亮剑(中美俄三角谈判)→6月围猎(上合峰会清算)→7月十五五誓师→外部从风险源→提款机",
+   "domains": [],
+   "doc_count": 7,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_035",
+   "kind": "model",
+   "name": "六张网/数据盐铁财政",
+   "formula": "水网+电网+算力网+通讯网+管网+物流网=新基建→地方化债方向+专项债指向→电换油备战→AI信创(强制政府国企AI采购)",
+   "domains": [
+    "domain_ai"
+   ],
+   "doc_count": 5,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_037",
+   "kind": "model",
+   "name": "黄金逻辑终结/新美联储范式",
+   "formula": "拜登大通胀(全面放水→法币贬值→资产涨)→新美联储(AI定向放水→企业创造货币→从公平到效率)→黄金最大买家消失→回归地缘风险资产",
+   "domains": [
+    "domain_energy",
+    "domain_fiscal"
+   ],
+   "doc_count": 5,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_039",
+   "kind": "model",
+   "name": "知识蒸馏权社会演变",
+   "formula": "长者(树状/封建)→皇权(中心辐射/大一统)→资本(多点互联/民主)→算法利维坦(黑盒茧房/赛博封建)",
+   "domains": [
+    "domain_ai"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_041",
+   "kind": "model",
+   "name": "中国企业出海3.0/云上得州",
+   "formula": "1.0衬衫日用品→2.0手机基建→3.0技术授权+标准输出+管理范式→技术持有+本地运营+合资分润",
+   "domains": [],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_042",
+   "kind": "model",
+   "name": "AI逆向选择死亡螺旋",
+   "formula": "AI精准定价→优质资产逃离→风险池恶化→涨价→再逃离→崩坏→1/e斩杀线→社会被算法撕裂",
+   "domains": [
+    "domain_ai"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_043",
+   "kind": "model",
+   "name": "军队左右护法周期",
+   "formula": "路线调整→护法平衡被击破→71彭林/82叶汪/92赵杨/12郭徐/26张何→旧思想不适应新路线",
+   "domains": [
+    "domain_us_china",
+    "domain_dark_forest"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_044",
+   "kind": "model",
+   "name": "德扑博弈论/中美All-in",
+   "formula": "输红眼赌徒Overbet Bluff→顶级玩家Check+Side Pot→底牌穿透→TACO三方默契→战略收割",
+   "domains": [
+    "domain_us_china",
+    "domain_negotiation"
+   ],
+   "doc_count": 15,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_045",
+   "kind": "model",
+   "name": "货币达尔文主义/沃什新美联储",
+   "formula": "砍福利维稳→AI定向放水→终结巴塞尔III→去监管→企业创造货币→货币斩杀线清退落后→从公平到效率",
+   "domains": [
+    "domain_fiscal"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_046",
+   "kind": "model",
+   "name": "K型定向刺激/让一部分先X",
+   "formula": "大水漫灌→定向刺激→结构性工具→让一部分股票先涨→让一部分好房子先涨→K型经济扩大→新权威人士路线图",
+   "domains": [
+    "domain_k_formula"
+   ],
+   "doc_count": 10,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_047",
+   "kind": "model",
+   "name": "AI颠覆vs赋能/软向硬",
+   "formula": "2024-25赋能(改良)→2026颠覆(革命)→从软件到物理世界→算电协同→具身智能量产→新蚂蚁=市梦率",
+   "domains": [
+    "domain_ai"
+   ],
+   "doc_count": 9,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_048",
+   "kind": "model",
+   "name": "养龙虾=算力出口/新改开",
+   "formula": "中国廉价清洁能源→全球最低算力成本→Agent寄养→不缴关税→垄断倾销→画圈允许海外投资=新一轮改开",
+   "domains": [
+    "domain_ai"
+   ],
+   "doc_count": 3,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_049",
+   "kind": "model",
+   "name": "军工AI复合体/马斯克模型",
+   "formula": "军方庇护+技术订单→SpaceX现金流养xAI→民企无法竞争→AI必然垄断→托拉斯形态→军工十年长虹",
+   "domains": [
+    "domain_ai"
+   ],
+   "doc_count": 10,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_050",
+   "kind": "model",
+   "name": "黄谣=大革命前兆信号",
+   "formula": "王朝末期→黄段子突破封堵→打破神性→跨阶层道德义愤→民众基础→大革命必然爆发→旧势力被扫进垃圾堆",
+   "domains": [
+    "domain_dark_forest"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_051",
+   "kind": "model",
+   "name": "第三帝国百年镜像",
+   "formula": "巴拿马=莱茵兰/委内瑞拉=奥地利/格陵兰=苏台德→产业巨擎寄生宿主→石油→稀土→苏德条约终被撕破→新式军队挺进柏林",
+   "domains": [],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_052",
+   "kind": "model",
+   "name": "解除资本封印/卖AI席位",
+   "formula": "AI巨头强制自建电站→控制核心基建→门槛飙升→创业公司附庸化→卖非卖品换选举支持→下台后洪水滔天",
+   "domains": [
+    "domain_ai"
+   ],
+   "doc_count": 4,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_053",
+   "kind": "model",
+   "name": "伊朗三角博弈",
+   "formula": "教士(道统)+卫队(暴力经济)+官僚(夜壶)→斩首重创→官僚翻身→精神分裂→火线新领袖→军政府vs挟洋自重",
+   "domains": [
+    "domain_iran"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_054",
+   "kind": "model",
+   "name": "1949韵脚/命运赛点",
+   "formula": "薛定谔三方→中国亮牌→坍缩→全球站队→局部热战→冷战开启→各国命运改变→2026重演",
+   "domains": [
+    "domain_us_china"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_055",
+   "kind": "model",
+   "name": "伊朗停战=中国幽灵玩家",
+   "formula": "聚光灯下美伊对抗→纸牌屋中中国操盘→CIPS+炼化+安理会=三大不可替代→世纪交易",
+   "domains": [
+    "domain_iran"
+   ],
+   "doc_count": 6,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_056",
+   "kind": "model",
+   "name": "4-5-6大决战节奏",
+   "formula": "4月筑墙(锁能源矿产市场)→5月亮剑(美俄背靠背)→6月围猎(十五五复盘决算)→达摩克利斯迫TACO",
+   "domains": [
+    "domain_us_china"
+   ],
+   "doc_count": 3,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_057",
+   "kind": "model",
+   "name": "攻其必救/日本稀土死穴",
+   "formula": "日本解禁武器出口→资源依赖外部=死穴→稀土断供+不可靠实体清单=降维打击→让三菱体验华为滋味",
+   "domains": [
+    "domain_japan"
+   ],
+   "doc_count": 4,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_058",
+   "kind": "model",
+   "name": "建设性战略稳定/量子纠缠MAD",
+   "formula": "旧MAD(核恐怖平衡)失效→AI微秒级/四大新毁灭→核按钮在巨头手中→利益嵌入=量子纠缠态→攻击=自杀→新稳定",
+   "domains": [
+    "domain_ai"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_059",
+   "kind": "model",
+   "name": "2017订单→2026牌照",
+   "formula": "第一任=中国买美国货→第二任=美国巨头要中国市场准入→金融跟中企出海→中美关系锚定",
+   "domains": [
+    "domain_us_china"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_060",
+   "kind": "model",
+   "name": "暗渡陈仓/个人效忠vs深层政府",
+   "formula": "深层政府排除→总统个人意志经停带入→完成效忠→绕过官僚→市场监管失效→敌人的敌人=朋友",
+   "domains": [],
+   "doc_count": 6,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_061",
+   "kind": "model",
+   "name": "制造业vs金融集团/全球阵营",
+   "formula": "制造业(特朗普/能源/复国犹太) vs 金融(拜登/索罗斯/基辛格)→中国阶级属性已变→可能被接纳联手",
+   "domains": [],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_062",
+   "kind": "model",
+   "name": "AI定律/12个月周期",
+   "formula": "每12月现象级应用→成本下降→需求激增→市场扩大→双全球化(资本杀/AI推)→开源化",
+   "domains": [
+    "domain_ai"
+   ],
+   "doc_count": 4,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_063",
+   "kind": "model",
+   "name": "新权威人士/十五五改革",
+   "formula": "钟才文定调→旧毁灭新诞生→清洗旧势力→新兴产业崛起→K签工程师红利→新登vs老登温差",
+   "domains": [
+    "domain_new_authority"
+   ],
+   "doc_count": 13,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_064",
+   "kind": "model",
+   "name": "斩杀线/资本效率榨取",
+   "formula": "资本需要你=中产报酬→不需要=冷酷抛弃→斩杀威胁+胡萝卜→田园牛马变核动力驴→美国反超欧洲",
+   "domains": [
+    "domain_k_formula"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_065",
+   "kind": "model",
+   "name": "K签=郑国渠/人才虹吸",
+   "formula": "表面送利→实际虹吸全球人才→STEM 500万/年→工程师红利→十五五底气→稷下学宫效应",
+   "domains": [
+    "domain_k_formula"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_066",
+   "kind": "model",
+   "name": "海湖庄园/广场协议2.0",
+   "formula": "关税+汇率+能源三位一体→重塑全球贸易规则→各国被迫站队→制造业回流→金融集团放血",
+   "domains": [
+    "domain_trade"
+   ],
+   "doc_count": 3,
+   "aliases": [
+    "model_097"
+   ],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_067",
+   "kind": "model",
+   "name": "联邦→帝国/三类国家",
+   "formula": "附庸(出钱出力)→中性(投资降顺差)→竞争对手(关税隔绝)→帝国权力=与家族距离",
+   "domains": [
+    "domain_trade"
+   ],
+   "doc_count": 10,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_068",
+   "kind": "model",
+   "name": "囚徒困境/不跪博弈",
+   "formula": "警察制造不信任→双方认罪=最差结局→不跪+否认沟通=保持筹码→拒绝成为囚徒A",
+   "domains": [
+    "domain_negotiation"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_070",
+   "kind": "model",
+   "name": "C5取代G7/大国留位",
+   "formula": "给大国留位置否则掀桌→美不视俄为威胁→对华降格→对欧扶持极右→全球右转→新秩序",
+   "domains": [
+    "domain_trade"
+   ],
+   "doc_count": 5,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_071",
+   "kind": "model",
+   "name": "总督府/殖民2.0",
+   "formula": "国务卿=总督→石油美元发薪→斩断旧政权支付→去意识形态→重建亲美秩序→所有大国可复制",
+   "domains": [
+    "domain_trade"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_072",
+   "kind": "model",
+   "name": "天命昭昭/解构-并购二元",
+   "formula": "解放者姿态瓦解旧帝国→天命昭昭占据战略缓冲→罗斯福解构→特朗普并购→循环",
+   "domains": [],
+   "doc_count": 3,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_073",
+   "kind": "model",
+   "name": "统一3.0/经济融合渗透",
+   "formula": "武统1.0→和统2.0→3.0经济融合+制度渗透→新叙事→2028窗口",
+   "domains": [
+    "domain_unification"
+   ],
+   "doc_count": 9,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_074",
+   "kind": "model",
+   "name": "代理人打疼/文在寅模式",
+   "formula": "不正面硬刚→扶持对手国内左翼代理人→制造内部压力→迫对手主动修复关系",
+   "domains": [
+    "domain_negotiation",
+    "domain_us_china"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_075",
+   "kind": "model",
+   "name": "增灶退兵/撤离扶独裁",
+   "formula": "超级大国撤离→必扶极端代理人填权力真空→否则对手箪食壶浆→冷战历史证明",
+   "domains": [],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_076",
+   "kind": "model",
+   "name": "日本加息/保护费转向",
+   "formula": "零利率=向金融集团交保护费→加息=停交→转交实业集团→套利资金回流→结构性冲击",
+   "domains": [
+    "domain_japan"
+   ],
+   "doc_count": 4,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_077",
+   "kind": "model",
+   "name": "反独→促统阶段转换",
+   "formula": "首提外部干涉势力+准行政控制=从被动防独→主动促统;知道对手不会升级时才敢推进",
+   "domains": [
+    "domain_unification"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_078",
+   "kind": "model",
+   "name": "国安报告=4年总路线",
+   "formula": "NSS性质=本届政府对外总纲领;判断方向而非预测明天;降低优先级≠停止施压但方向确定",
+   "domains": [],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_079",
+   "kind": "model",
+   "name": "釜山分水岭/安全→生存",
+   "formula": "大国和解后:国家安全叙事退→企业生存叙事起;老板重要→马老板们重要;梯云纵换主体",
+   "domains": [
+    "domain_us_china"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_080",
+   "kind": "model",
+   "name": "中美易位/通报模式",
+   "formula": "大国战略收缩→必通报安抚小弟+后续补偿;通话顺序=权力宣示;小弟≈70年代越朝/90年代巴朝",
+   "domains": [
+    "domain_us_china"
+   ],
+   "doc_count": 3,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_081",
+   "kind": "model",
+   "name": "高市演戏模型",
+   "formula": "所有温和动作=前置布局→获取宗主青睐→背刺→制造被拒→转嫁民族对抗→扩支持率→推修宪",
+   "domains": [
+    "domain_japan"
+   ],
+   "doc_count": 2,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_082",
+   "kind": "model",
+   "name": "钟才文/新权威人士定调模式",
+   "formula": "人民日报署名连载=为重大政策吹风定调;十年前权威人士→供给侧;今钟才文→新质生产力;看连载=预判五年规划方向",
+   "domains": [
+    "domain_new_authority"
+   ],
+   "doc_count": 4,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_083",
+   "kind": "model",
+   "name": "统一版本升级",
+   "formula": "1.0毛=解放台湾/2.0邓=和平统一一国两制/3.0习=打击台独反外部干涉+融合发展=主动促统;五年规划台湾章节措辞=版本标识",
+   "domains": [
+    "domain_unification"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_084",
+   "kind": "model",
+   "name": "梯云纵双周期",
+   "formula": "传统资源类≤3年(终于反腐)/新质生产力类5-10年(终于IPO叫停);止损信号=王健林时刻or马云时刻",
+   "domains": [
+    "domain_market_cycle"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_085",
+   "kind": "model",
+   "name": "中美谈判轮次递进",
+   "formula": "每轮谈判=重回上轮+新增议题;元首会晤=阶段停战;真正协议=访问前最后一轮;被破坏→下轮重回",
+   "domains": [
+    "domain_us_china",
+    "domain_negotiation"
+   ],
+   "doc_count": 6,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_086",
+   "kind": "model",
+   "name": "谈判破坏-修复循环",
+   "formula": "达成框架→一方内部利益集团破坏→反制升级→元首通话修复→下轮重回;循环直到访问签约",
+   "domains": [
+    "domain_us_china",
+    "domain_negotiation"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_087",
+   "kind": "model",
+   "name": "牛市终止信号",
+   "formula": "IPO紧急叫停=官方认为泡沫过大;外部金融风暴=黑天鹅;两者出现任一→牛市终结",
+   "domains": [
+    "domain_market_cycle"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_088",
+   "kind": "model",
+   "name": "十年经济周期",
+   "formula": "每十年一轮:05-15互联网制造→15-25去杠杆调整→25-35AI新能源;周期标志=五年规划+产业政策转向",
+   "domains": [
+    "domain_market_cycle"
+   ],
+   "doc_count": 8,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_089",
+   "kind": "model",
+   "name": "五年造梦投资期",
+   "formula": "新五年规划开局→政策定调→梦想企业涌现→资本市场讲故事→IPO→财富效应→消费→正循环;止于泡沫破裂",
+   "domains": [
+    "domain_market_cycle"
+   ],
+   "doc_count": 4,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_090",
+   "kind": "model",
+   "name": "爱泼斯坦核武器",
+   "formula": "掌握档案→控制公开节奏→逐步击溃目标→腾出位置给新势力;政治清洗的现代化工具",
+   "domains": [
+    "domain_dark_forest"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_091",
+   "kind": "model",
+   "name": "帝国财税死亡螺旋",
+   "formula": "财政扩张→赤字→加税/印钞→经济萎缩→税收下降→更大赤字→帝国衰亡;关税=变相加税的现代版",
+   "domains": [
+    "domain_fiscal"
+   ],
+   "doc_count": 4,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_092",
+   "kind": "model",
+   "name": "不跪博弈",
+   "formula": "面对勒索:屈服=短期止痛+长期持续勒索;硬扛=短期承压+对手成本上升+最终平等谈判;数学最优=硬扛",
+   "domains": [
+    "domain_negotiation"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_093",
+   "kind": "model",
+   "name": "特朗普三重约束",
+   "formula": "美债收益率+美股市值+通胀预期=三条红线;任一突破→政策被迫回调;市场=对总统权力的终极制约",
+   "domains": [],
+   "doc_count": 5,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_094",
+   "kind": "model",
+   "name": "中美谈判全链条",
+   "formula": "日内瓦(停火)→伦敦(框架)→马德里(细化)→吉隆坡(重回)→釜山(阶段停战)→访华(签约);每轮=上轮基础+新增",
+   "domains": [
+    "domain_us_china",
+    "domain_negotiation"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_095",
+   "kind": "model",
+   "name": "年初三大判断法",
+   "formula": "年初做3个框架级预判→全年验证→形成投资/决策坐标;好预判=方向对+时间对+幅度对",
+   "domains": [
+    "domain_market_cycle"
+   ],
+   "doc_count": 5,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_096",
+   "kind": "model",
+   "name": "DeepSeek范式",
+   "formula": "低成本+开源+性能对标→打破垄断→重塑行业格局;适用于任何被巨头垄断的技术领域",
+   "domains": [
+    "domain_ai"
+   ],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_098",
+   "kind": "model",
+   "name": "黄金窗口期",
+   "formula": "对手内耗期=我方加速期;特朗普内耗(DOGE/建制派)2025-27=中国改革加速窗口;窗口关闭=对手整合完成",
+   "domains": [
+    "domain_new_authority"
+   ],
+   "doc_count": 11,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_099",
+   "kind": "model",
+   "name": "中资收购三部曲",
+   "formula": "①扫货(密集收购核心资产)→②整合(本土化运营+三化改造)→③输出(以中国市场为跳板反向全球化);星巴克/SKP=阶段①",
+   "domains": [],
+   "doc_count": 1,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "model_100",
+   "kind": "model",
+   "name": "政治周期约束",
+   "formula": "中期选举前=政治表演期(不会真动手);中期选举后=政策执行期(可能真打);总统任期后半=遗产期(寻求成就)",
+   "domains": [],
+   "doc_count": 11,
+   "aliases": [],
+   "dynamics": "",
+   "corollary": "",
+   "threshold": "",
+   "inference_rule": "",
+   "historical_precedent": "",
+   "evolution": "",
+   "note": ""
+  },
+  {
+   "id": "domain_iran",
+   "kind": "domain",
+   "name": "伊朗",
+   "member_count": 4
+  },
+  {
+   "id": "domain_japan",
+   "kind": "domain",
+   "name": "日本",
+   "member_count": 5
+  },
+  {
+   "id": "domain_us_china",
+   "kind": "domain",
+   "name": "中美博弈",
+   "member_count": 15
+  },
+  {
+   "id": "domain_ai",
+   "kind": "domain",
+   "name": "AI",
+   "member_count": 12
+  },
+  {
+   "id": "domain_dark_forest",
+   "kind": "domain",
+   "name": "黑暗森林/反腐",
+   "member_count": 4
+  },
+  {
+   "id": "domain_energy",
+   "kind": "domain",
+   "name": "能源",
+   "member_count": 3
+  },
+  {
+   "id": "domain_unification",
+   "kind": "domain",
+   "name": "统一/台海",
+   "member_count": 3
+  },
+  {
+   "id": "domain_fiscal",
+   "kind": "domain",
+   "name": "财政",
+   "member_count": 7
+  },
+  {
+   "id": "domain_new_authority",
+   "kind": "domain",
+   "name": "新权威/十五五",
+   "member_count": 5
+  },
+  {
+   "id": "domain_trade",
+   "kind": "domain",
+   "name": "贸易/帝国",
+   "member_count": 6
+  },
+  {
+   "id": "domain_k_formula",
+   "kind": "domain",
+   "name": "K公式族",
+   "member_count": 6
+  },
+  {
+   "id": "domain_market_cycle",
+   "kind": "domain",
+   "name": "市场周期/投资",
+   "member_count": 5
+  },
+  {
+   "id": "domain_negotiation",
+   "kind": "domain",
+   "name": "谈判/博弈",
+   "member_count": 7
+  }
+ ],
+ "edges": [
+  {
+   "s": "model_002",
+   "t": "model_012",
+   "p": "evolves_to",
+   "conf": 0.95,
+   "note": "TACO初版→正式版"
+  },
+  {
+   "s": "model_068",
+   "t": "model_092",
+   "p": "evolves_to",
+   "conf": 0.85,
+   "note": "囚徒困境/不跪→不跪博弈纯版"
+  },
+  {
+   "s": "model_018",
+   "t": "model_035",
+   "p": "evolves_to",
+   "conf": 0.85,
+   "note": "AI信创/数据盐铁→六张网升级"
+  },
+  {
+   "s": "model_011",
+   "t": "model_080",
+   "p": "evolves_to",
+   "conf": 0.8,
+   "note": "中美易位90年代→通报模式v2"
+  },
+  {
+   "s": "model_029",
+   "t": "model_071",
+   "p": "evolves_to",
+   "conf": 0.85,
+   "note": "总督府模式→殖民2.0"
+  },
+  {
+   "s": "model_044",
+   "t": "model_068",
+   "p": "evolves_to",
+   "conf": 0.7,
+   "note": "德扑→囚徒困境/不跪"
+  },
+  {
+   "s": "model_001",
+   "t": "model_032",
+   "p": "parent_of",
+   "conf": 0.9,
+   "note": "K公式→双层斩杀线"
+  },
+  {
+   "s": "model_001",
+   "t": "model_064",
+   "p": "parent_of",
+   "conf": 0.9,
+   "note": "K公式→资本效率榨取"
+  },
+  {
+   "s": "model_001",
+   "t": "model_004",
+   "p": "parent_of",
+   "conf": 0.85,
+   "note": "K公式→货币达尔文/企业斩杀线"
+  },
+  {
+   "s": "model_001",
+   "t": "model_046",
+   "p": "parent_of",
+   "conf": 0.85,
+   "note": "K公式→K型定向刺激"
+  },
+  {
+   "s": "model_001",
+   "t": "model_065",
+   "p": "parent_of",
+   "conf": 0.8,
+   "note": "K公式→K签人才虹吸"
+  },
+  {
+   "s": "model_008",
+   "t": "model_050",
+   "p": "parent_of",
+   "conf": 0.75,
+   "note": "黑暗森林→黄谣大革命前兆"
+  },
+  {
+   "s": "model_008",
+   "t": "model_090",
+   "p": "parent_of",
+   "conf": 0.8,
+   "note": "黑暗森林→爱泼斯坦核武器"
+  },
+  {
+   "s": "model_094",
+   "t": "model_085",
+   "p": "parent_of",
+   "conf": 0.95,
+   "note": "谈判全链条→轮次递进"
+  },
+  {
+   "s": "model_094",
+   "t": "model_086",
+   "p": "parent_of",
+   "conf": 0.95,
+   "note": "谈判全链条→破坏-修复循环"
+  },
+  {
+   "s": "model_011",
+   "t": "model_059",
+   "p": "parent_of",
+   "conf": 0.85,
+   "note": "中美易位→2017订单/2026牌照"
+  },
+  {
+   "s": "model_011",
+   "t": "model_079",
+   "p": "parent_of",
+   "conf": 0.8,
+   "note": "中美易位→釜山分水岭"
+  },
+  {
+   "s": "model_013",
+   "t": "model_042",
+   "p": "parent_of",
+   "conf": 0.85,
+   "note": "双黑洞→AI逆向选择死亡螺旋"
+  },
+  {
+   "s": "model_013",
+   "t": "model_058",
+   "p": "parent_of",
+   "conf": 0.85,
+   "note": "双黑洞→量子纠缠MAD"
+  },
+  {
+   "s": "model_013",
+   "t": "model_049",
+   "p": "parent_of",
+   "conf": 0.8,
+   "note": "双黑洞→马斯克军工AI复合体"
+  },
+  {
+   "s": "model_013",
+   "t": "model_052",
+   "p": "parent_of",
+   "conf": 0.75,
+   "note": "双黑洞→解除资本封印"
+  },
+  {
+   "s": "model_016",
+   "t": "model_061",
+   "p": "parent_of",
+   "conf": 0.9,
+   "note": "阶级分析→全球阵营具象化"
+  },
+  {
+   "s": "model_083",
+   "t": "model_073",
+   "p": "parent_of",
+   "conf": 0.9,
+   "note": "统一版本升级→3.0具体内涵"
+  },
+  {
+   "s": "model_083",
+   "t": "model_077",
+   "p": "parent_of",
+   "conf": 0.85,
+   "note": "统一版本升级→反独→促统阶段"
+  },
+  {
+   "s": "model_051",
+   "t": "model_072",
+   "p": "parent_of",
+   "conf": 0.7,
+   "note": "第三帝国百年镜像→解构-并购二元"
+  },
+  {
+   "s": "model_072",
+   "t": "model_071",
+   "p": "parent_of",
+   "conf": 0.75,
+   "note": "解构-并购→总督府殖民2.0"
+  },
+  {
+   "s": "model_072",
+   "t": "model_075",
+   "p": "parent_of",
+   "conf": 0.7,
+   "note": "解构-并购→撤离扶独裁"
+  },
+  {
+   "s": "model_088",
+   "t": "model_089",
+   "p": "parent_of",
+   "conf": 0.9,
+   "note": "十年周期→五年造梦"
+  },
+  {
+   "s": "model_089",
+   "t": "model_087",
+   "p": "parent_of",
+   "conf": 0.85,
+   "note": "五年造梦→牛市终止信号"
+  },
+  {
+   "s": "model_084",
+   "t": "model_087",
+   "p": "parent_of",
+   "conf": 0.75,
+   "note": "梯云纵双周期→牛市终止信号"
+  },
+  {
+   "s": "model_082",
+   "t": "model_063",
+   "p": "parent_of",
+   "conf": 0.9,
+   "note": "钟才文定调→新权威人士"
+  },
+  {
+   "s": "model_063",
+   "t": "model_019",
+   "p": "parent_of",
+   "conf": 0.7,
+   "note": "新权威人士→三中全会七转变"
+  },
+  {
+   "s": "model_041",
+   "t": "model_099",
+   "p": "parent_of",
+   "conf": 0.85,
+   "note": "企业出海3.0→中资收购三部曲"
+  },
+  {
+   "s": "model_067",
+   "t": "model_070",
+   "p": "parent_of",
+   "conf": 0.75,
+   "note": "联邦→帝国/C5取代G7"
+  },
+  {
+   "s": "model_067",
+   "t": "model_091",
+   "p": "contrasts",
+   "conf": 0.85,
+   "note": "帝国扩张 vs 帝国财税死亡螺旋"
+  },
+  {
+   "s": "model_026",
+   "t": "model_024",
+   "p": "contrasts",
+   "conf": 0.6,
+   "note": "生产/消费路线 vs 政党切换"
+  },
+  {
+   "s": "model_023",
+   "t": "model_076",
+   "p": "contrasts",
+   "conf": 0.7,
+   "note": "中国不是日本 vs 日本加息保护费转向"
+  },
+  {
+   "s": "model_005",
+   "t": "model_092",
+   "p": "contrasts",
+   "conf": 0.7,
+   "note": "美国制裁双层架构 vs 不跪博弈应对"
+  },
+  {
+   "s": "model_012",
+   "t": "model_017",
+   "p": "composes_with",
+   "conf": 0.85,
+   "note": "TACO+一赢各表=三方默契"
+  },
+  {
+   "s": "model_056",
+   "t": "model_034",
+   "p": "composes_with",
+   "conf": 0.9,
+   "note": "4-5-6节奏+2026外交大战略"
+  },
+  {
+   "s": "model_094",
+   "t": "model_017",
+   "p": "composes_with",
+   "conf": 0.85,
+   "note": "谈判全链条+面子外交"
+  },
+  {
+   "s": "model_082",
+   "t": "model_078",
+   "p": "composes_with",
+   "conf": 0.7,
+   "note": "钟才文定调+国安报告4年总纲"
+  },
+  {
+   "s": "model_001",
+   "t": "model_032",
+   "p": "composes_with",
+   "conf": 0.85,
+   "note": "K公式+双层斩杀线=完整体系"
+  },
+  {
+   "s": "model_065",
+   "t": "model_063",
+   "p": "composes_with",
+   "conf": 0.75,
+   "note": "K签人才+新权威人士=十五五底气"
+  },
+  {
+   "s": "model_003",
+   "t": "domain_iran",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_007",
+   "t": "domain_iran",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_053",
+   "t": "domain_iran",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_055",
+   "t": "domain_iran",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_006",
+   "t": "domain_japan",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_057",
+   "t": "domain_japan",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_076",
+   "t": "domain_japan",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_081",
+   "t": "domain_japan",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_023",
+   "t": "domain_japan",
+   "p": "applies_to_domain",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_011",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_014",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_020",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_044",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_056",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_059",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_079",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_080",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_085",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_086",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_094",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_013",
+   "t": "domain_ai",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_018",
+   "t": "domain_ai",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_035",
+   "t": "domain_ai",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_039",
+   "t": "domain_ai",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_042",
+   "t": "domain_ai",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_047",
+   "t": "domain_ai",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_048",
+   "t": "domain_ai",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_049",
+   "t": "domain_ai",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_052",
+   "t": "domain_ai",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_058",
+   "t": "domain_ai",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_062",
+   "t": "domain_ai",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_096",
+   "t": "domain_ai",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_008",
+   "t": "domain_dark_forest",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_050",
+   "t": "domain_dark_forest",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_090",
+   "t": "domain_dark_forest",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_030",
+   "t": "domain_energy",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_037",
+   "t": "domain_energy",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_073",
+   "t": "domain_unification",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_077",
+   "t": "domain_unification",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_083",
+   "t": "domain_unification",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_022",
+   "t": "domain_fiscal",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_027",
+   "t": "domain_fiscal",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_091",
+   "t": "domain_fiscal",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_037",
+   "t": "domain_fiscal",
+   "p": "applies_to_domain",
+   "conf": 0.8,
+   "note": ""
+  },
+  {
+   "s": "model_019",
+   "t": "domain_new_authority",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_063",
+   "t": "domain_new_authority",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_082",
+   "t": "domain_new_authority",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_098",
+   "t": "domain_new_authority",
+   "p": "applies_to_domain",
+   "conf": 0.8,
+   "note": ""
+  },
+  {
+   "s": "model_021",
+   "t": "domain_trade",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_028",
+   "t": "domain_trade",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_066",
+   "t": "domain_trade",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_067",
+   "t": "domain_trade",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_070",
+   "t": "domain_trade",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_071",
+   "t": "domain_trade",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_001",
+   "t": "domain_k_formula",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_004",
+   "t": "domain_k_formula",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_032",
+   "t": "domain_k_formula",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_046",
+   "t": "domain_k_formula",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_064",
+   "t": "domain_k_formula",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_065",
+   "t": "domain_k_formula",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_084",
+   "t": "domain_market_cycle",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_087",
+   "t": "domain_market_cycle",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_088",
+   "t": "domain_market_cycle",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_089",
+   "t": "domain_market_cycle",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_095",
+   "t": "domain_market_cycle",
+   "p": "applies_to_domain",
+   "conf": 0.8,
+   "note": ""
+  },
+  {
+   "s": "model_044",
+   "t": "domain_negotiation",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_068",
+   "t": "domain_negotiation",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_085",
+   "t": "domain_negotiation",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_086",
+   "t": "domain_negotiation",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_092",
+   "t": "domain_negotiation",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_094",
+   "t": "domain_negotiation",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_009",
+   "t": "domain_energy",
+   "p": "applies_to_domain",
+   "conf": 0.9,
+   "note": "海峡=能源咽喉"
+  },
+  {
+   "s": "model_009",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 0.8,
+   "note": ""
+  },
+  {
+   "s": "model_010",
+   "t": "domain_fiscal",
+   "p": "applies_to_domain",
+   "conf": 0.7,
+   "note": "海南沙盒=改革试验"
+  },
+  {
+   "s": "model_010",
+   "t": "domain_new_authority",
+   "p": "applies_to_domain",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_025",
+   "t": "domain_fiscal",
+   "p": "applies_to_domain",
+   "conf": 0.85,
+   "note": "新能车=会行走的纳税人"
+  },
+  {
+   "s": "model_043",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 0.7,
+   "note": "军队左右护法"
+  },
+  {
+   "s": "model_043",
+   "t": "domain_dark_forest",
+   "p": "applies_to_domain",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_004",
+   "t": "model_045",
+   "p": "evolves_to",
+   "conf": 0.85,
+   "note": "货币达尔文主义→沃什新美联储"
+  },
+  {
+   "s": "model_045",
+   "t": "domain_fiscal",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": ""
+  },
+  {
+   "s": "model_054",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 0.9,
+   "note": "1949韵脚=中美博弈节点"
+  },
+  {
+   "s": "model_074",
+   "t": "domain_negotiation",
+   "p": "applies_to_domain",
+   "conf": 1.0,
+   "note": "代理人模式"
+  },
+  {
+   "s": "model_074",
+   "t": "domain_us_china",
+   "p": "applies_to_domain",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_034",
+   "t": "model_100",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_015",
+   "t": "model_030",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_015",
+   "t": "model_095",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_030",
+   "t": "model_095",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_003",
+   "t": "model_007",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_018",
+   "t": "model_047",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_057",
+   "t": "model_076",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_008",
+   "t": "model_060",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_023",
+   "t": "model_063",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_022",
+   "t": "model_035",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_047",
+   "t": "model_100",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_001",
+   "t": "model_067",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_037",
+   "t": "model_067",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_044",
+   "t": "model_060",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_019",
+   "t": "model_022",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_046",
+   "t": "model_063",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_021",
+   "t": "model_044",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_021",
+   "t": "model_093",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  },
+  {
+   "s": "model_044",
+   "t": "model_093",
+   "p": "co_used_with",
+   "conf": 0.7,
+   "note": ""
+  }
+ ],
+ "model_source_docs": {
+  "model_001": [
+   "doc_zst_2025_kill",
+   "doc_zst_2026_cruel_shock",
+   "doc_zst_r032",
+   "doc_zst_r049",
+   "doc_zst_r2026_fed",
+   "doc_zst_r2026_killline"
+  ],
+  "model_002": [
+   "doc_zst_r024",
+   "doc_zst_r017"
+  ],
+  "model_003": [
+   "doc_zst_2024_tehran",
+   "doc_zst_r022",
+   "doc_zst_r023",
+   "doc_zst_r061b",
+   "doc_zst_r2026_musk_monopoly",
+   "doc_zst_r2026_shock"
+  ],
+  "model_004": [
+   "doc_zst_r034",
+   "doc_zst_r051"
+  ],
+  "model_005": [
+   "doc_zst_r036",
+   "doc_zst_r074b",
+   "doc_zst_r081"
+  ],
+  "model_006": [
+   "doc_zst_2024_japan_quake",
+   "doc_zst_2025_takaichi",
+   "doc_zst_2025_usjapandeal",
+   "doc_zst_r003",
+   "doc_zst_r005b",
+   "doc_zst_r2026_takaichi2"
+  ],
+  "model_007": [
+   "doc_zst_2025_iranstrike",
+   "doc_zst_r022",
+   "doc_zst_r026",
+   "doc_zst_r061b"
+  ],
+  "model_008": [
+   "doc_zst_2024_anticorr",
+   "doc_zst_2024_ccdi",
+   "doc_zst_2024_findeath",
+   "doc_zst_2024_vanke",
+   "doc_zst_2025_26_discipline",
+   "doc_zst_2025_aiblackhole",
+   "doc_zst_2025_anticorr",
+   "doc_zst_2025_baofan",
+   "doc_zst_2025_vanke",
+   "doc_zst_r002",
+   "doc_zst_r009",
+   "doc_zst_r012",
+   "doc_zst_r014",
+   "doc_zst_r016",
+   "doc_zst_r017",
+   "doc_zst_r018",
+   "doc_zst_r019",
+   "doc_zst_r020",
+   "doc_zst_r021",
+   "doc_zst_r030",
+   "doc_zst_r031",
+   "doc_zst_r035",
+   "doc_zst_r056c",
+   "doc_zst_r056e",
+   "doc_zst_r076c",
+   "doc_zst_r077",
+   "doc_zst_r079",
+   "doc_zst_r2026_darkforest",
+   "doc_zst_r2026_tian",
+   "doc_zst_r2026_yao"
+  ],
+  "model_009": [
+   "doc_zst_2024_lebanon",
+   "doc_zst_r032",
+   "doc_zst_r060",
+   "doc_zst_r072",
+   "doc_zst_r076b",
+   "doc_zst_r081",
+   "doc_zst_r2026_strait"
+  ],
+  "model_010": [
+   "doc_zst_2025_hainan",
+   "doc_zst_r056e"
+  ],
+  "model_011": [
+   "doc_zst_2024_reform_foreign",
+   "doc_zst_2024_seoul_winter",
+   "doc_zst_2024_zhurongji",
+   "doc_zst_2025_backstab",
+   "doc_zst_2025_copycat",
+   "doc_zst_2026_cruel_shock",
+   "doc_zst_r001",
+   "doc_zst_r101",
+   "doc_zst_r2026_escape",
+   "doc_zst_r2026_takaichi2"
+  ],
+  "model_012": [
+   "doc_zst_2025_chickens",
+   "doc_zst_2025_geneva",
+   "doc_zst_2025_kneel",
+   "doc_zst_2025_london",
+   "doc_zst_2025_nokneel",
+   "doc_zst_2025_weakness",
+   "doc_zst_r024",
+   "doc_zst_r074"
+  ],
+  "model_013": [
+   "doc_zst_2025_2028",
+   "doc_zst_2025_aiblackhole",
+   "doc_zst_2025_blackhole",
+   "doc_zst_r100"
+  ],
+  "model_014": [
+   "doc_zst_2025_weakness",
+   "doc_zst_2025_london"
+  ],
+  "model_015": [
+   "doc_zst_2024_canada",
+   "doc_zst_2024_pro_trump",
+   "doc_zst_2024_protrump",
+   "doc_zst_2024_sora",
+   "doc_zst_2025_aibubble",
+   "doc_zst_2025_kill",
+   "doc_zst_2025_nationalize",
+   "doc_zst_2025_trumpism",
+   "doc_zst_r008",
+   "doc_zst_r015",
+   "doc_zst_r068e",
+   "doc_zst_r078",
+   "doc_zst_r2026_robbery"
+  ],
+  "model_016": [
+   "doc_zst_2024_assassination",
+   "doc_zst_2024_trump6steps",
+   "doc_zst_2025_three"
+  ],
+  "model_017": [
+   "doc_zst_2024_apec_biden",
+   "doc_zst_2024_bigdeal",
+   "doc_zst_2025_geneva",
+   "doc_zst_2025_london",
+   "doc_zst_r001",
+   "doc_zst_r024",
+   "doc_zst_r028",
+   "doc_zst_r066"
+  ],
+  "model_018": [
+   "doc_zst_2024_aiplus",
+   "doc_zst_2024_gch",
+   "doc_zst_2025_4thplenum",
+   "doc_zst_2025_nationalize",
+   "doc_zst_2025_summit",
+   "doc_zst_2025_techbull",
+   "doc_zst_r007",
+   "doc_zst_r025",
+   "doc_zst_r2026_premier2",
+   "doc_zst_r2026_ticket"
+  ],
+  "model_019": [
+   "doc_zst_2024_3rdchanges",
+   "doc_zst_2024_3zhqh_7change",
+   "doc_zst_2024_3zhqh_accel",
+   "doc_zst_2024_3zhqh_paid",
+   "doc_zst_2024_private",
+   "doc_zst_2024_reform_class"
+  ],
+  "model_020": [
+   "doc_zst_2024_3axes",
+   "doc_zst_2024_canada",
+   "doc_zst_2024_firstrich",
+   "doc_zst_2024_gch",
+   "doc_zst_2024_pudong",
+   "doc_zst_r2026_blitz"
+  ],
+  "model_021": [
+   "doc_zst_2024_finsupply",
+   "doc_zst_2024_trump20_cn1",
+   "doc_zst_2024_trump20_cn2",
+   "doc_zst_2024_trump6steps",
+   "doc_zst_2025_antimonopoly",
+   "doc_zst_2025_copycat",
+   "doc_zst_2025_parade",
+   "doc_zst_2025_prohibition",
+   "doc_zst_2025_three",
+   "doc_zst_2025_threestep"
+  ],
+  "model_022": [
+   "doc_zst_2024_3zhqh_7change",
+   "doc_zst_2024_3zhqh_accel",
+   "doc_zst_2024_3zhqh_paid",
+   "doc_zst_2024_consumption_tax",
+   "doc_zst_2024_football",
+   "doc_zst_2024_reform_class",
+   "doc_zst_2024_reform_foreign",
+   "doc_zst_2024_taxreform",
+   "doc_zst_2025_three"
+  ],
+  "model_023": [
+   "doc_zst_2024_3rd",
+   "doc_zst_2024_notjapan",
+   "doc_zst_2025_parade",
+   "doc_zst_2025_pzj"
+  ],
+  "model_024": [
+   "doc_zst_2024_epstein",
+   "doc_zst_2024_pro_trump",
+   "doc_zst_2024_transform",
+   "doc_zst_2025_tariffformula"
+  ],
+  "model_025": [
+   "doc_zst_2024_newenergy"
+  ],
+  "model_026": [
+   "doc_zst_2024_firstrich"
+  ],
+  "model_027": [
+   "doc_zst_2024_ironrice",
+   "doc_zst_2024_reform_inst",
+   "doc_zst_2025_cewc"
+  ],
+  "model_028": [
+   "doc_zst_2024_lebanon",
+   "doc_zst_r2026_escape",
+   "doc_zst_r2026_tiktok"
+  ],
+  "model_029": [
+   "doc_zst_r036",
+   "doc_zst_r073",
+   "doc_zst_r2026_baojiaoyou",
+   "doc_zst_r2026_bella"
+  ],
+  "model_030": [
+   "doc_zst_2025_aioil",
+   "doc_zst_r006",
+   "doc_zst_r008",
+   "doc_zst_r065",
+   "doc_zst_r068e",
+   "doc_zst_r2026_baojiaoyou",
+   "doc_zst_r2026_baojiaoyou2",
+   "doc_zst_r2026_opec"
+  ],
+  "model_031": [
+   "doc_zst_r2026_killline"
+  ],
+  "model_032": [
+   "doc_zst_r2026_killline",
+   "doc_zst_r2026_fed",
+   "doc_zst_r2026_robbery"
+  ],
+  "model_033": [
+   "doc_zst_r2026_strait"
+  ],
+  "model_034": [
+   "doc_zst_2025_cewc",
+   "doc_zst_2026_456_battle",
+   "doc_zst_r007",
+   "doc_zst_r066",
+   "doc_zst_r068b",
+   "doc_zst_r068c",
+   "doc_zst_r2026_456"
+  ],
+  "model_035": [
+   "doc_zst_2024_consumption_tax",
+   "doc_zst_2024_ironrice",
+   "doc_zst_2024_reform_inst",
+   "doc_zst_2024_taxreform",
+   "doc_zst_r2026_april_politburo"
+  ],
+  "model_036": [
+   "doc_zst_r2026_takaichi2"
+  ],
+  "model_037": [
+   "doc_zst_r050",
+   "doc_zst_r082b",
+   "doc_zst_r2026_fed",
+   "doc_zst_r2026_gold",
+   "doc_zst_r2026_powell"
+  ],
+  "model_038": [
+   "doc_zst_2024_anticorr",
+   "doc_zst_2024_ccdi",
+   "doc_zst_2024_findeath",
+   "doc_zst_2024_vanke",
+   "doc_zst_2025_26_discipline",
+   "doc_zst_2025_aiblackhole",
+   "doc_zst_2025_anticorr",
+   "doc_zst_2025_baofan",
+   "doc_zst_2025_vanke",
+   "doc_zst_r002",
+   "doc_zst_r009",
+   "doc_zst_r014",
+   "doc_zst_r017",
+   "doc_zst_r018",
+   "doc_zst_r019",
+   "doc_zst_r020",
+   "doc_zst_r021",
+   "doc_zst_r030",
+   "doc_zst_r031",
+   "doc_zst_r056e",
+   "doc_zst_r076c",
+   "doc_zst_r077",
+   "doc_zst_r2026_darkforest",
+   "doc_zst_r2026_tian",
+   "doc_zst_r2026_yao"
+  ],
+  "model_039": [
+   "doc_zst_r004",
+   "doc_zst_r2026_distill"
+  ],
+  "model_040": [
+   "doc_zst_r2026_baojiaoyou2"
+  ],
+  "model_041": [
+   "doc_zst_r053",
+   "doc_zst_r2026_cloudtexas"
+  ],
+  "model_042": [
+   "doc_zst_r015",
+   "doc_zst_r2026_robinhood"
+  ],
+  "model_043": [
+   "doc_zst_r2026_hufa"
+  ],
+  "model_044": [
+   "doc_zst_2024_finmeeting",
+   "doc_zst_2024_trump20_cn1",
+   "doc_zst_2024_trump20_cn2",
+   "doc_zst_2024_uschinaprogress",
+   "doc_zst_2025_aiblackhole",
+   "doc_zst_2025_busan",
+   "doc_zst_2025_three",
+   "doc_zst_2026_stealth_trump",
+   "doc_zst_r024",
+   "doc_zst_r060c",
+   "doc_zst_r063",
+   "doc_zst_r2026_allin",
+   "doc_zst_r2026_iran10",
+   "doc_zst_r2026_stealth",
+   "doc_zst_r2026_zelensky"
+  ],
+  "model_045": [
+   "doc_zst_r040",
+   "doc_zst_r2026_warsh"
+  ],
+  "model_046": [
+   "doc_zst_2024_fiscal_3arrow",
+   "doc_zst_2024_fiscal_meeting",
+   "doc_zst_2024_football",
+   "doc_zst_2024_historic_stimulate",
+   "doc_zst_2024_mayun_nosell",
+   "doc_zst_2024_platform",
+   "doc_zst_2024_private",
+   "doc_zst_r2026_caishensasa",
+   "doc_zst_r2026_robbery",
+   "doc_zst_r2026_央行"
+  ],
+  "model_047": [
+   "doc_zst_2025_citywork",
+   "doc_zst_r025",
+   "doc_zst_r2026_ai_report",
+   "doc_zst_r2026_april_politburo",
+   "doc_zst_r2026_city",
+   "doc_zst_r2026_distill",
+   "doc_zst_r2026_doubao",
+   "doc_zst_r2026_premier",
+   "doc_zst_r2026_premier2"
+  ],
+  "model_048": [
+   "doc_zst_r049",
+   "doc_zst_r2026_lobster",
+   "doc_zst_r2026_tiktok"
+  ],
+  "model_049": [
+   "doc_zst_2025_militech",
+   "doc_zst_2025_musk",
+   "doc_zst_2025_musktaco",
+   "doc_zst_r044",
+   "doc_zst_r076d",
+   "doc_zst_r083b",
+   "doc_zst_r2026_deepseek_moment",
+   "doc_zst_r2026_musk_military",
+   "doc_zst_r2026_musk_monopoly",
+   "doc_zst_r2026_no3"
+  ],
+  "model_050": [
+   "doc_zst_r048",
+   "doc_zst_r2026_pornjoke"
+  ],
+  "model_051": [
+   "doc_zst_r2026_jiasu",
+   "doc_zst_r2026_thirdreich"
+  ],
+  "model_052": [
+   "doc_zst_r017",
+   "doc_zst_r034",
+   "doc_zst_r044",
+   "doc_zst_r2026_unseal"
+  ],
+  "model_053": [
+   "doc_zst_r023",
+   "doc_zst_r2026_iran_sequel"
+  ],
+  "model_054": [
+   "doc_zst_2024_924",
+   "doc_zst_r2026_destiny"
+  ],
+  "model_055": [
+   "doc_zst_r026",
+   "doc_zst_r074b",
+   "doc_zst_r2026_darkforest",
+   "doc_zst_r2026_iran10",
+   "doc_zst_r2026_iran_ceasefire",
+   "doc_zst_r2026_starcraft"
+  ],
+  "model_056": [
+   "doc_zst_2025_iranstrike",
+   "doc_zst_2026_456_battle",
+   "doc_zst_r2026_456"
+  ],
+  "model_057": [
+   "doc_zst_2025_japan",
+   "doc_zst_r033",
+   "doc_zst_r2026_japan_mil",
+   "doc_zst_r2026_japan_military"
+  ],
+  "model_058": [
+   "doc_zst_r2026_musk_stability"
+  ],
+  "model_059": [
+   "doc_zst_r2026_ceo_list"
+  ],
+  "model_060": [
+   "doc_zst_2026_stealth_trump",
+   "doc_zst_r000",
+   "doc_zst_r035",
+   "doc_zst_r075",
+   "doc_zst_r077",
+   "doc_zst_r2026_stealth"
+  ],
+  "model_061": [
+   "doc_zst_2025_3judgments",
+   "doc_zst_r100"
+  ],
+  "model_062": [
+   "doc_zst_2025_aibubble",
+   "doc_zst_2025_bull",
+   "doc_zst_2025_deepseek",
+   "doc_zst_r025"
+  ],
+  "model_063": [
+   "doc_zst_2024_3rd",
+   "doc_zst_2024_4trillion",
+   "doc_zst_2024_cewc",
+   "doc_zst_2024_fiscal_3arrow",
+   "doc_zst_2024_fiscal_meeting",
+   "doc_zst_2024_historic_stimulate",
+   "doc_zst_2024_mayun_nosell",
+   "doc_zst_2024_nov_npc",
+   "doc_zst_2025_4thplenum",
+   "doc_zst_2025_antimonopoly",
+   "doc_zst_2025_julypzj",
+   "doc_zst_2025_nqwrs1",
+   "doc_zst_2025_pzj"
+  ],
+  "model_064": [
+   "doc_zst_2025_killline"
+  ],
+  "model_065": [
+   "doc_zst_2025_ksign",
+   "doc_zst_r076d"
+  ],
+  "model_066": [
+   "doc_zst_2025_maralago",
+   "doc_zst_2025_marlago",
+   "doc_zst_2025_usjapandeal"
+  ],
+  "model_067": [
+   "doc_zst_2025_empire",
+   "doc_zst_2025_yalta",
+   "doc_zst_r2026_blackrock",
+   "doc_zst_r2026_fed",
+   "doc_zst_r2026_jiasu",
+   "doc_zst_r2026_killline",
+   "doc_zst_r2026_no3",
+   "doc_zst_r2026_powell",
+   "doc_zst_r2026_strait",
+   "doc_zst_r2026_wangshi"
+  ],
+  "model_068": [
+   "doc_zst_2025_nogui",
+   "doc_zst_2025_nokneel"
+  ],
+  "model_069": [
+   "doc_zst_2025_blackhole"
+  ],
+  "model_070": [
+   "doc_zst_2024_putin",
+   "doc_zst_2025_c5",
+   "doc_zst_2025_indopak",
+   "doc_zst_2025_oldorder",
+   "doc_zst_2025_yalta"
+  ],
+  "model_071": [
+   "doc_zst_2025_bella1"
+  ],
+  "model_072": [
+   "doc_zst_2024_3axes",
+   "doc_zst_2025_manifest",
+   "doc_zst_r039"
+  ],
+  "model_073": [
+   "doc_zst_2024_taiwan",
+   "doc_zst_2025_justice",
+   "doc_zst_2025_unify30",
+   "doc_zst_r041",
+   "doc_zst_r067",
+   "doc_zst_r073",
+   "doc_zst_r2026_shock",
+   "doc_zst_r2026_unify",
+   "doc_zst_r2026_zheng"
+  ],
+  "model_074": [
+   "doc_zst_2024_seoul_winter",
+   "doc_zst_2025_hurt_takaichi"
+  ],
+  "model_075": [
+   "doc_zst_2025_kill_jp_mil"
+  ],
+  "model_076": [
+   "doc_zst_2024_japan_quake",
+   "doc_zst_2025_jp_rate",
+   "doc_zst_r033",
+   "doc_zst_r2026_japan_mil"
+  ],
+  "model_077": [
+   "doc_zst_2025_justice2025",
+   "doc_zst_r041"
+  ],
+  "model_078": [
+   "doc_zst_2025_trump_dove"
+  ],
+  "model_079": [
+   "doc_zst_2025_ai_logic"
+  ],
+  "model_080": [
+   "doc_zst_2024_apec_biden",
+   "doc_zst_2024_zhurongji",
+   "doc_zst_2025_backstab_takaichi"
+  ],
+  "model_081": [
+   "doc_zst_2025_guard_takaichi",
+   "doc_zst_2025_takaichi"
+  ],
+  "model_082": [
+   "doc_zst_2025_nqwrs_serial",
+   "doc_zst_r011",
+   "doc_zst_r020",
+   "doc_zst_r056b"
+  ],
+  "model_083": [
+   "doc_zst_2025_unify3"
+  ],
+  "model_084": [
+   "doc_zst_2025_tiyunzong"
+  ],
+  "model_085": [
+   "doc_zst_2025_apec_preview",
+   "doc_zst_2025_geneva",
+   "doc_zst_2025_madrid",
+   "doc_zst_2025_madrid_decode",
+   "doc_zst_2025_sixdemands",
+   "doc_zst_r001b"
+  ],
+  "model_086": [
+   "doc_zst_2025_madrid_decode"
+  ],
+  "model_087": [
+   "doc_zst_2025_bull_duration"
+  ],
+  "model_088": [
+   "doc_zst_2024_historic_stimulate",
+   "doc_zst_2024_seminar",
+   "doc_zst_2025_10yr_cycle",
+   "doc_zst_2025_newcycle",
+   "doc_zst_r2026_blackrock",
+   "doc_zst_r2026_city",
+   "doc_zst_r2026_moat",
+   "doc_zst_r2026_ticket"
+  ],
+  "model_089": [
+   "doc_zst_2025_5yr_dream",
+   "doc_zst_2025_aiinvest",
+   "doc_zst_r2026_deepseek_moment",
+   "doc_zst_r2026_wealth"
+  ],
+  "model_090": [
+   "doc_zst_2025_epstein_game"
+  ],
+  "model_091": [
+   "doc_zst_2024_fiscal_3arrow",
+   "doc_zst_2025_empire_tax",
+   "doc_zst_2025_fiscal",
+   "doc_zst_r032"
+  ],
+  "model_092": [
+   "doc_zst_2025_kneel_or_not"
+  ],
+  "model_093": [
+   "doc_zst_2024_trump20",
+   "doc_zst_2024_trump20_cn1",
+   "doc_zst_2024_trump20_cn2",
+   "doc_zst_2025_trump_lifeline",
+   "doc_zst_2025_weakness"
+  ],
+  "model_094": [
+   "doc_zst_2025_london_framework"
+  ],
+  "model_095": [
+   "doc_zst_2025_3judgments",
+   "doc_zst_r008",
+   "doc_zst_r055",
+   "doc_zst_r068e",
+   "doc_zst_r071"
+  ],
+  "model_096": [
+   "doc_zst_2025_deepseek_destroy"
+  ],
+  "model_097": [
+   "doc_zst_2025_marlago"
+  ],
+  "model_098": [
+   "doc_zst_2024_syria",
+   "doc_zst_2024_trump20",
+   "doc_zst_2024_trump_post",
+   "doc_zst_2025_4thplenum",
+   "doc_zst_2025_busan",
+   "doc_zst_2025_gold_window",
+   "doc_zst_2025_golden",
+   "doc_zst_2025_japan",
+   "doc_zst_2025_privatize",
+   "doc_zst_2025_threefocus",
+   "doc_zst_r101"
+  ],
+  "model_099": [
+   "doc_zst_2025_zhao_scan"
+  ],
+  "model_100": [
+   "doc_zst_2024_nov_npc",
+   "doc_zst_2025_26_discipline",
+   "doc_zst_2025_no_strike_yet",
+   "doc_zst_2025_prohibition",
+   "doc_zst_r007",
+   "doc_zst_r068b",
+   "doc_zst_r2026_april_politburo",
+   "doc_zst_r2026_moat",
+   "doc_zst_r2026_premier",
+   "doc_zst_r2026_premier2",
+   "doc_zst_r2026_央行"
+  ]
+ },
+ "domain_member_counts": {
+  "domain_iran": 4,
+  "domain_japan": 5,
+  "domain_us_china": 15,
+  "domain_ai": 12,
+  "domain_dark_forest": 4,
+  "domain_energy": 3,
+  "domain_unification": 3,
+  "domain_fiscal": 7,
+  "domain_new_authority": 5,
+  "domain_trade": 6,
+  "domain_k_formula": 6,
+  "domain_market_cycle": 5,
+  "domain_negotiation": 7
+ }
+}
