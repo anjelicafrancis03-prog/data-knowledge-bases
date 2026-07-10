@@ -1,0 +1,477 @@
+{
+  "schemaVersion": "workflow-rooms.registry/v0.1",
+  "updatedAt": "2026-06-15T18:45:00+08:00",
+  "boundary": "Room v0.1 is a coordination and packet layer only. It records members, roles, workflow contracts, and evidence requirements. It does not dispatch live agents, call providers, read credentials, mutate browser state, or grant runtime authority.",
+  "rooms": [
+    {
+      "id": "sit-kanwas-fusion-room",
+      "title": "SIT / Kanwas Fusion Room",
+      "mode": "L1-packet-room",
+      "status": "draft-active",
+      "authorityLayer": "Harness files",
+      "truthSource": "run-manifest + evidence-index + task packets",
+      "workflowContract": "Thread-as-Agent, Room-as-Workflow v0.1",
+      "siteWorkflowBinding": {
+        "status": "hard-required",
+        "source": "Harness Site Workflow Console Phase 3a-3d contract",
+        "normalThreadRulesPreserved": true,
+        "siteContractAppliesInRoom": true,
+        "uiIsAuthority": false,
+        "siteDirectCliAllowed": false,
+        "packetGenerationPolicy": {
+          "mode": "inviter-drafts-control-validates",
+          "draftAllowedBy": [
+            "inviter",
+            "orchestrator",
+            "control"
+          ],
+          "controlValidationRequired": true,
+          "joinedWithoutPacketAllowed": false
+        },
+        "roomPermissionPolicy": {
+          "mode": "normal-capabilities-preserved-room-packet-bounds-writes",
+          "normalCapabilitiesPreserved": true,
+          "writeScopeSource": "room packet",
+          "executionScopeSource": "room packet",
+          "roomPacketRequiredForWrites": true
+        },
+        "evidenceDisplayPolicy": {
+          "mode": "daily-and-audit-toggle",
+          "defaultView": "daily",
+          "dailyShowsFinalConclusion": true,
+          "auditViewRequired": true,
+          "evidenceDrawerRequired": true,
+          "finalConclusionMustLinkEvidence": true
+        },
+        "commandSurfacePolicy": {
+          "firstScreen": "control-command-center",
+          "longChatDefault": false,
+          "firstScreenPanels": [
+            "room status",
+            "agent seats",
+            "current tasks",
+            "pending approvals",
+            "latest evidence",
+            "command actions"
+          ],
+          "roomComposerDefault": "no-recipient-until-selected",
+          "emptyToSeatsMeansNoDelivery": true,
+          "broadcastRequiresExplicitVisibility": true,
+          "ccSeatsAssignTasks": false,
+          "threadCardFields": [
+            "name",
+            "role",
+            "status",
+            "current task",
+            "room membership",
+            "model/provider",
+            "branch/worktree",
+            "last activity time",
+            "latest evidence time"
+          ],
+          "newThreadDefaultMode": "normal-thread",
+          "roomJoinRequiresExplicitPacket": true,
+          "approvalDisplay": "chat-context-and-approval-queue",
+          "approvalQueueRequired": true
+        },
+        "gstackRoomModelPolicy": {
+          "phase": "phase-1",
+          "roomFirstScreen": "control-command-center",
+          "longChatDefault": false,
+          "chatLikeJoinUi": true,
+          "joinIsControlLayerAction": true,
+          "joinAllowedBy": [
+            "control",
+            "orchestrator"
+          ],
+          "joinRequiresPacket": true,
+          "joinRequiresRole": true,
+          "allowedJoinRoles": [
+            "orchestrator",
+            "coder",
+            "reviewer",
+            "browser",
+            "search",
+            "ops",
+            "context",
+            "tools",
+            "observer"
+          ],
+          "dualMode": {
+            "normalThreadRulesPreserved": true,
+            "roomModeRequiresJoinPacket": true,
+            "roomTaskRequiresSeparateTaskPacket": true,
+            "exitRequiresExitPacket": true
+          },
+          "agentSeatCard": {
+            "requiredFields": [
+              "name",
+              "role",
+              "provider/model",
+              "status",
+              "current task",
+              "branch/worktree",
+              "last activity time",
+              "latest evidence"
+            ],
+            "allowedStatuses": [
+              "available",
+              "busy",
+              "waiting_user",
+              "blocked",
+              "archived",
+              "offline"
+            ]
+          },
+          "messageDelivery": {
+            "emptyToSeats": "no_delivery",
+            "broadcast": "explicit_room_broadcast_only",
+            "ccSeats": "visibility_only_not_assignment",
+            "messageWithoutToSeats": "draft_or_log_only"
+          },
+          "activeRoomLimit": {
+            "maxActiveRoomsPerAgent": 1,
+            "roomChangeRequiresExitPacket": true,
+            "exitPacketOptions": [
+              "resume_normal",
+              "archive",
+              "detached_handoff"
+            ]
+          },
+          "orchestratorPolicy": {
+            "phaseOneUpgradeProvider": "codex_only",
+            "defaultOrchestrator": "codex-control",
+            "userCanDesignateCodexOrchestrator": true,
+            "nonCodexOrchestratorAllowed": false
+          },
+          "domainLeadPolicy": {
+            "allowed": true,
+            "underOrchestrator": true,
+            "cannot": [
+              "change_authority",
+              "merge",
+              "close_room",
+              "override_packet"
+            ]
+          },
+          "branchPolicy": {
+            "codingAgentRequiresOwnBranchWorktree": true,
+            "agentBranchPattern": "room/<room_id>/<agent_id>/<task_slug>",
+            "integrationBranchPattern": "integration/<room_id>/<task_slug>",
+            "defaultMrSource": "integration_branch"
+          },
+          "commitPolicy": {
+            "codingAgentCanCommitOwnBranch": true,
+            "cannot": [
+              "merge",
+              "push_main",
+              "close_mr",
+              "close_pr",
+              "mark_complete_without_required_evidence"
+            ],
+            "commitRequires": [
+              "task_packet.tests_required",
+              "task_packet.evidence_required",
+              "allowed_files_scope"
+            ]
+          },
+          "testPolicy": {
+            "agentLevel": "task_packet_required_tests",
+            "orchestratorLevel": [
+              "integration_tests",
+              "validators",
+              "lint_or_build_when_applicable"
+            ],
+            "reviewEvidenceSummaryRequired": true
+          },
+          "clarificationPolicy": {
+            "clarificationTargetPriority": true,
+            "defaults": {
+              "product_decision": "user",
+              "permission_security_fact_conflict": "control",
+              "technical_implementation": "orchestrator",
+              "domain_specific": "domain_lead"
+            }
+          },
+          "permissionPolicy": {
+            "permissionRequestRequired": true,
+            "readonlyPatchProposalAllowed": true,
+            "waitingUserStatus": "waiting_user",
+            "blockedStatus": "blocked"
+          },
+          "evidencePolicy": {
+            "defaultView": "summary_with_links",
+            "auditView": "full_chain",
+            "finalClaimRequiresEvidenceLinks": true
+          },
+          "closePolicy": {
+            "roomCloseAuthority": "user_only",
+            "orchestratorMayRequestClose": true,
+            "closeRequestRequiredFields": [
+              "final_verdict",
+              "completed_items",
+              "open_items",
+              "test_evidence_summary",
+              "remaining_risks",
+              "handoff_archive_path"
+            ]
+          },
+          "memoryPolicy": {
+            "roomMemoryAllowed": true,
+            "memberMemoryDefault": "summary_only",
+            "fullMemoryAccess": [
+              "control",
+              "orchestrator",
+              "authorized_reviewer"
+            ],
+            "sensitiveFilterRequired": true,
+            "sourceRequired": true,
+            "allowedSources": [
+              "user_decision",
+              "system_rule",
+              "task_result",
+              "review_verdict",
+              "evidence_summary",
+              "inferred_note"
+            ]
+          },
+          "chatLogPolicy": {
+            "mode": "complete_structured",
+            "requiredMessageFields": [
+              "fromSeat",
+              "toSeats",
+              "ccSeats",
+              "visibility",
+              "messageType",
+              "taskPacketId",
+              "roomPacketId",
+              "timestamp",
+              "evidenceLinks"
+            ],
+            "filters": [
+              "direct",
+              "cc",
+              "broadcast",
+              "approval",
+              "evidence",
+              "task",
+              "system"
+            ]
+          },
+          "siteInheritance": {
+            "siteWorkflowContractRequired": true,
+            "protectedZonesRequired": true,
+            "authorityLayerRequired": true,
+            "taskPacketRequired": true,
+            "evidenceManifestRequired": true,
+            "reviewPacketRequiredForReview": true,
+            "approvalGateRequired": true,
+            "handoffCheckpointRequired": true
+          },
+          "commandButtons": {
+            "status": "deferred-for-next-design-pass",
+            "firstScreenCommandAreaReserved": true
+          }
+        },
+        "multiAgentCodingPolicy": {
+          "orchestratorDefault": "codex-control",
+          "userCanDesignateOrchestrator": true,
+          "codingPreflightRequired": [
+            "task packet",
+            "branch/worktree",
+            "allowed files",
+            "tests to run",
+            "evidence level"
+          ],
+          "integrationOwner": "orchestrator",
+          "finalMergeAuthority": [
+            "user",
+            "control"
+          ],
+          "agentBranchPattern": "room/<room_id>/<agent_id>/<task_slug>",
+          "integrationBranchPattern": "integration/<room_id>/<task_slug>",
+          "agentCanCommitOwnBranch": true,
+          "agentCannot": [
+            "merge",
+            "push_main",
+            "close_mr",
+            "close_pr",
+            "mark_complete_without_required_evidence"
+          ],
+          "conflictResolution": "authority-layer-then-user-product-then-recorded-technical-decision",
+          "commitScope": "packet-allowed-files-only",
+          "extraFilesPolicy": "patch-proposal-only",
+          "failedRequiredTestsStatus": "blocked",
+          "failureEvidenceRequired": [
+            "failure log",
+            "attempted fixes",
+            "next-step recommendation"
+          ]
+        },
+        "roomLifecyclePolicy": {
+          "longTermRoomPurpose": "members-history-standing-rules-only",
+          "realWorkRequiresRunOrTaskPacket": true,
+          "exitPolicy": "exit-packet-required",
+          "exitPacketOptions": [
+            "resume normal task",
+            "archive",
+            "detached handoff"
+          ],
+          "memoryAccessPolicy": {
+            "ordinaryMember": "summary-only",
+            "orchestrator": "full-source-chain-with-permission",
+            "control": "full-source-chain-with-permission",
+            "authorizedReviewer": "full-source-chain-with-permission",
+            "sensitiveMemoryFilteringRequired": true,
+            "memoryRequiresAuditableSource": true,
+            "allowedSources": [
+              "user_decision",
+              "system_rule",
+              "task_result",
+              "review_verdict",
+              "evidence_summary",
+              "inferred_note"
+            ]
+          },
+          "historyDisplay": {
+            "defaultMode": "complete-flow-with-filters",
+            "filtersRequired": [
+              "direct",
+              "cc",
+              "broadcast",
+              "evidence",
+              "approval",
+              "task",
+              "system"
+            ]
+          },
+          "archiveRestorePolicy": {
+            "restorePacketRequired": true,
+            "restorePacketFields": [
+              "restore reason",
+              "history scope",
+              "current target"
+            ]
+          },
+          "ruleChangePolicy": {
+            "memberCanPropose": true,
+            "registryMutationRequiresApprovalBy": [
+              "user",
+              "control"
+            ]
+          }
+        },
+        "defaultEvidenceLevels": {
+          "readOnly": "light_readonly",
+          "review": "review_packet",
+          "writeOrExecution": "full_site_bundle",
+          "protectedAction": "protected_execution"
+        },
+        "requiredRoomRunArtifacts": [
+          "room entry packet",
+          "task packet",
+          "run manifest",
+          "evidence index",
+          "validator report",
+          "verification summary",
+          "bridge trace or explicit mock-only note",
+          "run-id namespaced outputs",
+          "protected-action ledger"
+        ],
+        "protectedActionArtifacts": [
+          "exact human approval text",
+          "approval manifest",
+          "approval manifest SHA256 sidecar",
+          "approval evidence",
+          "hash-bound approved text",
+          "changed-file hashes or explicit no-change proof"
+        ]
+      },
+      "purpose": "Coordinate SIT, Kanwas, external review seats, and future CLI adapters without replacing Harness authority.",
+      "members": [
+        {
+          "seatId": "codex-control",
+          "name": "Codex control thread",
+          "label": "Codex control thread",
+          "role": "control",
+          "providerModel": "Codex / GPT-5",
+          "kind": "codex-thread",
+          "normalMode": "ordinary Codex thread rules",
+          "roomMode": "room controller and evidence owner",
+          "permissionClass": "report-write",
+          "status": "available",
+          "currentTask": "Own room policy landing, evidence, validation, and integration.",
+          "branchWorktree": "harden-controller-boundary / C:\\html\\sit-kanwas-fusion-dashboard",
+          "lastActivityAt": "2026-06-15T18:45:00+08:00",
+          "latestEvidence": "docs/gstack-room-operating-decisions.md"
+        },
+        {
+          "seatId": "browser-lane",
+          "name": "Browser lane",
+          "label": "Browser lane",
+          "role": "browser",
+          "providerModel": "Fixed Chrome / CDP",
+          "kind": "browser-thread",
+          "normalMode": "local browser verification",
+          "roomMode": "screenshot and UI evidence capture",
+          "permissionClass": "read-only",
+          "status": "available",
+          "currentTask": "Capture browser evidence only when assigned by packet.",
+          "branchWorktree": "none / browser evidence lane",
+          "lastActivityAt": "2026-06-15T18:03:00+08:00",
+          "latestEvidence": "C:/html/evidence/browser-capture"
+        },
+        {
+          "seatId": "o3-review",
+          "name": "O3 / Opus review lane",
+          "label": "O3 / Opus review lane",
+          "role": "reviewer",
+          "providerModel": "Opus 4.8 / O3 review lane",
+          "kind": "external-review-seat",
+          "normalMode": "independent reviewer",
+          "roomMode": "closed-report review from bounded packet",
+          "permissionClass": "report-write",
+          "status": "available",
+          "currentTask": "Review bounded packets from GitLab MR or saved review package.",
+          "branchWorktree": "none / review-only",
+          "lastActivityAt": "2026-06-15T15:19:00+08:00",
+          "latestEvidence": "F:/codex/reports/polynoia-kanwas-strategy-opus-review-20260615/opus-4.8-gitlab-duo-paseo-response-20260615-1519.md"
+        },
+        {
+          "seatId": "jcode-candidate",
+          "name": "jcode candidate lane",
+          "label": "jcode candidate lane",
+          "role": "observer",
+          "providerModel": "jcode / candidate adapter",
+          "kind": "future-cli-adapter",
+          "normalMode": "not canonical",
+          "roomMode": "review-only design candidate",
+          "permissionClass": "report-write",
+          "status": "blocked",
+          "currentTask": "Remain review-only until L2 adapter gate is approved.",
+          "branchWorktree": "none / noncanonical",
+          "lastActivityAt": "2026-06-14T00:00:00+08:00",
+          "latestEvidence": "F:/codex/reports/jcode-agent-review-package-20260614/review-brief.md"
+        }
+      ],
+      "entryRules": [
+        "A standalone thread follows its normal platform rules until it is named in a room packet.",
+        "Joining the room means accepting the room workflow contract, assigned role, allowed reads/writes, evidence requirements, and stop conditions.",
+        "Joining the room also activates the Site Workflow Console hard requirements for manifest, evidence, validation, protected-action ledger, and approval-bound execution.",
+        "L1 room packets are manual and evidence-based; runtime enforcement is false.",
+        "Every result must return to a task packet, run manifest, evidence index, or review output path."
+      ],
+      "forbiddenActions": [
+        "No live provider call from the room registry.",
+        "No direct launch of jcode or other CLI adapters from Room v0.1.",
+        "No credential-store, browser-profile, MCP, Codex config, startup-task, deployment, merge, or publish mutation.",
+        "No UI state may become durable truth."
+      ],
+      "nextSafeActions": [
+        "Generate a room kickoff task packet.",
+        "Ask Opus 4.8 to review the room contract and missing L2 gates.",
+        "Promote individual CLI adapters only after registry, fixture, and sandbox review."
+      ]
+    }
+  ]
+}

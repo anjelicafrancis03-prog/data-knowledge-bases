@@ -1,0 +1,163 @@
+{
+    "schemaVersion":  "workflow-rooms.registry/v0.1",
+    "updatedAt":  "2026-06-15T17:20:00+08:00",
+    "boundary":  "invalid fixture",
+    "rooms":  [
+                  {
+                      "id":  "bad-no-approval-queue",
+                      "title":  "Bad No Approval Queue",
+                      "mode":  "L1-packet-room",
+                      "status":  "draft-active",
+                      "authorityLayer":  "Harness files",
+                      "truthSource":  "run-manifest + evidence-index + task packets",
+                      "workflowContract":  "Thread-as-Agent, Room-as-Workflow v0.1",
+                      "siteWorkflowBinding":  {
+                                                  "status":  "hard-required",
+                                                  "source":  "Harness Site Workflow Console Phase 3a-3d contract",
+                                                  "normalThreadRulesPreserved":  true,
+                                                  "siteContractAppliesInRoom":  true,
+                                                  "uiIsAuthority":  false,
+                                                  "siteDirectCliAllowed":  false,
+                                                  "packetGenerationPolicy":  {
+                                                                                 "mode":  "inviter-drafts-control-validates",
+                                                                                 "controlValidationRequired":  true,
+                                                                                 "joinedWithoutPacketAllowed":  false
+                                                                             },
+                                                  "roomPermissionPolicy":  {
+                                                                               "mode":  "normal-capabilities-preserved-room-packet-bounds-writes",
+                                                                               "normalCapabilitiesPreserved":  true,
+                                                                               "writeScopeSource":  "room packet",
+                                                                               "executionScopeSource":  "room packet",
+                                                                               "roomPacketRequiredForWrites":  true
+                                                                           },
+                                                  "evidenceDisplayPolicy":  {
+                                                                                "mode":  "daily-and-audit-toggle",
+                                                                                "defaultView":  "daily",
+                                                                                "dailyShowsFinalConclusion":  true,
+                                                                                "auditViewRequired":  true,
+                                                                                "evidenceDrawerRequired":  true,
+                                                                                "finalConclusionMustLinkEvidence":  true
+                                                                            },
+                                                  "commandSurfacePolicy":  {
+                                                                               "firstScreen":  "command-overview",
+                                                                               "firstScreenPanels":  [
+                                                                                                         "thread status",
+                                                                                                         "active room",
+                                                                                                         "pending approvals",
+                                                                                                         "latest evidence"
+                                                                                                     ],
+                                                                               "roomComposerDefault":  "no-recipient-until-selected",
+                                                                               "emptyToSeatsMeansNoDelivery":  true,
+                                                                               "broadcastRequiresExplicitVisibility":  true,
+                                                                               "threadCardFields":  [
+                                                                                                        "status",
+                                                                                                        "current task",
+                                                                                                        "room membership",
+                                                                                                        "model/provider",
+                                                                                                        "latest evidence time"
+                                                                                                    ],
+                                                                               "newThreadDefaultMode":  "normal-thread",
+                                                                               "roomJoinRequiresExplicitPacket":  true,
+                                                                               "approvalDisplay":  "chat-only",
+                                                                               "approvalQueueRequired":  false
+                                                                           },
+                                                  "multiAgentCodingPolicy":  {
+                                                                                 "orchestratorDefault":  "codex-control",
+                                                                                 "userCanDesignateOrchestrator":  true,
+                                                                                 "codingPreflightRequired":  [
+                                                                                                                 "task packet",
+                                                                                                                 "branch/worktree",
+                                                                                                                 "allowed files",
+                                                                                                                 "tests to run",
+                                                                                                                 "evidence level"
+                                                                                                             ],
+                                                                                 "integrationOwner":  "orchestrator",
+                                                                                 "finalMergeAuthority":  [
+                                                                                                             "user",
+                                                                                                             "control"
+                                                                                                         ],
+                                                                                 "conflictResolution":  "authority-layer-then-user-product-then-recorded-technical-decision",
+                                                                                 "commitScope":  "packet-allowed-files-only",
+                                                                                 "extraFilesPolicy":  "patch-proposal-only",
+                                                                                 "failedRequiredTestsStatus":  "blocked",
+                                                                                 "failureEvidenceRequired":  [
+                                                                                                                 "failure log",
+                                                                                                                 "attempted fixes",
+                                                                                                                 "next-step recommendation"
+                                                                                                             ]
+                                                                             },
+                                                  "requiredRoomRunArtifacts":  [
+                                                                                   "room entry packet",
+                                                                                   "task packet",
+                                                                                   "run manifest",
+                                                                                   "evidence index",
+                                                                                   "validator report",
+                                                                                   "verification summary",
+                                                                                   "protected-action ledger"
+                                                                               ],
+                                                  "protectedActionArtifacts":  [
+                                                                                   "exact human approval text",
+                                                                                   "approval manifest",
+                                                                                   "approval manifest SHA256 sidecar",
+                                                                                   "approval evidence",
+                                                                                   "hash-bound approved text"
+                                                                               ],
+                                                  "roomLifecyclePolicy":  {
+                                                                              "longTermRoomPurpose":  "members-history-standing-rules-only",
+                                                                              "realWorkRequiresRunOrTaskPacket":  true,
+                                                                              "exitPolicy":  "exit-packet-required",
+                                                                              "exitPacketOptions":  [
+                                                                                                        "resume normal task",
+                                                                                                        "archive",
+                                                                                                        "detached handoff"
+                                                                                                    ],
+                                                                              "memoryAccessPolicy":  {
+                                                                                                         "ordinaryMember":  "summary-only",
+                                                                                                         "orchestrator":  "full-source-chain-with-permission",
+                                                                                                         "control":  "full-source-chain-with-permission",
+                                                                                                         "sensitiveMemoryFilteringRequired":  true,
+                                                                                                         "memoryRequiresAuditableSource":  true
+                                                                                                     },
+                                                                              "historyDisplay":  {
+                                                                                                     "defaultMode":  "complete-flow-with-filters",
+                                                                                                     "filtersRequired":  [
+                                                                                                                             "direct",
+                                                                                                                             "cc",
+                                                                                                                             "broadcast",
+                                                                                                                             "evidence",
+                                                                                                                             "approval"
+                                                                                                                         ]
+                                                                                                 },
+                                                                              "archiveRestorePolicy":  {
+                                                                                                           "restorePacketRequired":  true,
+                                                                                                           "restorePacketFields":  [
+                                                                                                                                       "restore reason",
+                                                                                                                                       "history scope",
+                                                                                                                                       "current target"
+                                                                                                                                   ]
+                                                                                                       },
+                                                                              "ruleChangePolicy":  {
+                                                                                                       "memberCanPropose":  true,
+                                                                                                       "registryMutationRequiresApprovalBy":  [
+                                                                                                                                                  "user",
+                                                                                                                                                  "control"
+                                                                                                                                              ]
+                                                                                                   }
+                                                                          }
+                                              },
+                      "purpose":  "Invalid because approval queue is absent.",
+                      "members":  [
+
+                                  ],
+                      "entryRules":  [
+
+                                     ],
+                      "forbiddenActions":  [
+
+                                           ],
+                      "nextSafeActions":  [
+
+                                          ]
+                  }
+              ]
+}

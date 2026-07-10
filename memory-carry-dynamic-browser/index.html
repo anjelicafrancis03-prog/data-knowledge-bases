@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>记忆承载动态证据库</title>
+  <style>
+    :root {
+      --bg:#f7f8fb;
+      --panel:#ffffff;
+      --panel-soft:#f2f5f8;
+      --line:#d7dee8;
+      --text:#1f2937;
+      --muted:#687385;
+      --accent:#0f766e;
+      --accent-soft:#dff3ef;
+      --blue:#2563eb;
+      --warn:#b45309;
+      --ok:#047857;
+      font-family:"Microsoft YaHei","Segoe UI",Arial,sans-serif;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-size:14px; line-height:1.55; }
+    header { padding:14px 18px; background:var(--panel); border-bottom:1px solid var(--line); display:flex; gap:14px; justify-content:space-between; align-items:flex-start; }
+    h1 { margin:0; font-size:20px; letter-spacing:0; }
+    .sub { color:var(--muted); font-size:12px; margin-top:4px; }
+    .stats { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; max-width:780px; }
+    .stat { border:1px solid var(--line); border-radius:6px; background:var(--panel-soft); padding:6px 9px; min-width:78px; text-align:right; }
+    .stat strong { display:block; font-size:17px; line-height:1.1; }
+    .stat span { color:var(--muted); font-size:11px; }
+    .toolbar { padding:12px 18px; display:grid; grid-template-columns:minmax(220px,1fr) 150px 210px auto; gap:10px; background:var(--panel); border-bottom:1px solid var(--line); align-items:center; }
+    input, select, button { min-height:36px; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--text); padding:8px 10px; font:inherit; min-width:0; }
+    button { cursor:pointer; }
+    button.active { background:var(--accent-soft); border-color:var(--accent); color:#0f5e57; font-weight:700; }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    .tabs { padding:10px 18px; background:var(--panel); border-bottom:1px solid var(--line); display:flex; gap:6px; flex-wrap:wrap; }
+    main { padding:14px 18px; display:grid; grid-template-columns:minmax(360px,.9fr) minmax(420px,1.1fr); gap:12px; height:calc(100vh - 177px); min-height:520px; }
+    .panel { background:var(--panel); border:1px solid var(--line); border-radius:8px; min-height:0; overflow:auto; }
+    .list-head { position:sticky; top:0; background:rgba(255,255,255,.96); border-bottom:1px solid var(--line); padding:10px; display:flex; gap:8px; justify-content:space-between; align-items:center; z-index:1; }
+    .rows { padding:10px; display:grid; gap:8px; }
+    .row { border:1px solid var(--line); border-radius:6px; padding:10px; background:#fff; cursor:pointer; }
+    .row.active { border-color:var(--blue); box-shadow:inset 3px 0 0 var(--blue); background:#f8fbff; }
+    .title { font-weight:700; margin-bottom:5px; }
+    .meta { display:flex; gap:6px; flex-wrap:wrap; color:var(--muted); font-size:12px; }
+    .badge { border:1px solid var(--line); border-radius:999px; padding:2px 7px; background:#fff; white-space:nowrap; font-size:11px; }
+    .badge.ok { color:var(--ok); border-color:#a7f3d0; background:#ecfdf5; }
+    .badge.graph { color:var(--blue); border-color:#bfdbfe; background:#eff6ff; }
+    .badge.warn { color:var(--warn); border-color:#fed7aa; background:#fff7ed; }
+    .excerpt { color:#344054; margin-top:7px; max-height:96px; overflow:hidden; }
+    .detail { padding:16px; }
+    .detail h2 { margin:0 0 8px; font-size:18px; letter-spacing:0; }
+    .section { border-top:1px solid var(--line); margin-top:12px; padding-top:12px; }
+    .section h3 { margin:0 0 8px; font-size:14px; letter-spacing:0; }
+    pre { white-space:pre-wrap; word-break:break-word; background:#f6f8fb; border:1px solid var(--line); border-radius:6px; padding:10px; font:12px/1.5 Consolas,"Microsoft YaHei",monospace; max-height:330px; overflow:auto; }
+    .empty, .loading { color:var(--muted); text-align:center; padding:28px; }
+    .pager { display:flex; gap:6px; align-items:center; }
+    .pager button { min-height:30px; padding:5px 9px; }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    @media (max-width:980px) {
+      header { display:block; }
+      .stats { justify-content:flex-start; margin-top:10px; }
+      .toolbar { grid-template-columns:1fr; }
+      main { grid-template-columns:1fr; height:auto; }
+      .panel { max-height:none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>记忆承载动态证据库</h1>
+      <div class="sub">SQLite 只读查询层：深读段落、候选主张、聚合检索、关系候选、出处证据与最终提案</div>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+  <section class="toolbar">
+    <input id="query" type="search" placeholder="搜索标题、正文片段、概念、关系、出处">
+    <select id="year"></select>
+    <select id="concept"></select>
+    <button id="run">检索</button>
+  </section>
+  <nav class="tabs" id="tabs"></nav>
+  <main>
+    <section class="panel">
+      <div class="list-head">
+        <span id="result-count">等待查询</span>
+        <div class="pager">
+          <button id="prev">上一页</button>
+          <span id="page"></span>
+          <button id="next">下一页</button>
+        </div>
+      </div>
+      <div class="rows" id="rows"></div>
+    </section>
+    <section class="panel detail" id="detail"></section>
+  </main>
+  <script>
+    const endpoints = {
+      "deep-claims": { label:"深读主张", path:"/api/deep-claims", count:"deep_read_claims" },
+      "deep-passages": { label:"深读段落", path:"/api/deep-passages", count:"deep_read_passages" },
+      "aggregate-claims": { label:"聚合主张", path:"/api/aggregate-claims", count:"aggregate_claims" },
+      "aggregate-passages": { label:"聚合段落", path:"/api/aggregate-passages", count:"aggregate_passages" },
+      "relation-candidates": { label:"关系候选", path:"/api/relation-candidates", count:"relation_candidates" },
+      "relation-evidence": { label:"关系证据", path:"/api/relation-evidence", count:"relation_evidence" },
+      "multihop": { label:"多跳候选", path:"/api/multihop", count:"multihop_staging" },
+      "final-proposals": { label:"最终提案", path:"/api/final-proposals", count:"final_insert_proposals" },
+      "documents": { label:"文档", path:"/api/documents", count:"documents" }
+    };
+    const state = { view:"deep-claims", q:"", year:"all", concept:"all", limit:25, offset:0, rows:[], total:0, selected:null, stats:null, facets:null };
+    const $ = id => document.getElementById(id);
+    const esc = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+    const badge = (text, cls="") => text || text === 0 ? `<span class="badge ${cls}">${esc(text)}</span>` : "";
+    const parseMaybeJson = value => {
+      if (!value) return [];
+      if (Array.isArray(value)) return value;
+      try { const parsed = JSON.parse(value); return Array.isArray(parsed) ? parsed : []; } catch { return []; }
+    };
+    async function fetchJson(url) {
+      const res = await fetch(url, { cache:"no-store" });
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      return await res.json();
+    }
+    function renderStats() {
+      const s = state.stats || {};
+      const items = [
+        ["文档", s.documents],
+        ["精读", s.deep_read_docs],
+        ["段落", s.deep_read_passages],
+        ["主张", s.deep_read_claims],
+        ["聚合段落", s.aggregate_passages],
+        ["聚合主张", s.aggregate_claims],
+        ["关系候选", s.relation_candidates],
+        ["关系证据", s.relation_evidence],
+        ["正式关系", s.formal_relations],
+        ["FK", s.foreign_key_check_rows]
+      ];
+      $("stats").innerHTML = items.map(([k,v]) => `<div class="stat"><strong>${esc(v ?? "-")}</strong><span>${esc(k)}</span></div>`).join("");
+    }
+    function renderTabs() {
+      $("tabs").innerHTML = Object.entries(endpoints).map(([id, cfg]) => {
+        const count = state.stats ? state.stats[cfg.count] : "";
+        return `<button class="${state.view === id ? "active" : ""}" data-view="${id}">${esc(cfg.label)} ${esc(count ?? "")}</button>`;
+      }).join("");
+      document.querySelectorAll("[data-view]").forEach(btn => btn.onclick = () => {
+        state.view = btn.dataset.view;
+        state.offset = 0;
+        state.selected = null;
+        renderTabs();
+        loadRows();
+      });
+    }
+    function renderFilters() {
+      const years = ["all", ...(state.facets?.years || [])];
+      $("year").innerHTML = years.map(y => `<option value="${esc(y)}">${y === "all" ? "全部年份" : esc(y)}</option>`).join("");
+      const concepts = [
+        ["all", "全部概念"],
+        ...(state.facets?.deep_concepts || []).map(c => [c.concept_label, `${c.concept_label} (${c.count})`]),
+        ...(state.facets?.aggregate_tokens || []).map(c => [c.concept_id, `${c.concept_label} (${c.count})`])
+      ];
+      const seen = new Set();
+      $("concept").innerHTML = concepts.filter(([value]) => {
+        if (seen.has(value)) return false;
+        seen.add(value);
+        return true;
+      }).map(([value,label]) => `<option value="${esc(value)}">${esc(label)}</option>`).join("");
+      $("year").value = state.year;
+      $("concept").value = state.concept;
+    }
+    function rowKey(row, idx) {
+      return row.candidate_id || row.passage_id || row.relation_candidate_id || row.evidence_id || row.staging_id || row.final_proposal_id || row.doc_id || String(idx);
+    }
+    function rowTitle(row) {
+      if (row.source_title) return row.source_title;
+      if (row.relation_text) return row.relation_text;
+      if (row.concept_a || row.concept_b) return `${row.concept_a || ""} -> ${row.concept_b || ""}`;
+      return row.doc_id || row.candidate_id || row.passage_id || row.staging_id || row.final_proposal_id || row.evidence_id || "记录";
+    }
+    function rowMeta(row) {
+      return [
+        badge(row.date),
+        badge(row.year),
+        row.passage_index !== undefined ? badge(`p${row.passage_index}`) : "",
+        row.candidate_score !== undefined ? badge(`score ${row.candidate_score}`, "ok") : "",
+        row.claim_score !== undefined && row.claim_score !== null ? badge(`claim ${row.claim_score}`) : "",
+        row.confidence_bucket ? badge(row.confidence_bucket, "graph") : "",
+        row.policy_decision ? badge(row.policy_decision, "warn") : "",
+        row.support_doc_count ? badge(`docs ${row.support_doc_count}`) : "",
+        row.support_passage_count ? badge(`passages ${row.support_passage_count}`) : "",
+        row.concept_count ? badge(`concepts ${row.concept_count}`) : "",
+        row.review_status ? badge(row.review_status) : ""
+      ].filter(Boolean).join("");
+    }
+    function rowExcerpt(row) {
+      return row.excerpt || row.rationale || row.policy_rationale || row.markdown_path || row.required_next_step || "";
+    }
+    function renderRows() {
+      const total = state.total;
+      const start = total ? state.offset + 1 : 0;
+      const end = Math.min(state.offset + state.limit, total);
+      $("result-count").textContent = `${endpoints[state.view].label}: ${total} 条，当前 ${start}-${end}`;
+      $("page").textContent = total ? `${Math.floor(state.offset / state.limit) + 1} / ${Math.max(1, Math.ceil(total / state.limit))}` : "0 / 0";
+      $("prev").disabled = state.offset <= 0;
+      $("next").disabled = state.offset + state.limit >= total;
+      if (!state.selected && state.rows.length) state.selected = rowKey(state.rows[0], 0);
+      $("rows").innerHTML = state.rows.map((row, idx) => {
+        const key = rowKey(row, idx);
+        return `<article class="row ${state.selected === key ? "active" : ""}" data-key="${esc(key)}">
+          <div class="title">${esc(rowTitle(row))}</div>
+          <div class="meta">${rowMeta(row)}</div>
+          <div class="excerpt">${esc(rowExcerpt(row))}</div>
+        </article>`;
+      }).join("") || '<div class="empty">没有匹配结果</div>';
+      document.querySelectorAll("[data-key]").forEach(el => el.onclick = () => {
+        state.selected = el.dataset.key;
+        renderRows();
+        renderDetail();
+      });
+      renderDetail();
+    }
+    function selectedRow() {
+      return state.rows.find((row, idx) => rowKey(row, idx) === state.selected) || state.rows[0];
+    }
+    function renderConcepts(row) {
+      const concepts = parseMaybeJson(row.concepts);
+      if (!concepts.length) return "";
+      return `<div class="section"><h3>概念</h3><p>${concepts.map(c => {
+        const label = c.concept_label || c.concept_token || c.concept_id || "";
+        const score = c.score ?? "";
+        return badge(`${label} ${score}`, "graph");
+      }).join("")}</p></div>`;
+    }
+    function renderTopEvidence(row) {
+      const evidence = parseMaybeJson(row.top_evidence);
+      if (!evidence.length) return "";
+      return `<div class="section"><h3>Top relation evidence</h3>${evidence.map(e => `<p>${esc(e.source_title)} ${esc(e.date)} p${esc(e.passage_index)} ${badge(`score ${e.candidate_score}`, "ok")}<br>${esc(e.excerpt)}</p>`).join("")}</div>`;
+    }
+    function renderDetail() {
+      const row = selectedRow();
+      if (!row) {
+        $("detail").innerHTML = '<div class="empty">选择一条记录查看详情</div>';
+        return;
+      }
+      const conceptPath = parseMaybeJson(row.concept_path);
+      const relationIds = parseMaybeJson(row.relation_ids);
+      $("detail").innerHTML = `
+        <h2>${esc(rowTitle(row))}</h2>
+        <div class="meta">${rowMeta(row)}</div>
+        ${renderConcepts(row)}
+        ${conceptPath.length ? `<div class="section"><h3>多跳路径</h3><p>${esc(conceptPath.join(" -> "))}</p></div>` : ""}
+        ${relationIds.length ? `<div class="section"><h3>关系 ID</h3><p>${relationIds.map(x => badge(x, "graph")).join("")}</p></div>` : ""}
+        ${row.relation_label ? `<div class="section"><h3>关系标签</h3><p>${esc(row.relation_label)}</p></div>` : ""}
+        ${row.required_next_step ? `<div class="section"><h3>下一步</h3><p>${esc(row.required_next_step)}</p></div>` : ""}
+        <div class="section"><h3>片段 / 理由</h3><p>${esc(rowExcerpt(row))}</p></div>
+        ${renderTopEvidence(row)}
+        <div class="section"><h3>Raw JSON</h3><pre>${esc(JSON.stringify(row, null, 2))}</pre></div>
+      `;
+    }
+    async function loadRows() {
+      $("rows").innerHTML = '<div class="loading">查询中...</div>';
+      const cfg = endpoints[state.view];
+      const url = new URL(cfg.path, location.origin);
+      url.searchParams.set("q", state.q);
+      url.searchParams.set("year", state.year);
+      url.searchParams.set("concept", state.concept);
+      url.searchParams.set("limit", state.limit);
+      url.searchParams.set("offset", state.offset);
+      const data = await fetchJson(url);
+      state.rows = data.items || [];
+      state.total = data.total || 0;
+      if (!state.rows.some((row, idx) => rowKey(row, idx) === state.selected)) state.selected = null;
+      renderRows();
+    }
+    async function init() {
+      [state.stats, state.facets] = await Promise.all([fetchJson("/api/stats"), fetchJson("/api/facets")]);
+      renderStats();
+      renderFilters();
+      renderTabs();
+      await loadRows();
+    }
+    $("run").onclick = () => {
+      state.q = $("query").value.trim();
+      state.year = $("year").value;
+      state.concept = $("concept").value;
+      state.offset = 0;
+      state.selected = null;
+      loadRows();
+    };
+    $("query").addEventListener("keydown", event => {
+      if (event.key === "Enter") $("run").click();
+    });
+    $("year").onchange = () => $("run").click();
+    $("concept").onchange = () => $("run").click();
+    $("prev").onclick = () => {
+      state.offset = Math.max(0, state.offset - state.limit);
+      state.selected = null;
+      loadRows();
+    };
+    $("next").onclick = () => {
+      if (state.offset + state.limit < state.total) {
+        state.offset += state.limit;
+        state.selected = null;
+        loadRows();
+      }
+    };
+    init().catch(err => {
+      $("rows").innerHTML = `<div class="empty">加载失败：${esc(err.message)}</div>`;
+    });
+  </script>
+</body>
+</html>

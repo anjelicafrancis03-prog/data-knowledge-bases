@@ -1,0 +1,1 @@
+{"schemaVersion":"room-message-ledger/v0.1","messageId":"bad-implicit-broadcast","roomId":"sit-kanwas-fusion-room","createdAt":"2026-06-15T15:58:00+08:00","fromSeat":"codex-control","visibility":"direct","messageType":"task","summary":"Invalid: no toSeats, so nobody explicitly received this.","manifestVisibility":"summary_only","requiresAck":true}

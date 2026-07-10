@@ -1,0 +1,2442 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SIT / Kanwas 多 Agent 融合看板</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --surface: #ffffff;
+      --surface-2: #f1f4f7;
+      --text: #17202a;
+      --muted: #5c6670;
+      --line: #d8dee6;
+      --blue: #2463a6;
+      --green: #23785b;
+      --amber: #9a651d;
+      --red: #a43b3b;
+      --ink: #0d141c;
+      --shadow: 0 10px 30px rgba(16, 24, 40, 0.08);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      letter-spacing: 0;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+    }
+
+    aside {
+      background: #111821;
+      color: #e7edf4;
+      padding: 22px 18px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+      border-right: 1px solid #26313d;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .mark {
+      width: 38px;
+      height: 38px;
+      border: 1px solid #526172;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      background: #1f2a35;
+      color: #ffffff;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .brand span {
+      display: block;
+      color: #aab6c3;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    nav {
+      display: grid;
+      gap: 4px;
+      margin: 18px 0;
+    }
+
+    nav a {
+      color: #d7e0ea;
+      padding: 9px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background: #202b36;
+      text-decoration: none;
+    }
+
+    .side-note {
+      margin-top: 22px;
+      padding: 12px;
+      border: 1px solid #344252;
+      border-radius: 8px;
+      background: #17212c;
+      color: #c8d3df;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    main {
+      min-width: 0;
+      padding: 26px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.22;
+      color: var(--ink);
+      font-weight: 720;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+      max-width: 860px;
+    }
+
+    .meta {
+      display: grid;
+      gap: 8px;
+      justify-items: end;
+      flex: 0 0 auto;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      flex: 0 0 auto;
+    }
+
+    .dot.warn {
+      background: var(--amber);
+    }
+
+    .dot.stop {
+      background: var(--red);
+    }
+
+    section {
+      margin-top: 18px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid.cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .grid.cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .panel-pad {
+      padding: 16px;
+    }
+
+    .kpi strong {
+      display: block;
+      font-size: 24px;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .kpi span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .tagrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 5px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: #fbfcfd;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .tag.ok {
+      color: var(--green);
+      border-color: #bad8ca;
+      background: #f1faf5;
+    }
+
+    .tag.warn {
+      color: var(--amber);
+      border-color: #ead0a5;
+      background: #fff8ea;
+    }
+
+    .tag.stop {
+      color: var(--red);
+      border-color: #ecc1c1;
+      background: #fff2f2;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    button,
+    .action-link {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+      font-size: 13px;
+      line-height: 1;
+      padding: 10px 12px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    button:hover,
+    .action-link:hover {
+      border-color: #9eb5ce;
+      background: #f4f8fc;
+      text-decoration: none;
+    }
+
+    button.primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #ffffff;
+    }
+
+    button.primary:hover {
+      background: #1d548f;
+    }
+
+    .live-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .live-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+      padding: 11px;
+      min-width: 0;
+    }
+
+    .live-item b {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .live-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      word-break: break-all;
+    }
+
+    .banner {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border: 1px solid #ead0a5;
+      border-radius: 8px;
+      background: #fff8ea;
+      color: #6f4711;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .banner.show {
+      display: block;
+    }
+
+    .action-group {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .action-group h4 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .mode-warning {
+      display: none;
+      margin-bottom: 14px;
+      padding: 13px 14px;
+      border: 1px solid #ead0a5;
+      border-radius: 8px;
+      background: #fff8ea;
+      color: #6f4711;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .mode-warning strong {
+      color: #4f330b;
+    }
+
+    .file-mode .mode-warning {
+      display: block;
+    }
+
+    .task-template-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .template-button {
+      min-height: 84px;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      line-height: 1.35;
+      text-align: left;
+      background: #fbfcfd;
+    }
+
+    .template-button strong {
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .template-button span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .task-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .task-summary {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .task-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .adapter-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .adapter-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfd;
+      min-width: 0;
+    }
+
+    .adapter-card h3 {
+      margin: 0 0 6px;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .adapter-card p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .adapter-output {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      word-break: break-all;
+    }
+
+    .gate-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .gate-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfd;
+      min-width: 0;
+    }
+
+    .gate-card h3 {
+      margin: 0 0 6px;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .gate-card p,
+    .gate-card li {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .gate-card p {
+      margin: 0;
+    }
+
+    .gate-card ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    .gate-card.full {
+      grid-column: 1 / -1;
+    }
+
+    .gate-path {
+      display: block;
+      margin-top: 8px;
+      font-family: Consolas, "SFMono-Regular", monospace;
+      font-size: 11px;
+      color: #344252;
+      word-break: break-all;
+    }
+
+    .task-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfd;
+      min-width: 0;
+    }
+
+    .task-card h3 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .task-card p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .task-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .task-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .task-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .task-actions button,
+    .task-actions a {
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .task-empty {
+      border: 1px dashed #bfc8d4;
+      border-radius: 8px;
+      padding: 16px;
+      color: var(--muted);
+      background: #fbfcfd;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .fusion-map {
+      display: grid;
+      grid-template-columns: 1.1fr 0.8fr 1.1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .lane {
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .lane h3,
+    .flow h3,
+    .shot h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+
+    .lane p,
+    .flow p,
+    .shot p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .flow {
+      display: grid;
+      gap: 8px;
+      align-content: center;
+      min-height: 260px;
+    }
+
+    .flow-step {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 12px;
+      color: var(--text);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .flow-step.primary {
+      border-color: #a9c7e5;
+      background: #f0f7ff;
+      color: #174c80;
+      font-weight: 650;
+    }
+
+    .arrow {
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .shot {
+      overflow: hidden;
+    }
+
+    .shot-head {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfd;
+    }
+
+    .shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 420px;
+      object-fit: contain;
+      background: #eef2f6;
+    }
+
+    .stage-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .stage {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr) 112px;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+
+    .stage b {
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .stage span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .status {
+      justify-self: end;
+      text-align: right;
+      font-size: 12px;
+      font-weight: 650;
+      color: var(--green);
+    }
+
+    .status.warn {
+      color: var(--amber);
+    }
+
+    .status.stop {
+      color: var(--red);
+    }
+
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .evidence-table th,
+    .evidence-table td {
+      text-align: left;
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      line-height: 1.45;
+    }
+
+    .evidence-table th {
+      color: var(--muted);
+      background: #fbfcfd;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .hash {
+      font-family: Consolas, "SFMono-Regular", monospace;
+      font-size: 11px;
+      word-break: break-all;
+      color: #344252;
+    }
+
+    .mono {
+      font-family: Consolas, "SFMono-Regular", monospace;
+    }
+
+    .footer {
+      margin-top: 22px;
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+
+    @media (max-width: 1120px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: relative;
+        height: auto;
+      }
+
+      nav {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid.cols-4,
+      .grid.cols-3,
+      .task-template-grid,
+      .adapter-list,
+      .gate-grid,
+      .live-grid,
+      .fusion-map,
+      .screenshot-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .fusion-map .flow {
+        grid-column: 1 / -1;
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 720px) {
+      main {
+        padding: 16px;
+      }
+
+      .topbar {
+        display: block;
+      }
+
+      .meta {
+        justify-items: start;
+        margin-top: 12px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      nav,
+      .grid.cols-4,
+      .grid.cols-3,
+      .grid.cols-2,
+      .task-template-grid,
+      .adapter-list,
+      .gate-grid,
+      .live-grid,
+      .fusion-map,
+      .screenshot-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stage {
+        grid-template-columns: 1fr;
+      }
+
+      .status {
+        justify-self: start;
+        text-align: left;
+      }
+
+      .evidence-table {
+        min-width: 760px;
+      }
+
+      .table-scroll {
+        overflow-x: auto;
+      }
+      .truncate-text {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .hash, .gate-path, .mono {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 100%;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .task-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 10px;
+      }
+      @media (max-width: 720px) {
+        .task-actions {
+          flex-wrap: nowrap !important;
+          overflow-x: auto !important;
+          -webkit-overflow-scrolling: touch;
+          padding-bottom: 4px;
+        }
+        .task-actions button, .task-actions a {
+          flex: 0 0 auto !important;
+        }
+        .modal-container {
+          max-width: calc(100% - 32px) !important;
+          margin: 16px;
+        }
+      }
+    }
+
+    /* Modal overlay layout */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(13, 20, 28, 0.45);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-container {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: 0 20px 40px rgba(16, 24, 40, 0.16);
+      width: 100%;
+      max-width: 500px;
+      overflow: hidden;
+      transform: translateY(15px);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-backdrop.active .modal-container {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fbfcfd;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 15px;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .close-modal-btn {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 0 4px;
+      line-height: 1;
+    }
+
+    .close-modal-btn:hover {
+      color: var(--text);
+      background: transparent;
+    }
+
+    .modal-body {
+      padding: 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: grid;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      appearance: none;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: var(--text);
+      background: var(--surface);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: #9eb5ce;
+      box-shadow: 0 0 0 3px rgba(36, 99, 166, 0.08);
+    }
+
+    .form-textarea {
+      font-family: Consolas, monospace;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .modal-footer {
+      padding: 14px 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      background: #fbfcfd;
+    }
+
+    /* Status micro-animations for indicator dots */
+    .dot.ping {
+      position: relative;
+    }
+
+    .dot.ping::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: inherit;
+      opacity: 0.6;
+      animation: dot-pulse 1.8s infinite ease-in-out;
+    }
+
+    @keyframes dot-pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+      100% {
+        transform: scale(2.4);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="brand">
+        <div class="mark">S/K</div>
+        <div>
+          <strong>SIT / Kanwas 融合看板</strong>
+          <span>本地工作台 · Harness 为准</span>
+        </div>
+      </div>
+      <nav aria-label="页面导航">
+        <a href="#status">当前状态</a>
+        <a href="#fusion">融合结构</a>
+        <a href="#screens">真实截图</a>
+        <a href="#agents">多 Agent</a>
+        <a href="#tasks">任务队列</a>
+        <a href="#stage10d">Stage10D</a>
+        <a href="#evidence">证据入口</a>
+        <a href="#gates">Gate Center</a>
+      </nav>
+      <div class="side-note">
+        这是 controller-backed 工作台：它能读取本机状态、打开白名单入口、启动 SIT dev server，并把多 agent 任务写成本地 packet。
+      </div>
+    </aside>
+
+    <main>
+      <div id="fileModeWarning" class="mode-warning" role="status">
+        <strong>当前是 file:// 静态入口。</strong>
+        工作动作需要本机 controller，页面会切到
+        <a href="http://127.0.0.1:8766/index.html">http://127.0.0.1:8766/index.html</a>。
+      </div>
+
+      <div class="topbar">
+        <div>
+          <h1>SIT 和 Kanwas 已融合成一个本地工作台</h1>
+          <p class="subtitle">SIT/Harness 继续做权威状态源，Kanwas 作为上下文画布参考，多 agent seats 通过 task packet 和证据回写进入同一视图；页面动作由本机 controller 受控执行。</p>
+        </div>
+        <div class="meta">
+          <span class="pill"><span class="dot"></span>Stage10D v0.5 通过</span>
+          <span class="pill"><span class="dot warn"></span>L3 未批准</span>
+          <span class="pill">更新 2026-06-14 13:10</span>
+        </div>
+      </div>
+
+      <section id="status">
+        <div class="section-title">
+          <h2>当前状态</h2>
+          <span>实时状态来自本地 controller</span>
+        </div>
+        <div class="panel panel-pad">
+          <h3>工作台控制</h3>
+          <p>这里已经不是纯展示页：它会读取本机 controller 的状态接口，能打开白名单里的系统和证据目录，也能执行固定白名单里的本地工作动作；它不读密钥、不触发 provider 调用、不改 Harness/Codex 配置。</p>
+          <div class="action-row">
+            <button class="primary" type="button" data-action="refresh-status">刷新状态</button>
+            <button type="button" data-open-url="sit">打开 SIT</button>
+            <button type="button" data-open-url="kanwas">打开 Kanwas</button>
+            <button type="button" data-open-path="evidence_index">打开证据索引</button>
+            <button type="button" data-open-path="stage10d_root">打开 Stage10D 目录</button>
+            <a class="action-link" href="/api/status" target="_blank" rel="noopener">查看 API JSON</a>
+          </div>
+          <div class="action-group">
+            <h4>工作动作</h4>
+            <div class="action-row">
+              <button type="button" data-run-action="start_sit">启动 SIT dev server</button>
+              <button type="button" data-run-action="stop_sit">停止 SIT dev server</button>
+              <button type="button" data-run-action="kanwas_status">检查 Kanwas Docker</button>
+              <button type="button" data-run-action="start_kanwas">启动 Kanwas trial Docker</button>
+              <button type="button" data-run-action="stop_kanwas">停止 Kanwas trial Docker</button>
+            </div>
+          </div>
+          <div id="statusMessage" class="banner"></div>
+          <div class="live-grid" id="liveStatus" aria-live="polite">
+            <div class="live-item"><b><span class="dot warn"></span>Dashboard</b><span>等待刷新</span></div>
+            <div class="live-item"><b><span class="dot warn"></span>SIT</b><span>等待刷新</span></div>
+            <div class="live-item"><b><span class="dot warn"></span>Kanwas</b><span>等待刷新</span></div>
+            <div class="live-item"><b><span class="dot warn"></span>Stage10D</b><span>等待刷新</span></div>
+          </div>
+        </div>
+        <div class="grid cols-4">
+          <div class="panel panel-pad kpi">
+            <strong>SIT</strong>
+            <span>权威控制台<br>127.0.0.1:5173</span>
+            <div class="tagrow"><span class="tag ok">authority</span><span class="tag ok">evidence</span></div>
+          </div>
+          <div class="panel panel-pad kpi">
+            <strong>Kanwas</strong>
+            <span>共享画布候选<br>127.0.0.1:5174</span>
+            <div class="tagrow"><span class="tag ok">canvas</span><span class="tag warn">not backend</span></div>
+          </div>
+          <div class="panel panel-pad kpi">
+            <strong>Agents</strong>
+            <span>O1/O3 审查可用<br>O2 曾 timeout</span>
+            <div class="tagrow"><span class="tag ok">review</span><span class="tag ok">worker</span></div>
+          </div>
+          <div class="panel panel-pad kpi">
+            <strong>Provider</strong>
+            <span>Stage10D v0.5<br>200 / no leaks</span>
+            <div class="tagrow"><span class="tag ok">passed</span><span class="tag stop">bounded</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="fusion">
+        <div class="section-title">
+          <h2>融合结构</h2>
+          <span>前台合一，权责分层</span>
+        </div>
+        <div class="fusion-map">
+          <div class="panel panel-pad lane">
+            <div>
+              <h3>SIT / Harness</h3>
+              <p>负责 route、module、manifest、approval、protected zones、evidence index、handoff。任何真实执行先过这里。</p>
+            </div>
+            <div class="tagrow"><span class="tag ok">source of truth</span><span class="tag ok">gatekeeper</span><span class="tag">5173</span></div>
+          </div>
+          <div class="flow">
+            <div class="flow-step primary">Harness files</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">SIT 生成 task packet</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">O1 / O3 / Claude / Antigravity</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">报告、截图、JSON、哈希证据</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step primary">Kanwas-style canvas projection</div>
+          </div>
+          <div class="panel panel-pad lane">
+            <div>
+              <h3>Kanwas / Canvas</h3>
+              <p>负责人类可读的上下文、材料、任务关系和图谱视图。当前不直接调用 Harness 工具，不替代状态源。</p>
+            </div>
+            <div class="tagrow"><span class="tag ok">context</span><span class="tag ok">workspace</span><span class="tag">5174</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="screens">
+        <div class="section-title">
+          <h2>真实截图</h2>
+          <span>来自本次 trial evidence</span>
+        </div>
+        <div class="screenshot-grid">
+          <div class="panel shot">
+            <div class="shot-head">
+              <h3>SIT / Harness Workflow Console</h3>
+              <p>控制台、门禁、ledger、dry-run 姿态仍是核心。</p>
+            </div>
+            <img src="assets/sit-harness-workflow-console-20260613.png" alt="SIT Harness Workflow Console 截图">
+          </div>
+          <div class="grid">
+            <div class="panel shot">
+              <div class="shot-head">
+                <h3>Kanwas Workspace</h3>
+                <p>本地 workspace 已到达，可做画布层参考。</p>
+              </div>
+              <img src="assets/kanwas-workspace-20260613.png" alt="Kanwas workspace 截图">
+            </div>
+            <div class="panel shot">
+              <div class="shot-head">
+                <h3>Kanwas Canvas</h3>
+                <p>onboarding canvas 可打开，但 agent 没有真实 key 时失败。</p>
+              </div>
+              <img src="assets/kanwas-onboarding-canvas-20260613.png" alt="Kanwas onboarding canvas 截图">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="agents">
+        <div class="section-title">
+          <h2>多 Agent 分级</h2>
+          <span>当前不要跳成 L3 后端</span>
+        </div>
+        <div class="stage-list">
+          <div class="stage"><b>L0</b><span>Chat/report only：发材料包，让外部 agent 读、审、写报告。</span><div class="status">可用</div></div>
+          <div class="stage"><b>L1</b><span>Dry-run task packet：SIT 生成任务包，外部 agent 输出 evidence/report。</span><div class="status">已可用</div></div>
+          <div class="stage"><b>L2</b><span>Controlled worker：指定文件、命令、测试范围，回写 manifest/evidence。</span><div class="status warn">部分证明</div></div>
+          <div class="stage"><b>L3</b><span>Live execution backend：触发真实工具、凭据、浏览器、MCP。</span><div class="status stop">未批准</div></div>
+          <div class="stage"><b>L4</b><span>Authority replacement：代替 Harness/SIT 成为总控真源。</span><div class="status stop">禁止</div></div>
+        </div>
+      </section>
+
+      <section id="gates">
+        <div class="section-title">
+          <h2>Gate Center</h2>
+          <span>packet / evidence / approval boundary</span>
+        </div>
+        <div class="panel panel-pad">
+          <div class="task-toolbar">
+            <div>
+              <h3>Phase 1 adapter gates</h3>
+              <div id="gateSummary" class="task-summary">Loading gate state...</div>
+            </div>
+            <div class="action-row">
+              <button type="button" data-action="refresh-gates">Refresh gates</button>
+              <button type="button" data-open-path="adapter_registry_contract">Open contract</button>
+              <button type="button" data-open-path="o_review_dispatch_prep">Open O-review prep</button>
+              <button type="button" data-open-path="jcode_gate_brief">Open jcode gate</button>
+              <button type="button" data-create-task="o_review_dispatch_prep">Task: O-review prep</button>
+              <button type="button" data-create-task="jcode_seat_schema_review">Task: jcode review</button>
+              <a class="action-link" href="/api/gates" target="_blank" rel="noopener">Gate JSON</a>
+            </div>
+          </div>
+          <div id="gateList" class="gate-grid" aria-live="polite">
+            <div class="task-empty">Gate state loading...</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="rooms">
+        <div class="section-title">
+          <h2>Workflow Rooms</h2>
+          <span>Thread-as-Agent, Room-as-Workflow v0.1</span>
+        </div>
+        <div class="panel panel-pad">
+          <div class="task-toolbar">
+            <div>
+              <h3>Room registry</h3>
+              <div id="roomSummary" class="task-summary">Loading workflow rooms...</div>
+            </div>
+            <div class="action-row">
+              <button type="button" data-action="refresh-rooms">Refresh rooms</button>
+              <button type="button" data-open-path="workflow_rooms_registry">Open registry</button>
+              <button type="button" data-open-path="workflow_room_doc">Open contract</button>
+            </div>
+          </div>
+          <p class="task-summary">Room v0.1 records membership, roles, contract, and evidence duties. It does not dispatch live agents, launch CLIs, call providers, or grant runtime authority.</p>
+          <div id="roomList" class="gate-grid" aria-live="polite">
+            <div class="task-empty">Workflow rooms loading...</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tasks">
+        <div class="section-title">
+          <h2>多 Agent 任务队列</h2>
+          <span>本地 packet 写入，不触发外部 provider</span>
+        </div>
+        <div class="panel panel-pad">
+          <h3>Dry-run adapters</h3>
+          <p>Phase 1 adapter registry: only generate packet, plan, and evidence files. No provider call, no jcode launch, no credential read.</p>
+          <div id="adapterList" class="adapter-list" aria-live="polite">
+            <div class="task-empty">Loading adapter registry...</div>
+          </div>
+        </div>
+
+        <div class="panel panel-pad">
+          <h3>创建任务包</h3>
+          <p>这里是真正可落地的工作入口：每个按钮都会写入 <span class="mono">tasks.json</span>，并生成一个 Markdown task packet，给 O1/O3、Kanwas 或 Harness 后续处理。</p>
+          <div class="task-template-grid">
+            <button class="template-button" type="button" data-create-task="evidence_closeout">
+              <strong>证据收口检查</strong>
+              <span>核对交接、索引、SHA 与缺口。</span>
+            </button>
+            <button class="template-button" type="button" data-create-task="kanwas_projection">
+              <strong>Kanwas 投影</strong>
+              <span>把当前状态整理成可扫读画布材料。</span>
+            </button>
+            <button class="template-button" type="button" data-create-task="review_packet">
+              <strong>O1/O3 审查包</strong>
+              <span>生成闭包 review packet 草稿。</span>
+            </button>
+            <button class="template-button" type="button" data-create-task="stage10d_next_gate">
+              <strong>Stage10D 下一 gate</strong>
+              <span>从 v0.5 证据推进下一道门槛。</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="panel panel-pad">
+          <div class="task-toolbar">
+            <div>
+              <h3>当前队列</h3>
+              <div id="taskSummary" class="task-summary">等待读取任务队列</div>
+            </div>
+            <div class="action-row">
+              <button type="button" data-action="refresh-tasks">刷新任务</button>
+              <button type="button" data-open-path="dashboard_dir">打开工作台目录</button>
+            </div>
+          </div>
+          <div id="taskList" class="task-list" aria-live="polite">
+            <div class="task-empty">任务队列读取中。</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="stage10d">
+        <div class="section-title">
+          <h2>Stage10D v0.5 结果</h2>
+          <span>最小真实 provider 闭环</span>
+        </div>
+        <div class="grid cols-3">
+          <div class="panel panel-pad">
+            <h3>运行配置</h3>
+            <p>Gateway: <span class="mono">127.0.0.1:18081</span><br>Provider: <span class="mono">claude-opus-4-8</span><br>Auth mode: <span class="mono">x-api-key</span></p>
+            <div class="tagrow"><span class="tag ok">approval-bound</span><span class="tag">v0.5</span></div>
+          </div>
+          <div class="panel panel-pad">
+            <h3>结果</h3>
+            <p>gateway health 200<br>provider smoke 200<br>workerExitCode 0<br>contentMatchedExpected true</p>
+            <div class="tagrow"><span class="tag ok">passed</span><span class="tag ok">model returned</span></div>
+          </div>
+          <div class="panel panel-pad">
+            <h3>收尾</h3>
+            <p>listenerCount 0<br>gatewayStopped true<br>leakHitCount 0<br>raw response not published</p>
+            <div class="tagrow"><span class="tag ok">clean stop</span><span class="tag ok">no leak</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="evidence">
+        <div class="section-title">
+          <h2>证据入口</h2>
+          <span>所有结论回到这些文件</span>
+        </div>
+        <div class="panel table-scroll">
+          <table class="evidence-table">
+            <thead>
+              <tr>
+                <th>证据</th>
+                <th>路径</th>
+                <th>SHA / 状态</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>融合配置证据包</td>
+                <td><button class="link-button" type="button" data-open-path="evidence_pack">site-multiagent-config-and-evidence-pack-20260614.md</button></td>
+                <td class="hash">4CF8EA5E5A3901BDF03D993AF329CF179E3BC079B89DF77F0A6AEF745F04EB6C</td>
+              </tr>
+              <tr>
+                <td>总证据索引</td>
+                <td><button class="link-button" type="button" data-open-path="evidence_index">evidence-index.md</button></td>
+                <td class="hash">8339F321E87BCD68A128F0B6A923B874AD94D7ECDC230198AA6EFE4C51CB9AA3</td>
+              </tr>
+              <tr>
+                <td>Stage10D run result</td>
+                <td><button class="link-button" type="button" data-open-path="stage10d_result">stage10d-minimal-real-provider-run-result.v0.5.json</button></td>
+                <td class="hash">26D6D356320A3EF324D7B6CED16215C45895181F9EFD6C8430F551F26F15F533</td>
+              </tr>
+              <tr>
+                <td>Stage10D worker output</td>
+                <td><button class="link-button" type="button" data-open-path="stage10d_worker">worker-output.real-provider-smoke.md</button></td>
+                <td class="hash">1F76A924436A4AD50198CF49C3E7ACE5ACFE3103493F3F1C61E34ECA4964B27A</td>
+              </tr>
+              <tr>
+                <td>当前交接卡</td>
+                <td><button class="link-button" type="button" data-open-path="handoff">kanwas-sit-side-by-side-20260613.md</button></td>
+                <td>Stage10D v0.5 已记录为通过</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+  <div class="footer">
+        这个页面是融合工作台，不是后端总控替换。它只执行固定白名单动作和本地 task packet 写入，避免让 Kanwas 或 HTML 页面绕过 Harness 的审批、凭据、浏览器、MCP 和启动项边界。
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Center -->
+  <!-- 1. Join Room Modal -->
+  <div id="joinModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="joinModalTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="joinModalTitle">👥 拉取 Agent 成员入会 (Join Room)</h3>
+        <button type="button" class="close-modal-btn" data-close-modal="joinModal">&times;</button>
+      </div>
+      <form id="joinForm">
+        <input type="hidden" name="roomId" id="joinRoomId">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="joinSeatId">选择/输入待邀 Agent 席位 (Target Seat)</label>
+            <input type="text" class="form-input" id="joinSeatId" name="seatId" list="joinSeatSuggestions" placeholder="e.g. O2, ops-lane" required>
+            <datalist id="joinSeatSuggestions">
+              <option value="O2"></option>
+              <option value="ops-lane"></option>
+              <option value="search-lane"></option>
+              <option value="context-lane"></option>
+            </datalist>
+          </div>
+          <div class="form-group">
+            <label for="joinRole">分配角色 (Role)</label>
+            <select class="form-select" id="joinRole" name="role" required>
+              <option value="coder">coder (代码实现席)</option>
+              <option value="orchestrator">orchestrator (编排席)</option>
+              <option value="reviewer">reviewer (审查席)</option>
+              <option value="browser">browser (浏览器席)</option>
+              <option value="search">search (搜索席)</option>
+              <option value="ops">ops (运维席)</option>
+              <option value="context">context (上下文席)</option>
+              <option value="tools">tools (工具席)</option>
+              <option value="observer">observer (观察席)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="joinTaskPacket">入会任务包上下文 (Task Packet Context)</label>
+            <textarea class="form-textarea" id="joinTaskPacket" name="taskPacket" placeholder="# Allowed Worktree Branch:&#10;room/room-1/o2/harden-controller&#10;# Bounded Files:&#10;[ &quot;controller.py&quot;, &quot;index.html&quot; ]" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="close-modal-btn" data-close-modal="joinModal">取消</button>
+          <button type="submit" class="primary">确认生成并拉入会</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Assign Task Modal -->
+  <div id="assignModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="assignModalTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="assignModalTitle">📋 下发任务 (Assign Task)</h3>
+        <button type="button" class="close-modal-btn" data-close-modal="assignModal">&times;</button>
+      </div>
+      <form id="assignForm">
+        <input type="hidden" name="roomId" id="assignRoomId">
+        <input type="hidden" name="seatId" id="assignSeatId">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>目标席位 (Target Seat)</label>
+            <div id="assignSeatLabel" style="font-size: 13px; font-weight: bold; color: var(--ink);"></div>
+          </div>
+          <div class="form-group">
+            <label for="assignTitle">任务标题 (Task Title)</label>
+            <input type="text" class="form-input" id="assignTitle" name="title" placeholder="e.g. Implement controller boundary checks" required>
+          </div>
+          <div class="form-group">
+            <label for="assignDescription">任务描述 (Description)</label>
+            <textarea class="form-textarea" id="assignDescription" name="description" placeholder="Provide detailed steps and expectations..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="assignAllowedFiles">限制文件范围 (Allowed Files, 逗号分隔)</label>
+            <input type="text" class="form-input" id="assignAllowedFiles" name="allowedFiles" placeholder="e.g. controller.py, index.html">
+          </div>
+          <div class="form-group">
+            <label for="assignTestCommands">运行测试命令 (Test Commands, 每行一条)</label>
+            <textarea class="form-textarea" id="assignTestCommands" name="testCommands" placeholder="e.g. pytest tests/test_controller_boundaries.py"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="close-modal-btn" data-close-modal="assignModal">取消</button>
+          <button type="submit" class="primary">下发任务</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Push Evidence Modal -->
+  <div id="evidenceModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="evidenceModalTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="evidenceModalTitle">🛡️ 推送执行证据 (Push Evidence)</h3>
+        <button type="button" class="close-modal-btn" data-close-modal="evidenceModal">&times;</button>
+      </div>
+      <form id="evidenceForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="evidenceTaskId">关联任务 (Task ID)</label>
+            <input type="text" class="form-input" id="evidenceTaskId" name="taskId" required readonly>
+          </div>
+          <div class="form-group">
+            <label for="evidencePath">证据文件路径 (Local Absolute Path)</label>
+            <input type="text" class="form-input" id="evidencePath" name="evidencePath" placeholder="e.g. C:\html\evidence\review-pack-20260621.zip" required>
+          </div>
+          <div class="form-group">
+            <label for="evidenceTestLogs">运行测试与控制台日志 (Test Verification Outputs)</label>
+            <textarea class="form-textarea" id="evidenceTestLogs" name="testLogs" placeholder="pytest -q passed with 46 tests..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="close-modal-btn" data-close-modal="evidenceModal">取消</button>
+          <button type="submit" class="primary">提交验证</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Exit Room Modal -->
+  <div id="exitModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="exitModalTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="exitModalTitle">🚪 成员退会 (Exit Room)</h3>
+        <button type="button" class="close-modal-btn" data-close-modal="exitModal">&times;</button>
+      </div>
+      <form id="exitForm">
+        <input type="hidden" name="roomId" id="exitRoomId">
+        <input type="hidden" name="seatId" id="exitSeatId">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>退会成员 (Seat ID)</label>
+            <div id="exitSeatLabel" style="font-size: 13px; font-weight: bold; color: var(--ink);"></div>
+          </div>
+          <div class="form-group">
+            <label for="exitType">退会类型 (Exit Type)</label>
+            <select class="form-select" id="exitType" name="exitType" required>
+              <option value="resume">resume (恢复常规任务)</option>
+              <option value="archive">archive (归档席位)</option>
+              <option value="handoff">handoff (离线交接)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exitPacket">退会交接包 (Exit Packet Context)</label>
+            <textarea class="form-textarea" id="exitPacket" name="exitPacket" placeholder="Provide exit description and references..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="close-modal-btn" data-close-modal="exitModal">取消</button>
+          <button type="submit" class="primary">确认退会</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. Propose Rule Modal -->
+  <div id="proposeRuleModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="proposeRuleModalTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="proposeRuleModalTitle">📜 提出规则 (Propose Rule)</h3>
+        <button type="button" class="close-modal-btn" data-close-modal="proposeRuleModal">&times;</button>
+      </div>
+      <form id="proposeRuleForm">
+        <input type="hidden" name="roomId" id="proposeRuleRoomId">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="proposedRules">提出规则内容 (Proposed Rules Markdown)</label>
+            <textarea class="form-textarea" id="proposedRules" name="proposedRules" placeholder="# Standing Rules Update:&#10;- rule 1&#10;- rule 2" required style="min-height: 120px;"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="proposalReason">提出原因 (Reason for Proposal)</label>
+            <textarea class="form-textarea" id="proposalReason" name="proposalReason" placeholder="Explain why this rule change is needed..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="close-modal-btn" data-close-modal="proposeRuleModal">取消</button>
+          <button type="submit" class="primary">提交规则提案</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. Submit Close Request Modal -->
+  <div id="closeModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="closeModalTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="closeModalTitle">🏁 申请结业 (Close Room Request)</h3>
+        <button type="button" class="close-modal-btn" data-close-modal="closeModal">&times;</button>
+      </div>
+      <form id="closeForm">
+        <input type="hidden" name="roomId" id="closeRoomId">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="closeVerdict">最终判定 (Verdict)</label>
+            <select class="form-select" id="closeVerdict" name="verdict" required>
+              <option value="success">success (成功结业)</option>
+              <option value="failed">failed (结业失败)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="closeCompletedItems">已完成事项 (Completed Items, 每行一项)</label>
+            <textarea class="form-textarea" id="closeCompletedItems" name="completedItems" placeholder="e.g. Completed boundary tests&#10;Implemented modal flows" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="closeOpenItems">未完成事项 (Open Items, 每行一项)</label>
+            <textarea class="form-textarea" id="closeOpenItems" name="openItems" placeholder="e.g. None" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="closeHandoffPath">交接文件归档路径 (Handoff Archive Path)</label>
+            <input type="text" class="form-input" id="closeHandoffPath" name="handoffPath" placeholder="e.g. F:\codex\reports\active-handoffs\room-close.md" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="close-modal-btn" data-close-modal="closeModal">取消</button>
+          <button type="submit" class="primary">提交结业申请</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  </div>
+  <script>
+    const controllerUrl = 'http://127.0.0.1:8766/index.html';
+    const isFileMode = window.location.protocol === 'file:';
+    const statusMessage = document.getElementById('statusMessage');
+    const liveStatus = document.getElementById('liveStatus');
+    const adapterList = document.getElementById('adapterList');
+    const taskList = document.getElementById('taskList');
+    const taskSummary = document.getElementById('taskSummary');
+    const gateList = document.getElementById('gateList');
+    const gateSummary = document.getElementById('gateSummary');
+    const roomList = document.getElementById('roomList');
+    const roomSummary = document.getElementById('roomSummary');
+
+    if (isFileMode) {
+      document.documentElement.classList.add('file-mode');
+      window.setTimeout(() => {
+        window.location.href = controllerUrl;
+      }, 1300);
+    }
+
+    function setMessage(text, kind = 'info') {
+      statusMessage.className = 'banner show';
+      if (kind === 'warn') {
+        statusMessage.style.borderColor = '#ead0a5';
+        statusMessage.style.background = '#fff8ea';
+        statusMessage.style.color = '#6f4711';
+      } else if (kind === 'error') {
+        statusMessage.style.borderColor = '#ecc1c1';
+        statusMessage.style.background = '#fff2f2';
+        statusMessage.style.color = '#7e2c2c';
+      } else {
+        statusMessage.style.borderColor = '#bad8ca';
+        statusMessage.style.background = '#f1faf5';
+        statusMessage.style.color = '#225c42';
+      }
+      statusMessage.textContent = text;
+    }
+
+    async function workbenchGet(path, retry = true) {
+      if (isFileMode) {
+        window.location.href = controllerUrl;
+        throw new Error('controller required');
+      }
+      const response = await fetch(path, {
+        cache: 'no-store',
+        credentials: 'same-origin',
+        headers: {
+          'X-Requested-With': 'fusion-workbench'
+        }
+      });
+      if (response.status === 403 && retry && path !== '/api/session') {
+        await workbenchGet('/api/session', false);
+        return workbenchGet(path, false);
+      }
+      return response;
+    }
+
+    async function workbenchPost(path, body = undefined, retry = true) {
+      const response = await fetch(path, {
+        method: 'POST',
+        cache: 'no-store',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'fusion-workbench'
+        },
+        body: body === undefined ? '{}' : JSON.stringify(body)
+      });
+      if (response.status === 403 && retry) {
+        await workbenchGet('/api/session');
+        return workbenchPost(path, body, false);
+      }
+      return response;
+    }
+
+    function dotClass(open) {
+      return open ? 'dot' : 'dot stop';
+    }
+
+    function renderStatus(payload) {
+      const p = payload || {};
+      const ports = p.ports || {};
+      const stage10d = p.stage10d || {};
+      const files = p.files || {};
+
+      const docker = p.kanwasCompose || {};
+      const dockerDetail = docker.ok ? 'compose reachable' : (docker.stderrHint || 'compose unavailable');
+
+      const items = [
+        { name: 'Dashboard', open: ports.dashboard?.open, detail: ports.dashboard?.url || 'n/a' },
+        { name: 'SIT', open: ports.sit?.open, detail: ports.sit?.url || 'n/a' },
+        { name: 'Kanwas', open: ports.kanwas?.open, detail: ports.kanwas?.url || dockerDetail },
+        { name: 'Stage10D', open: stage10d.status === 'passed', detail: `model ${stage10d.providerModel || 'n/a'} / leaks ${stage10d.leakHitCount ?? 'n/a'}` }
+      ];
+
+      liveStatus.innerHTML = items.map(item => `
+        <div class="live-item">
+          <b><span class="${dotClass(item.open)}"></span>${item.name}</b>
+          <span>${item.open ? 'open / healthy' : 'closed / unavailable'}</span>
+          <span>${item.detail}</span>
+        </div>
+      `).join('');
+    }
+
+    async function loadStatus() {
+      if (isFileMode) {
+        setMessage('当前通过 file:// 打开，工作动作需要 controller。正在切换到 http://127.0.0.1:8766/index.html。', 'warn');
+        return;
+      }
+      try {
+        const response = await workbenchGet('/api/status');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        renderStatus(payload);
+        setMessage(`状态已刷新：Stage10D ${payload.stage10d?.status || 'unknown'}，SIT ${payload.ports?.sit?.open ? '可见' : '未开'}，Kanwas ${payload.ports?.kanwas?.open ? '可见' : '未开'}.`);
+      } catch (error) {
+        setMessage(`状态读取失败：${error.message}`, 'error');
+      }
+    }
+
+    function statusTagClass(status) {
+      if (status === 'complete') return 'tag ok';
+      if (status === 'blocked') return 'tag stop';
+      if (status === 'in_progress') return 'tag warn';
+      return 'tag';
+    }
+
+    function statusLabel(status) {
+      return {
+        queued: '排队中',
+        in_progress: '进行中',
+        blocked: '阻塞',
+        complete: '完成'
+      }[status] || status || '未知';
+    }
+
+    function renderTasks(payload) {
+      const tasks = payload?.tasks || [];
+      const counts = payload?.counts || {};
+      taskSummary.textContent = `共 ${payload?.count ?? tasks.length} 个任务：排队 ${counts.queued || 0}，进行中 ${counts.in_progress || 0}，阻塞 ${counts.blocked || 0}，完成 ${counts.complete || 0}`;
+      if (!tasks.length) {
+        taskList.innerHTML = '<div class="task-empty">还没有任务。先从上面的模板创建一个 packet。</div>';
+        return;
+      }
+      taskList.innerHTML = tasks.map(task => {
+        const packetHref = `/api/task/${encodeURIComponent(task.id)}/packet`;
+        return `
+          <article class="task-card">
+            <div class="task-head">
+              <div>
+                <h3>${escapeHtml(task.title || task.id)}</h3>
+                <p>${escapeHtml(task.description || '')}</p>
+              </div>
+              <span class="${statusTagClass(task.status)}">${statusLabel(task.status)}</span>
+            </div>
+            <div class="task-meta">
+              <span>Owner: ${escapeHtml(task.ownerSeat || 'n/a')}</span>
+              <span>ID: <span class="mono">${escapeHtml(task.id || '')}</span></span>
+              <span>Updated: ${escapeHtml(task.updatedAt || '')}</span>
+            </div>
+            <p><strong>下一步：</strong>${escapeHtml(task.nextAction || '')}</p>
+            <div class="task-actions">
+              <a class="action-link" href="${packetHref}" target="_blank" rel="noopener">查看 packet</a>
+              <button type="button" data-task-state="${escapeHtml(task.id)}:in_progress">标记进行中</button>
+              <button type="button" data-task-state="${escapeHtml(task.id)}:blocked">标记阻塞</button>
+              <button type="button" data-task-state="${escapeHtml(task.id)}:complete">标记完成</button>
+              <button type="button" data-open-evidence-modal="${escapeHtml(task.id)}">推送证据 (Push Evidence)</button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function shortHash(hash) {
+      return hash ? `${hash.slice(0, 12)}...${hash.slice(-8)}` : 'n/a';
+    }
+
+    function gateTagClass(status) {
+      if (['present', 'passed', 'approval-ready-not-sent'].includes(status)) return 'tag ok';
+      if (['blocked', 'blocked-noncanonical', 'needs-review'].includes(status)) return 'tag stop';
+      return 'tag warn';
+    }
+
+    function renderGateFile(file) {
+      if (!file) return '<span class="gate-path">n/a</span>';
+      return `
+        <span class="gate-path">${escapeHtml(file.path || 'n/a')}</span>
+        <span class="hash">${escapeHtml(shortHash(file.sha256))}</span>
+      `;
+    }
+
+    function renderGates(payload) {
+      const gates = payload?.gates || {};
+      const oReview = gates.oReviewDispatch || {};
+      const jcode = gates.jcodeSeat || {};
+      const blocked = payload?.blockedActions || [];
+      const approvalPhrase = payload?.approvalPhrase || 'APPROVAL_REQUIRED';
+      gateSummary.textContent = `Registry ${gates.registryValidation?.status || 'unknown'} / O-review ${oReview.status || 'unknown'} / jcode ${jcode.status || 'unknown'}`;
+      gateList.innerHTML = `
+        <article class="gate-card">
+          <h3>Registry contract</h3>
+          <p><span class="${gateTagClass(gates.registryContract?.status)}">${escapeHtml(gates.registryContract?.status || 'unknown')}</span></p>
+          ${renderGateFile(gates.registryContract?.file)}
+        </article>
+        <article class="gate-card">
+          <h3>Registry validation</h3>
+          <p><span class="${gateTagClass(gates.registryValidation?.status)}">${escapeHtml(gates.registryValidation?.status || 'unknown')}</span></p>
+          <p>ok=${escapeHtml(gates.registryValidation?.ok ?? 'n/a')}</p>
+          ${renderGateFile(gates.registryValidation?.file)}
+        </article>
+        <article class="gate-card">
+          <h3>O-review dispatch</h3>
+          <p><span class="${gateTagClass(oReview.status)}">${escapeHtml(oReview.status || 'unknown')}</span></p>
+          <p>schemaValid=${escapeHtml(oReview.schemaValid ?? 'n/a')} / sentManually=${escapeHtml(oReview.sentManually ?? 'n/a')} / reviewOutputs=${escapeHtml(oReview.reviewOutputsCount ?? 'n/a')}</p>
+          <p>approval phrase: <span class="mono">${escapeHtml(approvalPhrase)}</span></p>
+          ${renderGateFile(oReview.draft)}
+        </article>
+        <article class="gate-card">
+          <h3>jcode canonical seat</h3>
+          <p><span class="${gateTagClass(jcode.status)}">${escapeHtml(jcode.status || 'unknown')}</span></p>
+          <p>${escapeHtml(jcode.blocker || 'No blocker recorded.')}</p>
+          ${renderGateFile(jcode.brief)}
+        </article>
+        <article class="gate-card full">
+          <h3>Blocked actions</h3>
+          <ul>${blocked.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
+        </article>
+      `;
+    }
+
+    async function loadGates() {
+      if (isFileMode) {
+        gateSummary.textContent = 'Use controller mode for gate state.';
+        gateList.innerHTML = '<div class="task-empty">Use http://127.0.0.1:8766/index.html for Gate Center.</div>';
+        return;
+      }
+      try {
+        const response = await workbenchGet('/api/gates');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        renderGates(payload);
+      } catch (error) {
+        gateSummary.textContent = 'Gate state load failed';
+        gateList.innerHTML = `<div class="task-empty">Gate state load failed: ${escapeHtml(error.message)}</div>`;
+      }
+    }
+
+    function roomStatusTagClass(status) {
+      if (['draft-active', 'packet-ready', 'available'].includes(status)) return 'tag ok';
+      if (['blocked', 'blocked-noncanonical'].includes(status)) return 'tag stop';
+      return 'tag warn';
+    }
+
+    function renderRooms(payload) {
+      const rooms = payload?.registry?.rooms || [];
+      const summary = payload?.summary || {};
+      roomSummary.textContent = `Rooms ${summary.count ?? rooms.length} / members ${summary.memberCount ?? 0}`;
+      if (!rooms.length) {
+        roomList.innerHTML = '<div class="task-empty">No workflow rooms registered.</div>';
+        return;
+      }
+      roomList.innerHTML = rooms.map(room => {
+        const members = Array.isArray(room.members) ? room.members : [];
+        return `
+          <article class="gate-card full">
+            <h3>${escapeHtml(room.title || room.id)}</h3>
+            <p><span class="${roomStatusTagClass(room.status)}">${escapeHtml(room.status || 'unknown')}</span> <span class="mono">${escapeHtml(room.mode || '')}</span></p>
+            <p>${escapeHtml(room.purpose || '')}</p>
+            <p>Authority: <strong>${escapeHtml(room.authorityLayer || 'n/a')}</strong> / Truth: ${escapeHtml(room.truthSource || 'n/a')}</p>
+            <p>Contract: <span class="mono">${escapeHtml(room.workflowContract || 'n/a')}</span></p>
+            <div class="adapter-list">
+              ${members.map(member => `
+                <div class="adapter-card">
+                  <h3>${escapeHtml(member.label || member.seatId)}</h3>
+                  <p>
+                    Seat: <span class="mono">${escapeHtml(member.seatId || '')}</span><br>
+                    Role: ${escapeHtml(member.role || '')}<br>
+                    Provider/model: ${escapeHtml(member.providerModel || '')}<br>
+                    Status: ${escapeHtml(member.status || '')}<br>
+                    Current task: ${escapeHtml(member.currentTask || '')}<br>
+                    Branch/worktree: <span class="mono">${escapeHtml(member.branchWorktree || '')}</span><br>
+                    Last activity: ${escapeHtml(member.lastActivityAt || '')}<br>
+                    Latest evidence: <span class="mono">${escapeHtml(member.latestEvidence || '')}</span><br>
+                    Kind: ${escapeHtml(member.kind || '')}<br>
+                    Normal: ${escapeHtml(member.normalMode || '')}<br>
+                    Room: ${escapeHtml(member.roomMode || '')}<br>
+                    Permission: ${escapeHtml(member.permissionClass || '')}
+                  </p>
+                  <div class="task-actions" style="margin-top: 10px; gap: 6px;">
+                    <button type="button" data-open-assign-modal="${escapeHtml(room.id || '')}:${escapeHtml(member.seatId || '')}">Assign Task (下发任务)</button>
+                    <button type="button" data-open-exit-modal="${escapeHtml(room.id || '')}:${escapeHtml(member.seatId || '')}">Exit Room (成员退会)</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="task-actions" style="margin-top: 14px; gap: 8px;">
+              <button type="button" data-room-kickoff="${escapeHtml(room.id || '')}">Create kickoff packet</button>
+              <button type="button" data-open-join-modal="${escapeHtml(room.id || '')}">Join Room (拉入成员)</button>
+              <button type="button" data-open-propose-rule-modal="${escapeHtml(room.id || '')}">Propose Rule (提出规则)</button>
+              <button type="button" data-open-close-modal="${escapeHtml(room.id || '')}">Submit Close Request (申请结业)</button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    async function loadRooms() {
+      if (isFileMode) {
+        roomSummary.textContent = 'Use controller mode for workflow rooms.';
+        roomList.innerHTML = '<div class="task-empty">Use http://127.0.0.1:8766/index.html for Workflow Rooms.</div>';
+        return;
+      }
+      try {
+        const response = await workbenchGet('/api/rooms');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        renderRooms(payload);
+      } catch (error) {
+        roomSummary.textContent = 'Workflow rooms load failed';
+        roomList.innerHTML = `<div class="task-empty">Workflow rooms load failed: ${escapeHtml(error.message)}</div>`;
+      }
+    }
+
+    async function createRoomKickoff(roomId) {
+      if (isFileMode) {
+        window.location.href = controllerUrl;
+        return;
+      }
+      try {
+        setMessage(`Creating workflow room kickoff packet: ${roomId} ...`, 'warn');
+        const response = await workbenchPost(`/api/room/${encodeURIComponent(roomId)}/kickoff`);
+        const payload = await response.json();
+        if (!payload.ok) throw new Error(payload.error || 'room kickoff failed');
+        setMessage(`Workflow room kickoff packet created: ${payload.task?.id || roomId}`);
+        await Promise.all([loadRooms(), loadTasks(), loadStatus()]);
+      } catch (error) {
+        setMessage(`Workflow room kickoff failed: ${error.message}`, 'error');
+      }
+    }
+
+    function renderAdapters(payload) {
+      const adapters = payload?.registry?.adapters || [];
+      if (!adapters.length) {
+        adapterList.innerHTML = '<div class="task-empty">No adapters registered.</div>';
+        return;
+      }
+      adapterList.innerHTML = adapters.map(adapter => `
+        <article class="adapter-card">
+          <h3>${escapeHtml(adapter.label || adapter.id)}</h3>
+          <p>
+            ID: <span class="mono">${escapeHtml(adapter.id || '')}</span><br>
+            Mode: ${escapeHtml(adapter.mode || '')}<br>
+            Canonical packet: ${adapter.canonicalPacket ? 'yes' : 'no'}<br>
+            Target: ${escapeHtml(adapter.targetSeat || '')}
+          </p>
+          <button type="button" data-run-adapter="${escapeHtml(adapter.id || '')}">Generate dry-run</button>
+          ${adapter.canonicalBlocker ? `<div class="adapter-output">${escapeHtml(adapter.canonicalBlocker)}</div>` : ''}
+          <div class="adapter-output" id="adapter-output-${escapeHtml(adapter.id || '')}">Waiting for dry-run.</div>
+        </article>
+      `).join('');
+    }
+
+    async function loadAdapters() {
+      if (isFileMode) {
+        adapterList.innerHTML = '<div class="task-empty">Use controller mode for adapters.</div>';
+        return;
+      }
+      try {
+        const response = await workbenchGet('/api/adapters');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        renderAdapters(payload);
+      } catch (error) {
+        adapterList.innerHTML = `<div class="task-empty">Adapter registry load failed: ${escapeHtml(error.message)}</div>`;
+      }
+    }
+
+    async function runAdapter(adapterId) {
+      if (isFileMode) {
+        window.location.href = controllerUrl;
+        return;
+      }
+      const output = document.getElementById(`adapter-output-${adapterId}`);
+      if (output) output.textContent = 'Generating dry-run...';
+      try {
+        const response = await workbenchPost(`/api/adapter/${encodeURIComponent(adapterId)}/dry-run`);
+        const payload = await response.json();
+        if (!payload.ok) throw new Error(payload.error || 'adapter dry-run failed');
+        const paths = [
+          payload.packetPath,
+          payload.validationPath,
+          payload.planPath,
+          payload.riskPath,
+          payload.cleanupPath,
+          payload.summaryPath
+        ].filter(Boolean).join('\n');
+        if (output) output.textContent = `Run ${payload.runId}\n${paths}`;
+        setMessage(`Adapter dry-run complete: ${adapterId}`);
+        await loadStatus();
+      } catch (error) {
+        if (output) output.textContent = `Failed: ${error.message}`;
+        setMessage(`Adapter dry-run failed: ${adapterId}: ${error.message}`, 'error');
+      }
+    }
+
+    async function loadTasks() {
+      if (isFileMode) {
+        taskSummary.textContent = 'file:// 模式无法读取任务队列，正在切换 controller。';
+        taskList.innerHTML = '<div class="task-empty">请使用 http://127.0.0.1:8766/index.html。</div>';
+        return;
+      }
+      try {
+        const response = await workbenchGet('/api/tasks');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        renderTasks(payload);
+      } catch (error) {
+        taskSummary.textContent = '任务队列读取失败';
+        taskList.innerHTML = `<div class="task-empty">任务队列读取失败：${escapeHtml(error.message)}</div>`;
+      }
+    }
+
+    async function createTask(template) {
+      if (isFileMode) {
+        window.location.href = controllerUrl;
+        return;
+      }
+      try {
+        setMessage(`正在创建任务包：${template} ...`, 'warn');
+        const response = await workbenchPost('/api/tasks/create', { template });
+        const payload = await response.json();
+        if (!payload.ok) throw new Error(payload.error || 'create task failed');
+        setMessage(`任务已创建：${payload.task?.title || template}，packet 已写入本地。`);
+        await Promise.all([loadTasks(), loadStatus()]);
+      } catch (error) {
+        setMessage(`任务创建失败：${error.message}`, 'error');
+      }
+    }
+
+    async function setTaskState(taskId, status) {
+      if (isFileMode) {
+        window.location.href = controllerUrl;
+        return;
+      }
+      try {
+        const response = await workbenchPost(`/api/task/${encodeURIComponent(taskId)}/state`, { status });
+        const payload = await response.json();
+        if (!payload.ok) throw new Error(payload.error || 'state update failed');
+        setMessage(`任务状态已更新：${taskId} -> ${statusLabel(status)}。`);
+        await Promise.all([loadTasks(), loadStatus()]);
+      } catch (error) {
+        setMessage(`任务状态更新失败：${error.message}`, 'error');
+      }
+    }
+
+    async function openTarget(kind, name) {
+      try {
+        const response = await workbenchPost(`/api/open/${kind}/${name}`);
+        const payload = await response.json();
+        if (!payload.ok) throw new Error(payload.error || 'open failed');
+        setMessage(`已打开：${payload.opened}`);
+      } catch (error) {
+        setMessage(`打开失败：${error.message}`, 'error');
+      }
+    }
+
+    async function runWorkbenchAction(name) {
+      const mutatingDocker = name === 'start_kanwas' || name === 'stop_kanwas';
+      if (mutatingDocker) {
+        const ok = window.confirm('这个动作会改变本地配置中的 Kanwas trial Docker 容器状态。继续？');
+        if (!ok) {
+          setMessage('已取消 Docker 动作。', 'warn');
+          return;
+        }
+      }
+      try {
+        setMessage(`正在执行：${name} ...`, 'warn');
+        const response = await workbenchPost(`/api/action/${name}`);
+        const payload = await response.json();
+        if (!payload.ok) {
+          const reason = payload.error || payload.stderrHint || 'action failed';
+          throw new Error(reason);
+        }
+        const summary = payload.summary ? ` ${payload.summary.join(' / ')}` : '';
+        setMessage(`动作完成：${name}.${summary}`);
+        await loadStatus();
+      } catch (error) {
+        setMessage(`动作失败：${name}：${error.message}`, 'error');
+      }
+    }
+
+    // Modal Helpers
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('active');
+      }
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('active');
+        const form = modal.querySelector('form');
+        if (form) form.reset();
+      }
+    }
+
+    // Close modal when clicking on backdrop
+    document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) {
+          closeModal(backdrop.id);
+        }
+      });
+    });
+
+    // Double-tap copying for hashes/paths
+    document.addEventListener('dblclick', (event) => {
+      const target = event.target;
+      if (target.classList.contains('hash') || target.classList.contains('gate-path') || target.classList.contains('mono')) {
+        navigator.clipboard.writeText(target.textContent).then(() => {
+          setMessage(`已复制到剪贴板: ${target.textContent.substring(0, 20)}...`);
+        });
+      }
+    });
+
+    // Form submission handlers
+    document.getElementById('joinForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const roomId = document.getElementById('joinRoomId').value;
+      const seatId = document.getElementById('joinSeatId').value;
+      const role = document.getElementById('joinRole').value;
+      const taskPacket = document.getElementById('joinTaskPacket').value;
+
+      try {
+        setMessage(`拉取 Agent 成员入会: ${seatId}...`, 'warn');
+        const response = await workbenchPost(`/api/room/${encodeURIComponent(roomId)}/join`, {
+          seatId,
+          role,
+          taskPacket
+        });
+        const payload = await response.json();
+        if (!payload.ok) throw new Error(payload.error || 'Join room failed');
+        setMessage(`Agent 席位 ${seatId} 入会成功。`);
+        closeModal('joinModal');
+        await Promise.all([loadRooms(), loadTasks(), loadStatus()]);
+      } catch (error) {
+        setMessage(`入会失败: ${error.message}`, 'error');
+      }
+    });
+
+    document.getElementById('assignForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const roomId = document.getElementById('assignRoomId').value;
+      const seatId = document.getElementById('assignSeatId').value;
+      const title = document.getElementById('assignTitle').value;
+      const description = document.getElementById('assignDescription').value;
+      const allowedFiles = document.getElementById('assignAllowedFiles').value
+        .split(',')
+        .map(f => f.trim())
+        .filter(Boolean);
+      const testCommands = document.getElementById('assignTestCommands').value
+        .split('\n')
+        .map(c => c.trim())
+        .filter(Boolean);
+
+      try {
+        setMessage(`下发任务给 ${seatId}...`, 'warn');
+        const response = await workbenchPost(`/api/room/${encodeURIComponent(roomId)}/assign-task`, {
+          seatId,
+          title,
+          description,
+          allowedFiles,
+          testCommands
+        });
+        const payload = await response.json();
+        if (!payload.ok) throw new Error(payload.error || 'Assign task failed');
+        setMessage(`任务下发成功。`);
+        closeModal('assignModal');
+        await Promise.all([loadRooms(), loadTasks(), loadStatus()]);
+      } catch (error) {
+        setMessage(`任务下发失败: ${error.message}`, 'error');
+      }
+    });
+
+    document.getElementById('evidenceForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const taskId = document.getElementById('evidenceTaskId').value;
+      const evidencePath = document.getElementById('evidencePath').value;
+      const testLogs = document.getElementById('evidenceTestLogs').value;
+
+      try {
+        setMessage(`推送证据，验证中...`, 'warn');
+        const response = await workbenchPost(`/api/task/${encodeURIComponent(taskId)}/evidence`, {
+          evidencePath,
+          testLogs
+        });
+        const payload = await response.json();
+        if (!payload.ok) throw new Error(payload.error || 'Push evidence failed');
+        setMessage(`证据推送成功！`);
+        closeModal('evidenceModal');
+        await Promise.all([loadRooms(), loadTasks(), loadStatus(), loadGates()]);
+      } catch (error) {
+        setMessage(`证据推送失败: ${error.message}`, 'error');
+      }
+    });
+
+    document.getElementById('exitForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const roomId = document.getElementById('exitRoomId').value;
+      const seatId = document.getElementById('exitSeatId').value;
+      const exitType = document.getElementById('exitType').value;
+      const exitPacket = document.getElementById('exitPacket').value;
+
+      try {
+        setMessage(`退会成员: ${seatId}...`, 'warn');
+        const response = await workbenchPost(`/api/room/${encodeURIComponent(roomId)}/exit-seat`, {
+          seatId,
+          exitType,
+          exitPacket
+        });
+        const payload = await response.json();
+        if (!payload.ok) throw new Error(payload.error || 'Exit seat failed');
+        setMessage(`成员 ${seatId} 已退出房间。`);
+        closeModal('exitModal');
+        await Promise.all([loadRooms(), loadTasks(), loadStatus()]);
+      } catch (error) {
+        setMessage(`退会失败: ${error.message}`, 'error');
+      }
+    });
+
+    document.getElementById('proposeRuleForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const roomId = document.getElementById('proposeRuleRoomId').value;
+      const proposedRules = document.getElementById('proposedRules').value;
+      const proposalReason = document.getElementById('proposalReason').value;
+
+      try {
+        setMessage(`提交规则提案...`, 'warn');
+        const response = await workbenchPost(`/api/room/${encodeURIComponent(roomId)}/propose-rule`, {
+          proposedRules,
+          proposalReason
+        });
+        const payload = await response.json();
+        if (!payload.ok) throw new Error(payload.error || 'Propose rule failed');
+        setMessage(`规则提案提交成功。`);
+        closeModal('proposeRuleModal');
+        await Promise.all([loadRooms(), loadTasks(), loadStatus()]);
+      } catch (error) {
+        setMessage(`提案提交失败: ${error.message}`, 'error');
+      }
+    });
+
+    document.getElementById('closeForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const roomId = document.getElementById('closeRoomId').value;
+      const verdict = document.getElementById('closeVerdict').value;
+      const completedItems = document.getElementById('closeCompletedItems').value
+        .split('\n')
+        .map(i => i.trim())
+        .filter(Boolean);
+      const openItems = document.getElementById('closeOpenItems').value
+        .split('\n')
+        .map(i => i.trim())
+        .filter(Boolean);
+      const handoffPath = document.getElementById('closeHandoffPath').value;
+
+      try {
+        setMessage(`提交结业申请...`, 'warn');
+        const response = await workbenchPost(`/api/room/${encodeURIComponent(roomId)}/close-request`, {
+          verdict,
+          completedItems,
+          openItems,
+          handoffPath
+        });
+        const payload = await response.json();
+        if (!payload.ok) throw new Error(payload.error || 'Close request failed');
+        setMessage(`结业申请已提交，等待用户审批。`);
+        closeModal('closeModal');
+        await Promise.all([loadRooms(), loadTasks(), loadStatus()]);
+      } catch (error) {
+        setMessage(`提交结业失败: ${error.message}`, 'error');
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-action],[data-open-url],[data-open-path],[data-run-action],[data-run-adapter],[data-create-task],[data-task-state],[data-room-kickoff],[data-open-join-modal],[data-open-assign-modal],[data-open-evidence-modal],[data-open-exit-modal],[data-open-propose-rule-modal],[data-open-close-modal],[data-close-modal]');
+      if (!button) return;
+      if (button.dataset.action === 'refresh-status') {
+        loadStatus();
+        return;
+      }
+      if (button.dataset.action === 'refresh-gates') {
+        loadGates();
+        return;
+      }
+      if (button.dataset.action === 'refresh-rooms') {
+        loadRooms();
+        return;
+      }
+      if (button.dataset.action === 'refresh-tasks') {
+        loadTasks();
+        return;
+      }
+      if (button.dataset.runAction) {
+        runWorkbenchAction(button.dataset.runAction);
+        return;
+      }
+      if (button.dataset.runAdapter) {
+        runAdapter(button.dataset.runAdapter);
+        return;
+      }
+      if (button.dataset.createTask) {
+        createTask(button.dataset.createTask);
+        return;
+      }
+      if (button.dataset.roomKickoff) {
+        createRoomKickoff(button.dataset.roomKickoff);
+        return;
+      }
+      if (button.dataset.taskState) {
+        const splitAt = button.dataset.taskState.lastIndexOf(':');
+        const taskId = button.dataset.taskState.slice(0, splitAt);
+        const status = button.dataset.taskState.slice(splitAt + 1);
+        setTaskState(taskId, status);
+        return;
+      }
+      if (button.dataset.openUrl) {
+        openTarget('url', button.dataset.openUrl);
+        return;
+      }
+      if (button.dataset.openPath) {
+        openTarget('path', button.dataset.openPath);
+        return;
+      }
+      if (button.dataset.openJoinModal) {
+        document.getElementById('joinRoomId').value = button.dataset.openJoinModal;
+        openModal('joinModal');
+        return;
+      }
+      if (button.dataset.openAssignModal) {
+        const [roomId, seatId] = button.dataset.openAssignModal.split(':');
+        document.getElementById('assignRoomId').value = roomId;
+        document.getElementById('assignSeatId').value = seatId;
+        document.getElementById('assignSeatLabel').textContent = seatId;
+        openModal('assignModal');
+        return;
+      }
+      if (button.dataset.openEvidenceModal) {
+        document.getElementById('evidenceTaskId').value = button.dataset.openEvidenceModal;
+        openModal('evidenceModal');
+        return;
+      }
+      if (button.dataset.openExitModal) {
+        const [roomId, seatId] = button.dataset.openExitModal.split(':');
+        document.getElementById('exitRoomId').value = roomId;
+        document.getElementById('exitSeatId').value = seatId;
+        document.getElementById('exitSeatLabel').textContent = seatId;
+        openModal('exitModal');
+        return;
+      }
+      if (button.dataset.openProposeRuleModal) {
+        document.getElementById('proposeRuleRoomId').value = button.dataset.openProposeRuleModal;
+        openModal('proposeRuleModal');
+        return;
+      }
+      if (button.dataset.openCloseModal) {
+        document.getElementById('closeRoomId').value = button.dataset.openCloseModal;
+        openModal('closeModal');
+        return;
+      }
+      if (button.dataset.closeModal) {
+        closeModal(button.dataset.closeModal);
+      }
+    });
+
+    loadStatus();
+    loadGates();
+    loadRooms();
+    loadAdapters();
+    loadTasks();
+    setInterval(loadStatus, 30000);
+    setInterval(loadGates, 30000);
+    setInterval(loadRooms, 30000);
+    setInterval(loadAdapters, 30000);
+    setInterval(loadTasks, 30000);
+  </script>
+</body>
+</html>

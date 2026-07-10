@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width,initial-scale=1'>
+<title>知识库合集 · 数据资产门户</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f5f5f5;color:#333;min-height:100vh}
+.header{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:40px 32px;text-align:center}
+.header h1{font-size:28px;margin-bottom:8px}
+.header p{font-size:14px;color:#aaa}
+.container{max-width:1000px;margin:0 auto;padding:24px}
+.card{background:#fff;border-radius:10px;padding:20px 24px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);display:flex;align-items:center;gap:20px;transition:box-shadow .2s}
+.card:hover{box-shadow:0 3px 12px rgba(0,0,0,.12)}
+.card-icon{font-size:32px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:10px;flex-shrink:0}
+.card-body{flex:1}
+.card-title{font-size:16px;font-weight:600;margin-bottom:4px}
+.card-title a{color:#1a1a2e;text-decoration:none}
+.card-title a:hover{color:#2c6fa8}
+.card-desc{font-size:13px;color:#888}
+.card-meta{font-size:12px;color:#aaa;margin-top:4px}
+.badge{display:inline-block;padding:1px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-left:8px}
+.badge-gold{background:#f8eedb;color:#a4651b}
+.badge-blue{background:#e8f1f9;color:#2c6fa8}
+.badge-green{background:#e6f4e6;color:#2d7d3a}
+.footer{text-align:center;padding:24px;color:#999;font-size:12px}
+</style>
+</head>
+<body>
+<div class=header>
+<h1>📚 知识库合集</h1>
+<p>本地数据资产 · GitHub → Cloudflare Pages 自动部署</p>
+</div>
+<div class=container>
+
+<div class=card>
+<div class=card-icon style="background:#f8eedb">📊</div>
+<div class=card-body>
+<div class=card-title><a href=zst-kb/>顾子明知识库 · ZST Dashboard</a><span class="badge badge-gold">2,161 篇</span></div>
+<div class=card-desc>政事堂全量文章 + 知识图谱 + 预测验证仪表板</div>
+<div class=card-meta>index.html + data/ 本地生成</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#e8f1f9">📈</div>
+<div class=card-body>
+<div class=card-title><a href=xianmingyishuo-graph-browser/>显明易说 知识图谱</a></div>
+<div class=card-desc>显明易说文章知识图谱可视化浏览器</div>
+<div class=card-meta>graph-data.json + vis-network</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#e6e6e6">📈</div>
+<div class=card-body>
+<div class=card-title><a href=xianmingyishuo-graph-browser-sigma/>显明易说 Sigma 图谱</a></div>
+<div class=card-desc>显明易说 Sigma.js 图谱浏览器</div>
+<div class=card-meta>graph-data.json + sigma</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#e6e6e6">📚</div>
+<div class=card-body>
+<div class=card-title><a href=xianmingyishuo-lightrag-browser/>显明易说 LightRAG</a></div>
+<div class=card-desc>显明易说 LightRAG 知识库浏览器</div>
+<div class=card-meta>index.html + data</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#f0e6f6">📝</div>
+<div class=card-body>
+<div class=card-title><a href=memory-carry-context-browser/>记忆承载 上下文</a></div>
+<div class=card-desc>记忆承载公众号文章上下文浏览器</div>
+<div class=card-meta>单页 HTML</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#f0e6f6">📝</div>
+<div class=card-body>
+<div class=card-title><a href=memory-carry-dynamic-browser/>记忆承载 动态</a></div>
+<div class=card-desc>记忆承载动态数据浏览器</div>
+<div class=card-meta>8 文件</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#f0e6f6">📝</div>
+<div class=card-body>
+<div class=card-title><a href=memory-carry-evidence-browser/>记忆承载 证据</a><span class="badge badge-blue">10 MB</span></div>
+<div class=card-desc>记忆承载证据数据浏览器</div>
+<div class=card-meta>单页 HTML + 嵌入数据</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#e6f4e6">🏥</div>
+<div class=card-body>
+<div class=card-title><a href=medical-aesthetic-rag-browser/>医美 RAG 浏览器</a></div>
+<div class=card-desc>医疗美容 RAG 知识库浏览器</div>
+<div class=card-meta>单页 HTML</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#e6f4e6">🏥</div>
+<div class=card-body>
+<div class=card-title><a href=medical-aesthetic-btxa-review-batch/>医美 BTXA 审核批次</a></div>
+<div class=card-desc>医疗美容 BTXA 审核批次浏览器</div>
+<div class=card-meta>单页 HTML</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#fef0e6">⚙️</div>
+<div class=card-body>
+<div class=card-title><a href=sit-kanwas-fusion-dashboard/>SIT Kanwas 融合工作台</a><span class="badge badge-gold">89 文件</span></div>
+<div class=card-desc>SIT Kanwas 融合工作台仪表板</div>
+<div class=card-meta>index.html + data/</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#e6e6e6">🔗</div>
+<div class=card-body>
+<div class=card-title><a href=follow-builders-browser/>Follow Builders 浏览器</a></div>
+<div class=card-desc>Follow Builders 数据浏览器</div>
+<div class=card-meta>3 文件</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#e6e6e6">🪑</div>
+<div class=card-body>
+<div class=card-title><a href=external-agent-seat-graph/>外部 Agent 席位图谱</a></div>
+<div class=card-desc>外部 Agent 席位关系图谱</div>
+<div class=card-meta>2 文件</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#e6e6e6">💻</div>
+<div class=card-body>
+<div class=card-title><a href=codegraph-browser/>CodeGraph 浏览器</a></div>
+<div class=card-desc>CodeGraph 代码关系浏览器</div>
+<div class=card-meta>2 文件</div>
+</div>
+</div>
+
+<div class=card>
+<div class=card-icon style="background:#e6e6e6">🏗️</div>
+<div class=card-body>
+<div class=card-title><a href=rag-architecture-comparison-20260608/>RAG 架构对比报告</a></div>
+<div class=card-desc>RAG 架构方案对比与评估报告</div>
+<div class=card-meta>单页 HTML</div>
+</div>
+</div>
+
+</div>
+<div class=footer>
+<a href=https://github.com/anjelicafrancis03-prog/data-knowledge-bases>GitHub</a> ·
+Cloudflare Pages ·
+更新: 2026-07-11
+</div>
+</body>
+</html>

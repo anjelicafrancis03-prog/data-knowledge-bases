@@ -1,0 +1,12 @@
+stages:
+  - verify
+
+verify:workbench:
+  stage: verify
+  image: python:3.12
+  script:
+    - python -m py_compile controller.py
+    - python -m json.tool adapters/adapter-registry.json > /dev/null
+    - python -m json.tool config.example.json > /dev/null
+    - python -m pip install pytest
+    - pytest -q

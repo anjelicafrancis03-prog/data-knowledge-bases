@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "workflow-heartbeats.registry.schema/v0.1",
+  "title": "Workflow heartbeat registry v0.1",
+  "type": "object",
+  "required": ["schemaVersion", "updatedAt", "boundary", "heartbeats"],
+  "properties": {
+    "schemaVersion": { "const": "workflow-heartbeats.registry/v0.1" },
+    "updatedAt": { "type": "string" },
+    "boundary": { "type": "string" },
+    "heartbeats": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/heartbeat" }
+    }
+  },
+  "$defs": {
+    "heartbeat": {
+      "type": "object",
+      "required": [
+        "heartbeatId",
+        "target",
+        "status",
+        "schedule",
+        "maxRuns",
+        "maxRuntimeMinutes",
+        "mutatesState",
+        "evidencePath",
+        "stopCondition"
+      ],
+      "properties": {
+        "heartbeatId": { "type": "string" },
+        "target": { "type": "string" },
+        "status": {
+          "enum": ["planned", "active", "paused", "blocked", "complete"]
+        },
+        "schedule": { "type": "string" },
+        "maxRuns": { "type": "integer", "minimum": 1 },
+        "maxRuntimeMinutes": { "type": "integer", "minimum": 1 },
+        "mutatesState": { "const": false },
+        "evidencePath": { "type": "string" },
+        "stopCondition": { "type": "string" }
+      }
+    }
+  }
+}

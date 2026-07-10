@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "room-message-ledger.schema/v0.1",
+  "title": "Room message ledger entry v0.1",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "messageId",
+    "roomId",
+    "createdAt",
+    "fromSeat",
+    "visibility",
+    "messageType",
+    "summary",
+    "manifestVisibility",
+    "requiresAck"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "room-message-ledger/v0.1" },
+    "messageId": { "type": "string" },
+    "roomId": { "type": "string" },
+    "createdAt": { "type": "string" },
+    "fromSeat": { "type": "string" },
+    "toSeats": { "type": "array", "items": { "type": "string" } },
+    "ccSeats": { "type": "array", "items": { "type": "string" } },
+    "visibility": {
+      "enum": ["direct", "cc", "room_broadcast", "manifest_summary"]
+    },
+    "messageType": {
+      "enum": ["task", "question", "evidence", "review", "handoff", "status", "decision", "approval", "system"]
+    },
+    "summary": { "type": "string" },
+    "bodyPath": { "type": "string" },
+    "packetRef": { "type": "string" },
+    "taskPacketId": { "type": "string" },
+    "roomPacketId": { "type": "string" },
+    "evidencePath": { "type": "string" },
+    "evidenceLinks": { "type": "array", "items": { "type": "string" } },
+    "manifestVisibility": {
+      "enum": ["summary_only", "full_message_allowed"]
+    },
+    "requiresAck": { "type": "boolean" },
+    "ackBy": { "type": "array", "items": { "type": "string" } },
+    "stopCondition": { "type": "string" }
+  }
+}

@@ -1,0 +1,1564 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>显明易说 LightRAG 图谱 WebGL 原型</title>
+  <link rel="icon" href="data:," />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --panel-2: #f9fbff;
+      --ink: #162033;
+      --muted: #657184;
+      --line: #dbe2ee;
+      --line-strong: #bdc8d8;
+      --accent: #1f6fd1;
+      --accent-soft: #e8f1ff;
+      --ok: #0b8069;
+      --warn: #a45b13;
+      --danger: #b42318;
+      --shadow: 0 18px 42px rgba(22, 32, 51, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button,
+    select,
+    input[type="search"],
+    input[type="file"]::file-selector-button {
+      border-radius: 8px;
+    }
+
+    button {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    button:hover {
+      border-color: var(--line-strong);
+      background: #f8fbff;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 3px solid rgba(31, 111, 209, 0.25);
+      outline-offset: 2px;
+    }
+
+    button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    button.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: #124a8d;
+      font-weight: 700;
+    }
+
+    input[type="search"],
+    select {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      padding: 0 10px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: minmax(360px, 430px) 1fr;
+      height: 100vh;
+      min-height: 0;
+    }
+
+    .side {
+      overflow: auto;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+      padding: 16px 18px 22px;
+      box-shadow: var(--shadow);
+      z-index: 2;
+    }
+
+    .stage {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 14px;
+      min-height: 58px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 10px 14px;
+      backdrop-filter: blur(10px);
+      z-index: 1;
+    }
+
+    .topbar strong {
+      display: block;
+      overflow: hidden;
+      font-size: 14px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .topbar span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .graph-wrap {
+      position: relative;
+      min-height: 0;
+      background: #f3f6fb;
+    }
+
+    #sigma-container,
+    #fallback-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #fallback-canvas {
+      display: block;
+      background: #f3f6fb;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 21px;
+      line-height: 1.25;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .subtitle {
+      margin-bottom: 11px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .status {
+      display: grid;
+      gap: 6px;
+      margin: 10px 0 12px;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-2);
+      padding: 8px 9px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .status-dot {
+      flex: 0 0 auto;
+      width: 9px;
+      height: 9px;
+      margin-top: 4px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+
+    .status-row.ok .status-dot {
+      background: var(--ok);
+    }
+
+    .status-row.warn .status-dot {
+      background: var(--warn);
+    }
+
+    .status-row.error .status-dot {
+      background: var(--danger);
+    }
+
+    .toolbar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 10px 0 12px;
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin: 10px 0 12px;
+    }
+
+    .layout-grid button {
+      min-height: 40px;
+      padding: 6px 8px;
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .stat {
+      min-height: 58px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-2);
+      padding: 8px 9px;
+    }
+
+    .stat b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 19px;
+      line-height: 1.1;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .section {
+      margin-top: 13px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      max-width: 100%;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      padding: 4px 8px;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .dot {
+      flex: 0 0 auto;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+
+    .detail-title {
+      margin-bottom: 6px;
+      font-size: 18px;
+      font-weight: 780;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .meta {
+      border-radius: 6px;
+      background: #eef3f9;
+      padding: 3px 6px;
+      color: #405068;
+      font-size: 12px;
+    }
+
+    .desc {
+      max-height: 158px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-2);
+      padding: 9px 10px;
+      color: #2f3a4f;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .list {
+      display: grid;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .list-item {
+      width: 100%;
+      min-height: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 8px 9px;
+      color: #263247;
+      font-size: 12px;
+      line-height: 1.45;
+      text-align: left;
+      overflow-wrap: anywhere;
+    }
+
+    .list-item strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .empty,
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .hint {
+      position: absolute;
+      left: 16px;
+      bottom: 14px;
+      max-width: min(620px, calc(100% - 32px));
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.93);
+      box-shadow: 0 10px 24px rgba(22, 32, 51, 0.08);
+      padding: 8px 10px;
+      color: #42516a;
+      font-size: 12px;
+      line-height: 1.45;
+      pointer-events: none;
+    }
+
+    .file-row {
+      display: grid;
+      gap: 6px;
+    }
+
+    .file-row input {
+      width: 100%;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .file-row input::file-selector-button {
+      min-height: 32px;
+      margin-right: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    code {
+      border-radius: 5px;
+      background: #eef3f9;
+      padding: 1px 4px;
+      font-family: Consolas, "SFMono-Regular", Menlo, monospace;
+      font-size: 0.95em;
+    }
+
+    @media (max-width: 920px) {
+      body {
+        overflow: auto;
+      }
+
+      .app {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100vh;
+      }
+
+      .side {
+        max-height: none;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .stage {
+        height: 72vh;
+        min-height: 560px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .side {
+        padding: 14px;
+      }
+
+      .form-grid,
+      .toolbar-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .layout-grid,
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .topbar {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="side" aria-label="图谱控制面板">
+      <h1>显明易说 LightRAG 图谱</h1>
+      <div class="subtitle">第二方案原型：Sigma.js + Graphology WebGL 渲染。数据只读来自主版目录的 <code>graph-data.json</code>。</div>
+
+      <div class="status" aria-live="polite">
+        <div id="dataStatus" class="status-row warn"><span class="status-dot"></span><span>正在载入图谱数据...</span></div>
+        <div id="renderStatus" class="status-row warn"><span class="status-dot"></span><span>正在检测 WebGL/Sigma 依赖...</span></div>
+      </div>
+
+      <div class="section file-row">
+        <h2>本地文件降级</h2>
+        <div class="note">如果用 <code>file://</code> 直接打开导致浏览器拦截 JSON，可在这里手动选择主版目录里的 <code>graph-data.json</code>。</div>
+        <input id="fileInput" type="file" accept=".json,application/json" aria-label="手动载入 graph-data.json" />
+      </div>
+
+      <div class="section">
+        <h2>视图布局</h2>
+        <div class="layout-grid" id="layoutButtons">
+          <button class="active" data-layout="community">社群岛屿</button>
+          <button data-layout="backbone">主干骨架</button>
+          <button data-layout="pagerank">PageRank 中心</button>
+          <button data-layout="kcore">K-core 层级</button>
+          <button data-layout="core">核心-外围</button>
+          <button data-layout="type">类型环带</button>
+        </div>
+      </div>
+
+      <div id="stats" class="stats" aria-label="当前图谱统计"></div>
+
+      <label for="search">搜索节点、描述、来源文件</label>
+      <input id="search" type="search" placeholder="AI、普通人、健康、财富、预测、显明" autocomplete="off" />
+
+      <div class="form-grid">
+        <div>
+          <label for="typeFilter">节点类型过滤</label>
+          <select id="typeFilter"></select>
+        </div>
+        <div>
+          <label for="communityFilter">社群过滤</label>
+          <select id="communityFilter"></select>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div>
+          <label for="searchMode">搜索显示方式</label>
+          <select id="searchMode">
+            <option value="highlight">全图显示，高亮命中</option>
+            <option value="lens">只看命中与一跳邻域</option>
+          </select>
+        </div>
+        <div>
+          <label for="edgeMin">边权下限：<span id="edgeValue">1</span></label>
+          <input id="edgeMin" type="range" min="1" max="20" step="1" value="1" />
+        </div>
+      </div>
+
+      <div class="toolbar-grid" aria-label="图谱操作">
+        <button id="reset" class="primary">重置</button>
+        <button id="fit">居中</button>
+        <button id="labels">标签开</button>
+      </div>
+
+      <div class="section">
+        <h2>搜索结果</h2>
+        <div id="searchResults" class="list">
+          <div class="empty">输入关键词后显示命中节点。</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>节点详情</h2>
+        <div id="detail" class="empty">点击节点或搜索结果，查看描述、来源文件和相邻关系。</div>
+      </div>
+
+      <div class="section">
+        <h2>类型分布</h2>
+        <div id="legend" class="pill-list"></div>
+      </div>
+
+      <div class="section">
+        <h2>高关联节点</h2>
+        <div id="topNodes" class="list"></div>
+      </div>
+
+      <div class="section note" id="boundaryNote">LightRAG 自动抽取图谱适合导航、分类、发现关联和查漏补缺；重要事实仍需回到原文核验。</div>
+    </aside>
+
+    <main class="stage">
+      <div class="topbar">
+        <div>
+          <strong id="viewTitle">社群岛屿图</strong>
+          <span id="viewMeta">等待数据载入。</span>
+        </div>
+        <span id="interactionHint">拖动画布，滚轮缩放，点击节点查看详情。</span>
+      </div>
+      <div class="graph-wrap">
+        <div id="sigma-container" aria-label="Sigma WebGL 图谱画布"></div>
+        <canvas id="fallback-canvas" hidden aria-label="Canvas 2D 降级图谱画布"></canvas>
+        <div id="hint" class="hint">社群岛屿图：把全量节点按内容关系聚成岛屿，适合材料分类和查漏补缺。</div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/graphology/0.25.4/graphology.umd.min.js" onerror="window.__graphologyLoadError=true"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/2.4.0/sigma.min.js" onerror="window.__sigmaLoadError=true"></script>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const DATA_URLS = [
+        "../xianmingyishuo-graph-browser/graph-data.json",
+        "./graph-data.json"
+      ];
+
+      const FALLBACK_COLORS = {
+        organization: "#2764d8",
+        person: "#c74c89",
+        concept: "#108b75",
+        content: "#a05a16",
+        event: "#7757c8",
+        location: "#2b7f9d",
+        artifact: "#5968d7",
+        method: "#8a6b12",
+        data: "#4d7788",
+        creature: "#8057a8",
+        naturalobject: "#75820f",
+        unknown: "#5f6673",
+        other: "#68737d"
+      };
+
+      const LAYOUT_LABELS = {
+        community: ["社群岛屿图", "把全量节点按内容关系聚成岛屿，适合材料分类、查漏补缺和主题簇定位。"],
+        backbone: ["主干骨架图", "保留全量节点，用高权重关系强调主干链路，适合快速看中心概念链。"],
+        pagerank: ["PageRank 中心图", "把高 PageRank 节点推向视觉中心，适合寻找入口节点和核心实体。"],
+        kcore: ["K-core 层级图", "按核心层级组织节点，适合区分稳定核心、次核心主题和边缘材料。"],
+        core: ["核心-外围图", "把高连接节点放在中心、边缘节点放到外圈，适合看整体重心。"],
+        type: ["类型环带图", "按实体类型分区，适合检查类型分布和类型间关系。"]
+      };
+
+      const dom = {
+        dataStatus: document.getElementById("dataStatus"),
+        renderStatus: document.getElementById("renderStatus"),
+        fileInput: document.getElementById("fileInput"),
+        layoutButtons: document.getElementById("layoutButtons"),
+        stats: document.getElementById("stats"),
+        search: document.getElementById("search"),
+        typeFilter: document.getElementById("typeFilter"),
+        communityFilter: document.getElementById("communityFilter"),
+        searchMode: document.getElementById("searchMode"),
+        edgeMin: document.getElementById("edgeMin"),
+        edgeValue: document.getElementById("edgeValue"),
+        reset: document.getElementById("reset"),
+        fit: document.getElementById("fit"),
+        labels: document.getElementById("labels"),
+        searchResults: document.getElementById("searchResults"),
+        detail: document.getElementById("detail"),
+        legend: document.getElementById("legend"),
+        topNodes: document.getElementById("topNodes"),
+        boundaryNote: document.getElementById("boundaryNote"),
+        viewTitle: document.getElementById("viewTitle"),
+        viewMeta: document.getElementById("viewMeta"),
+        interactionHint: document.getElementById("interactionHint"),
+        hint: document.getElementById("hint"),
+        sigmaContainer: document.getElementById("sigma-container"),
+        fallbackCanvas: document.getElementById("fallback-canvas")
+      };
+
+      const app = {
+        data: null,
+        nodes: [],
+        edges: [],
+        graph: null,
+        renderer: null,
+        mode: "pending",
+        nodeById: new Map(),
+        edgeById: new Map(),
+        adjacency: new Map(),
+        searchIndex: new Map(),
+        typeColors: FALLBACK_COLORS,
+        communityInfo: new Map(),
+        visibleNodes: new Set(),
+        visibleEdges: new Set(),
+        searchHits: new Set(),
+        lensNodes: new Set(),
+        selectedNeighborIds: new Set(),
+        state: {
+          layout: "community",
+          search: "",
+          searchMode: "highlight",
+          type: "all",
+          community: "all",
+          edgeMin: 1,
+          labels: true,
+          selectedNode: null
+        },
+        canvas: {
+          ctx: null,
+          bounds: null,
+          zoom: 1,
+          panX: 0,
+          panY: 0,
+          dragging: false,
+          lastX: 0,
+          lastY: 0
+        }
+      };
+
+      function setStatus(element, kind, text) {
+        element.className = `status-row ${kind}`;
+        element.querySelector("span:last-child").textContent = text;
+      }
+
+      function formatNumber(value) {
+        return new Intl.NumberFormat("zh-CN").format(value || 0);
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function normalizeType(type) {
+        return String(type || "unknown").toLowerCase();
+      }
+
+      function colorForType(type) {
+        return app.typeColors[normalizeType(type)] || FALLBACK_COLORS[normalizeType(type)] || "#5f6673";
+      }
+
+      function nodeSize(node) {
+        const degree = Number(node.weightedDegree || node.degree || 1);
+        return Math.max(2.2, Math.min(18, 2.4 + Math.sqrt(degree) * 1.05));
+      }
+
+      function edgeSize(edge) {
+        const weight = Number(edge.weight || 1);
+        return Math.max(0.4, Math.min(4.8, 0.45 + Math.sqrt(weight) * 0.45));
+      }
+
+      function layoutPosition(nodeId, layoutName = app.state.layout) {
+        const layout = app.data?.layouts?.[layoutName] || app.data?.layouts?.community || {};
+        const point = layout[nodeId];
+        if (Array.isArray(point) && point.length >= 2) {
+          return { x: Number(point[0]) || 0, y: Number(point[1]) || 0 };
+        }
+
+        const node = app.nodeById.get(nodeId);
+        const angle = ((node?.index || 0) * 2.399963229728653) % (Math.PI * 2);
+        const radius = 120 + Math.sqrt(node?.index || 1) * 26;
+        return { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius };
+      }
+
+      async function loadDataFromDefaultUrls() {
+        const errors = [];
+        for (const relativeUrl of DATA_URLS) {
+          const url = new URL(relativeUrl, window.location.href).href;
+          try {
+            const response = await fetch(url, { cache: "no-store" });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const data = await response.json();
+            setStatus(dom.dataStatus, "ok", `已加载 ${relativeUrl}`);
+            return data;
+          } catch (error) {
+            errors.push(`${relativeUrl}: ${error.message}`);
+          }
+        }
+
+        const protocolHint = window.location.protocol === "file:"
+          ? "当前是 file:// 直接打开，浏览器通常会拦截本地 JSON fetch。请用本页文件选择器载入 graph-data.json，或从 C:\\html 启动本地服务器。"
+          : "未能从默认路径读取 graph-data.json。请确认从 C:\\html 作为站点根目录启动本地服务器。";
+        throw new Error(`${protocolHint} ${errors.join("；")}`);
+      }
+
+      function parseFile(file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const data = JSON.parse(String(reader.result || ""));
+            setStatus(dom.dataStatus, "ok", `已从本地文件载入 ${file.name}`);
+            initialize(data);
+          } catch (error) {
+            setStatus(dom.dataStatus, "error", `JSON 解析失败：${error.message}`);
+          }
+        };
+        reader.onerror = () => setStatus(dom.dataStatus, "error", "读取本地文件失败。");
+        reader.readAsText(file, "utf-8");
+      }
+
+      function buildIndexes() {
+        app.nodes = Array.isArray(app.data.nodes) ? app.data.nodes : [];
+        app.edges = Array.isArray(app.data.edges) ? app.data.edges : [];
+        app.typeColors = { ...FALLBACK_COLORS, ...(app.data.typeColors || {}) };
+        app.nodeById.clear();
+        app.edgeById.clear();
+        app.adjacency.clear();
+        app.searchIndex.clear();
+        app.communityInfo.clear();
+
+        for (const info of app.data.summary?.communityInfo || []) {
+          app.communityInfo.set(info.key, info);
+        }
+
+        for (const node of app.nodes) {
+          app.nodeById.set(node.id, node);
+          app.adjacency.set(node.id, []);
+          const fileText = Array.isArray(node.files) ? node.files.slice(0, 12).join(" ") : "";
+          app.searchIndex.set(node.id, [
+            node.id,
+            node.label,
+            node.type,
+            node.communityKey,
+            node.description,
+            fileText
+          ].join(" ").toLowerCase());
+        }
+
+        app.edges.forEach((edge, index) => {
+          const id = edge.id || `e${index}`;
+          app.edgeById.set(id, edge);
+          if (!app.nodeById.has(edge.source) || !app.nodeById.has(edge.target)) return;
+          const sourceList = app.adjacency.get(edge.source);
+          const targetList = app.adjacency.get(edge.target);
+          const record = { id, source: edge.source, target: edge.target, weight: Number(edge.weight || 1), edge };
+          sourceList?.push(record);
+          targetList?.push(record);
+        });
+
+        for (const list of app.adjacency.values()) {
+          list.sort((a, b) => b.weight - a.weight);
+        }
+      }
+
+      function populateControls() {
+        const typeCounts = app.data.summary?.typeCounts || {};
+        const typeOptions = Object.entries(typeCounts)
+          .sort((a, b) => b[1] - a[1])
+          .map(([type, count]) => `<option value="${escapeHtml(type)}">${escapeHtml(type)} · ${formatNumber(count)}</option>`);
+        dom.typeFilter.innerHTML = `<option value="all">全部类型</option>${typeOptions.join("")}`;
+
+        const communityOptions = (app.data.summary?.communityInfo || [])
+          .slice()
+          .sort((a, b) => b.size - a.size)
+          .map((info) => `<option value="${escapeHtml(info.key)}">${escapeHtml(info.key)} · ${formatNumber(info.size)} · ${escapeHtml(info.name)}</option>`);
+        dom.communityFilter.innerHTML = `<option value="all">全部社群</option>${communityOptions.join("")}`;
+
+        dom.legend.innerHTML = Object.entries(typeCounts)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 18)
+          .map(([type, count]) => `<span class="pill"><span class="dot" style="background:${colorForType(type)}"></span>${escapeHtml(type)} · ${formatNumber(count)}</span>`)
+          .join("");
+
+        dom.topNodes.innerHTML = (app.data.summary?.topNodes || [])
+          .slice(0, 16)
+          .map((node) => `<button class="list-item" data-node="${escapeHtml(node.id)}"><strong>${escapeHtml(node.label || node.id)}</strong>${escapeHtml(node.type)} · ${escapeHtml(node.communityKey)} · degree ${formatNumber(node.degree)}</button>`)
+          .join("");
+
+        dom.boundaryNote.textContent = app.data.summary?.boundary || dom.boundaryNote.textContent;
+        renderStats();
+      }
+
+      function renderStats() {
+        const summary = app.data?.summary || {};
+        const visibleNodeCount = app.visibleNodes.size || summary.nodeCount || app.nodes.length;
+        const visibleEdgeCount = app.visibleEdges.size || summary.edgeCount || app.edges.length;
+        const hitCount = app.searchHits.size;
+        dom.stats.innerHTML = [
+          [`${formatNumber(summary.nodeCount || app.nodes.length)}`, "全量节点"],
+          [`${formatNumber(summary.edgeCount || app.edges.length)}`, "全量边"],
+          [`${formatNumber(visibleNodeCount)}`, "当前可见节点"],
+          [`${formatNumber(visibleEdgeCount)}`, "当前可见边"],
+          [`${formatNumber(summary.communityCount || 0)}`, "社群"],
+          [`${formatNumber(hitCount)}`, "搜索命中"]
+        ].map(([value, label]) => `<div class="stat"><b>${value}</b><span>${label}</span></div>`).join("");
+      }
+
+      function canUseSigma() {
+        return typeof window.Sigma === "function" &&
+          window.graphology &&
+          typeof window.graphology.Graph === "function" &&
+          !window.__sigmaLoadError &&
+          !window.__graphologyLoadError;
+      }
+
+      function createGraphologyGraph() {
+        const Graph = window.graphology.Graph;
+        const graph = new Graph({ multi: true, type: "mixed" });
+
+        for (const node of app.nodes) {
+          const position = layoutPosition(node.id);
+          graph.addNode(node.id, {
+            label: node.label || node.id,
+            x: position.x,
+            y: position.y,
+            size: nodeSize(node),
+            color: colorForType(node.type),
+            nodeType: normalizeType(node.type),
+            communityKey: node.communityKey,
+            degree: node.degree || 0
+          });
+        }
+
+        app.edges.forEach((edge, index) => {
+          if (!graph.hasNode(edge.source) || !graph.hasNode(edge.target)) return;
+          const id = edge.id || `edge-${index}`;
+          const attrs = {
+            size: edgeSize(edge),
+            color: "rgba(119, 132, 153, 0.32)",
+            weight: Number(edge.weight || 1)
+          };
+          try {
+            graph.addEdgeWithKey(id, edge.source, edge.target, attrs);
+          } catch (error) {
+            graph.addEdgeWithKey(`${id}-${index}`, edge.source, edge.target, attrs);
+          }
+        });
+
+        return graph;
+      }
+
+      function initSigmaRenderer() {
+        app.mode = "sigma";
+        dom.fallbackCanvas.hidden = true;
+        dom.sigmaContainer.hidden = false;
+        app.graph = createGraphologyGraph();
+        app.renderer = new window.Sigma(app.graph, dom.sigmaContainer, {
+          renderEdgeLabels: false,
+          minCameraRatio: 0.02,
+          maxCameraRatio: 16,
+          labelDensity: 0.08,
+          labelGridCellSize: 90,
+          labelRenderedSizeThreshold: 7,
+          defaultEdgeType: "line",
+          nodeReducer: reduceNode,
+          edgeReducer: reduceEdge
+        });
+
+        bindSigmaEvents();
+        setStatus(dom.renderStatus, "ok", "WebGL 渲染启用：Sigma.js 2.4.0 + Graphology 0.25.4。");
+      }
+
+      function initCanvasRenderer(reason) {
+        app.mode = "canvas";
+        if (app.renderer) {
+          try { app.renderer.kill(); } catch (error) { console.warn(error); }
+          app.renderer = null;
+        }
+        dom.sigmaContainer.hidden = true;
+        dom.fallbackCanvas.hidden = false;
+        app.canvas.ctx = dom.fallbackCanvas.getContext("2d");
+        setStatus(dom.renderStatus, "warn", `WebGL 依赖不可用，已退到本地 Canvas 2D：${reason}`);
+        bindCanvasEvents();
+        resizeCanvas();
+        updateCanvasBounds();
+        drawCanvas();
+      }
+
+      function bindSigmaEvents() {
+        const on = (name, handler) => {
+          if (typeof app.renderer.on === "function") app.renderer.on(name, handler);
+          else if (typeof app.renderer.bind === "function") app.renderer.bind(name, handler);
+        };
+
+        on("clickNode", (event) => {
+          const nodeId = event?.node || event?.data?.node;
+          if (nodeId) selectNode(nodeId, false);
+        });
+        on("clickStage", () => {
+          app.state.selectedNode = null;
+          app.selectedNeighborIds.clear();
+          renderDetail(null);
+          refreshRenderer();
+        });
+        on("overNode", (event) => {
+          const nodeId = event?.node || event?.data?.node;
+          dom.sigmaContainer.style.cursor = nodeId ? "pointer" : "grab";
+        });
+        on("outNode", () => {
+          dom.sigmaContainer.style.cursor = "grab";
+        });
+      }
+
+      function reduceNode(nodeId, attributes) {
+        const node = app.nodeById.get(nodeId);
+        const output = { ...(attributes || {}) };
+        if (!node || !app.visibleNodes.has(nodeId)) return { ...output, hidden: true };
+
+        const hasSearch = Boolean(app.state.search);
+        const isHit = app.searchHits.has(nodeId);
+        const isLens = app.lensNodes.has(nodeId);
+        const isSelected = app.state.selectedNode === nodeId;
+        const isNeighbor = app.selectedNeighborIds.has(nodeId);
+
+        output.label = app.state.labels ? (node.label || node.id) : "";
+        output.size = nodeSize(node);
+        output.color = colorForType(node.type);
+        output.forceLabel = app.state.labels && (isSelected || isHit || (node.degree || 0) >= 18);
+
+        if (hasSearch && app.state.searchMode === "highlight" && !isHit && !isLens) {
+          output.color = "#c8d0dc";
+          output.size = Math.max(1.8, output.size * 0.62);
+        }
+
+        if (isNeighbor) {
+          output.color = "#2a91c8";
+          output.size = Math.max(output.size, nodeSize(node) + 1.5);
+        }
+
+        if (isHit) {
+          output.color = "#d97706";
+          output.size = Math.max(output.size, nodeSize(node) + 3);
+        }
+
+        if (isSelected) {
+          output.color = "#111827";
+          output.size = Math.max(output.size, nodeSize(node) + 5);
+          output.forceLabel = app.state.labels;
+          output.zIndex = 10;
+        }
+
+        return output;
+      }
+
+      function reduceEdge(edgeId, attributes) {
+        const edge = app.edgeById.get(edgeId) || app.edgeById.get(String(edgeId).replace(/-\d+$/, ""));
+        const output = { ...(attributes || {}) };
+        if (!edge || !app.visibleEdges.has(edgeId)) return { ...output, hidden: true };
+
+        const selected = app.state.selectedNode;
+        const touchesSelected = selected && (edge.source === selected || edge.target === selected);
+        const touchesSearch = app.searchHits.has(edge.source) || app.searchHits.has(edge.target);
+
+        output.size = edgeSize(edge);
+        output.color = "rgba(112, 128, 153, 0.24)";
+
+        if (touchesSearch) {
+          output.color = "rgba(217, 119, 6, 0.58)";
+          output.size = Math.max(output.size, 1.4);
+        }
+
+        if (touchesSelected) {
+          output.color = "rgba(17, 24, 39, 0.72)";
+          output.size = Math.max(output.size, 2.1);
+        }
+
+        return output;
+      }
+
+      function recomputeVisibility() {
+        const query = app.state.search.trim().toLowerCase();
+        app.searchHits.clear();
+        app.lensNodes.clear();
+        app.visibleNodes.clear();
+        app.visibleEdges.clear();
+
+        if (query) {
+          for (const [nodeId, text] of app.searchIndex.entries()) {
+            if (text.includes(query)) app.searchHits.add(nodeId);
+          }
+          for (const nodeId of app.searchHits) {
+            app.lensNodes.add(nodeId);
+            for (const link of app.adjacency.get(nodeId) || []) {
+              app.lensNodes.add(link.source === nodeId ? link.target : link.source);
+            }
+          }
+        }
+
+        for (const node of app.nodes) {
+          const typePass = app.state.type === "all" || normalizeType(node.type) === normalizeType(app.state.type);
+          const communityPass = app.state.community === "all" || node.communityKey === app.state.community;
+          const searchPass = !query || app.state.searchMode === "highlight" || app.lensNodes.has(node.id);
+          if (typePass && communityPass && searchPass) app.visibleNodes.add(node.id);
+        }
+
+        app.edges.forEach((edge, index) => {
+          const id = edge.id || `edge-${index}`;
+          const visible = app.visibleNodes.has(edge.source) &&
+            app.visibleNodes.has(edge.target) &&
+            Number(edge.weight || 1) >= app.state.edgeMin;
+          if (visible) app.visibleEdges.add(id);
+        });
+
+        if (app.state.selectedNode && !app.visibleNodes.has(app.state.selectedNode)) {
+          app.state.selectedNode = null;
+          app.selectedNeighborIds.clear();
+        }
+      }
+
+      function refreshRenderer() {
+        recomputeVisibility();
+        renderStats();
+        renderSearchResults();
+        updateViewCopy();
+        if (app.mode === "sigma" && app.renderer) app.renderer.refresh();
+        if (app.mode === "canvas") {
+          updateCanvasBounds();
+          drawCanvas();
+        }
+      }
+
+      function applyLayout(layoutName) {
+        app.state.layout = layoutName;
+        document.querySelectorAll("#layoutButtons button").forEach((button) => {
+          button.classList.toggle("active", button.dataset.layout === layoutName);
+        });
+
+        if (app.graph) {
+          for (const node of app.nodes) {
+            if (!app.graph.hasNode(node.id)) continue;
+            const position = layoutPosition(node.id, layoutName);
+            app.graph.setNodeAttribute(node.id, "x", position.x);
+            app.graph.setNodeAttribute(node.id, "y", position.y);
+          }
+        }
+
+        updateViewCopy();
+        refreshRenderer();
+        window.setTimeout(fitGraph, 60);
+      }
+
+      function updateViewCopy() {
+        const [title, hint] = LAYOUT_LABELS[app.state.layout] || LAYOUT_LABELS.community;
+        dom.viewTitle.textContent = title;
+        dom.hint.textContent = hint;
+        const mode = app.mode === "sigma" ? "WebGL" : app.mode === "canvas" ? "Canvas 2D" : "未初始化";
+        const filterText = [
+          app.state.type === "all" ? "全部类型" : app.state.type,
+          app.state.community === "all" ? "全部社群" : app.state.community,
+          `边权 ≥ ${app.state.edgeMin}`
+        ].join(" / ");
+        dom.viewMeta.textContent = `${mode} · ${filterText} · 可见 ${formatNumber(app.visibleNodes.size)} 节点 / ${formatNumber(app.visibleEdges.size)} 边`;
+      }
+
+      function renderSearchResults() {
+        if (!app.state.search) {
+          dom.searchResults.innerHTML = `<div class="empty">输入关键词后显示命中节点。</div>`;
+          return;
+        }
+
+        const results = [...app.searchHits]
+          .filter((id) => app.visibleNodes.has(id))
+          .map((id) => app.nodeById.get(id))
+          .filter(Boolean)
+          .sort((a, b) => (b.rankScore || 0) - (a.rankScore || 0))
+          .slice(0, 24);
+
+        if (!results.length) {
+          dom.searchResults.innerHTML = `<div class="empty">没有找到匹配节点。</div>`;
+          return;
+        }
+
+        dom.searchResults.innerHTML = results.map((node) => `
+          <button class="list-item" data-node="${escapeHtml(node.id)}">
+            <strong>${escapeHtml(node.label || node.id)}</strong>
+            ${escapeHtml(node.type)} · ${escapeHtml(node.communityKey)} · degree ${formatNumber(node.degree)}
+          </button>
+        `).join("");
+      }
+
+      function renderDetail(nodeId) {
+        if (!nodeId) {
+          dom.detail.innerHTML = `<div class="empty">点击节点或搜索结果，查看描述、来源文件和相邻关系。</div>`;
+          return;
+        }
+
+        const node = app.nodeById.get(nodeId);
+        if (!node) return;
+
+        const community = app.communityInfo.get(node.communityKey);
+        const files = Array.isArray(node.files) ? node.files.slice(0, 8) : [];
+        const neighbors = (app.adjacency.get(nodeId) || [])
+          .slice(0, 12)
+          .map((link) => {
+            const neighborId = link.source === nodeId ? link.target : link.source;
+            const neighbor = app.nodeById.get(neighborId);
+            return { link, neighborId, neighbor };
+          });
+
+        dom.detail.innerHTML = `
+          <div class="detail-title">${escapeHtml(node.label || node.id)}</div>
+          <div class="meta-row">
+            <span class="meta">${escapeHtml(node.type || "unknown")}</span>
+            <span class="meta">${escapeHtml(node.communityKey || "无社群")}</span>
+            <span class="meta">degree ${formatNumber(node.degree)}</span>
+            <span class="meta">PageRank ${(Number(node.pageRank || 0)).toExponential(2)}</span>
+            <span class="meta">来源 ${formatNumber(node.sourceCount)} / 文件 ${formatNumber(node.fileCount)}</span>
+          </div>
+          ${community ? `<div class="note">社群：${escapeHtml(community.name)}，规模 ${formatNumber(community.size)}</div>` : ""}
+          <div class="desc">${escapeHtml(node.description || "暂无描述。")}</div>
+          <div class="section">
+            <h2>相邻关系</h2>
+            <div class="list">
+              ${neighbors.length ? neighbors.map(({ link, neighborId, neighbor }) => `
+                <button class="list-item" data-node="${escapeHtml(neighborId)}">
+                  <strong>${escapeHtml(neighbor?.label || neighborId)}</strong>
+                  权重 ${formatNumber(link.weight)} · ${escapeHtml(neighbor?.type || "unknown")} · ${escapeHtml(neighbor?.communityKey || "")}
+                </button>
+              `).join("") : `<div class="empty">当前过滤条件下暂无相邻关系。</div>`}
+            </div>
+          </div>
+          <div class="section">
+            <h2>来源文件</h2>
+            <div class="list">
+              ${files.length ? files.map((file) => `<div class="list-item">${escapeHtml(file)}</div>`).join("") : `<div class="empty">暂无来源文件。</div>`}
+            </div>
+          </div>
+        `;
+      }
+
+      function selectNode(nodeId, shouldCenter = true) {
+        if (!app.nodeById.has(nodeId)) return;
+        app.state.selectedNode = nodeId;
+        app.selectedNeighborIds.clear();
+        for (const link of app.adjacency.get(nodeId) || []) {
+          app.selectedNeighborIds.add(link.source === nodeId ? link.target : link.source);
+        }
+        renderDetail(nodeId);
+        refreshRenderer();
+        if (shouldCenter) centerNode(nodeId);
+      }
+
+      function visibleBounds() {
+        let minX = Infinity;
+        let maxX = -Infinity;
+        let minY = Infinity;
+        let maxY = -Infinity;
+        let count = 0;
+
+        for (const nodeId of app.visibleNodes) {
+          const position = layoutPosition(nodeId);
+          minX = Math.min(minX, position.x);
+          maxX = Math.max(maxX, position.x);
+          minY = Math.min(minY, position.y);
+          maxY = Math.max(maxY, position.y);
+          count += 1;
+        }
+
+        if (!count) return { minX: -1, maxX: 1, minY: -1, maxY: 1, width: 2, height: 2, cx: 0, cy: 0 };
+        return {
+          minX,
+          maxX,
+          minY,
+          maxY,
+          width: Math.max(1, maxX - minX),
+          height: Math.max(1, maxY - minY),
+          cx: (minX + maxX) / 2,
+          cy: (minY + maxY) / 2
+        };
+      }
+
+      function fitGraph() {
+        const bounds = visibleBounds();
+        if (app.mode === "sigma" && app.renderer) {
+          const width = Math.max(1, dom.sigmaContainer.clientWidth);
+          const height = Math.max(1, dom.sigmaContainer.clientHeight);
+          const ratio = Math.max(bounds.width / width, bounds.height / height, 0.06) * 1.35;
+          moveSigmaCamera({ x: bounds.cx, y: bounds.cy, ratio, angle: 0 });
+          app.renderer.refresh();
+        } else if (app.mode === "canvas") {
+          app.canvas.zoom = 1;
+          app.canvas.panX = 0;
+          app.canvas.panY = 0;
+          updateCanvasBounds();
+          drawCanvas();
+        }
+      }
+
+      function centerNode(nodeId) {
+        const position = layoutPosition(nodeId);
+        if (app.mode === "sigma" && app.renderer) {
+          const camera = app.renderer.getCamera();
+          const state = typeof camera.getState === "function" ? camera.getState() : {};
+          moveSigmaCamera({ x: position.x, y: position.y, ratio: Math.min(state.ratio || 0.35, 0.32), angle: 0 });
+          app.renderer.refresh();
+        } else if (app.mode === "canvas") {
+          const bounds = app.canvas.bounds || visibleBounds();
+          const projected = projectCanvas(position.x, position.y, bounds);
+          app.canvas.panX += dom.fallbackCanvas.width / window.devicePixelRatio / 2 - projected.x;
+          app.canvas.panY += dom.fallbackCanvas.height / window.devicePixelRatio / 2 - projected.y;
+          drawCanvas();
+        }
+      }
+
+      function moveSigmaCamera(target) {
+        if (!app.renderer) return;
+        const camera = app.renderer.getCamera?.();
+        if (!camera) return;
+        if (typeof camera.goTo === "function") {
+          camera.goTo(target);
+        } else if (typeof camera.animate === "function") {
+          camera.animate(target, { duration: 240 });
+        } else if (typeof camera.setState === "function") {
+          camera.setState(target);
+        } else if (typeof app.renderer.setCameraState === "function") {
+          app.renderer.setCameraState(target);
+        }
+      }
+
+      function resetState() {
+        app.state.search = "";
+        app.state.searchMode = "highlight";
+        app.state.type = "all";
+        app.state.community = "all";
+        app.state.edgeMin = 1;
+        app.state.selectedNode = null;
+        app.selectedNeighborIds.clear();
+        dom.search.value = "";
+        dom.searchMode.value = "highlight";
+        dom.typeFilter.value = "all";
+        dom.communityFilter.value = "all";
+        dom.edgeMin.value = "1";
+        dom.edgeValue.textContent = "1";
+        renderDetail(null);
+        refreshRenderer();
+        fitGraph();
+      }
+
+      function bindUiEvents() {
+        let searchTimer = 0;
+        dom.search.addEventListener("input", () => {
+          window.clearTimeout(searchTimer);
+          searchTimer = window.setTimeout(() => {
+            app.state.search = dom.search.value.trim();
+            refreshRenderer();
+          }, 80);
+        });
+        dom.typeFilter.addEventListener("change", () => {
+          app.state.type = dom.typeFilter.value;
+          refreshRenderer();
+        });
+        dom.communityFilter.addEventListener("change", () => {
+          app.state.community = dom.communityFilter.value;
+          refreshRenderer();
+          fitGraph();
+        });
+        dom.searchMode.addEventListener("change", () => {
+          app.state.searchMode = dom.searchMode.value;
+          refreshRenderer();
+          fitGraph();
+        });
+        dom.edgeMin.addEventListener("input", () => {
+          app.state.edgeMin = Number(dom.edgeMin.value);
+          dom.edgeValue.textContent = dom.edgeMin.value;
+          refreshRenderer();
+        });
+        dom.reset.addEventListener("click", resetState);
+        dom.fit.addEventListener("click", fitGraph);
+        dom.labels.addEventListener("click", () => {
+          app.state.labels = !app.state.labels;
+          dom.labels.textContent = app.state.labels ? "标签开" : "标签关";
+          dom.labels.classList.toggle("active", app.state.labels);
+          refreshRenderer();
+        });
+        dom.layoutButtons.addEventListener("click", (event) => {
+          const button = event.target.closest("button[data-layout]");
+          if (button) applyLayout(button.dataset.layout);
+        });
+        document.addEventListener("click", (event) => {
+          const button = event.target.closest("button[data-node]");
+          if (button) selectNode(button.dataset.node, true);
+        });
+        dom.fileInput.addEventListener("change", () => {
+          const file = dom.fileInput.files?.[0];
+          if (file) parseFile(file);
+        });
+        window.addEventListener("resize", () => {
+          if (app.mode === "canvas") {
+            resizeCanvas();
+            updateCanvasBounds();
+            drawCanvas();
+          }
+        });
+      }
+
+      function bindCanvasEvents() {
+        const canvas = dom.fallbackCanvas;
+        canvas.onpointerdown = (event) => {
+          app.canvas.dragging = true;
+          app.canvas.lastX = event.clientX;
+          app.canvas.lastY = event.clientY;
+          canvas.setPointerCapture(event.pointerId);
+        };
+        canvas.onpointermove = (event) => {
+          if (!app.canvas.dragging) return;
+          app.canvas.panX += event.clientX - app.canvas.lastX;
+          app.canvas.panY += event.clientY - app.canvas.lastY;
+          app.canvas.lastX = event.clientX;
+          app.canvas.lastY = event.clientY;
+          drawCanvas();
+        };
+        canvas.onpointerup = (event) => {
+          app.canvas.dragging = false;
+          try { canvas.releasePointerCapture(event.pointerId); } catch (error) { /* noop */ }
+        };
+        canvas.onwheel = (event) => {
+          event.preventDefault();
+          const delta = event.deltaY > 0 ? 0.9 : 1.1;
+          app.canvas.zoom = Math.max(0.08, Math.min(12, app.canvas.zoom * delta));
+          drawCanvas();
+        };
+        canvas.onclick = (event) => {
+          const rect = canvas.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+          const picked = pickCanvasNode(x, y);
+          if (picked) selectNode(picked, false);
+        };
+      }
+
+      function resizeCanvas() {
+        const canvas = dom.fallbackCanvas;
+        const rect = canvas.getBoundingClientRect();
+        const ratio = window.devicePixelRatio || 1;
+        canvas.width = Math.max(1, Math.round(rect.width * ratio));
+        canvas.height = Math.max(1, Math.round(rect.height * ratio));
+        const ctx = canvas.getContext("2d");
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+        app.canvas.ctx = ctx;
+      }
+
+      function updateCanvasBounds() {
+        app.canvas.bounds = visibleBounds();
+      }
+
+      function projectCanvas(x, y, bounds = app.canvas.bounds) {
+        const canvas = dom.fallbackCanvas;
+        const cssWidth = canvas.width / (window.devicePixelRatio || 1);
+        const cssHeight = canvas.height / (window.devicePixelRatio || 1);
+        const margin = 44;
+        const scale = Math.min((cssWidth - margin * 2) / bounds.width, (cssHeight - margin * 2) / bounds.height) * app.canvas.zoom;
+        return {
+          x: (x - bounds.cx) * scale + cssWidth / 2 + app.canvas.panX,
+          y: (y - bounds.cy) * scale + cssHeight / 2 + app.canvas.panY,
+          scale
+        };
+      }
+
+      function drawCanvas() {
+        const ctx = app.canvas.ctx;
+        if (!ctx) return;
+        const canvas = dom.fallbackCanvas;
+        const cssWidth = canvas.width / (window.devicePixelRatio || 1);
+        const cssHeight = canvas.height / (window.devicePixelRatio || 1);
+        ctx.clearRect(0, 0, cssWidth, cssHeight);
+        ctx.fillStyle = "#f3f6fb";
+        ctx.fillRect(0, 0, cssWidth, cssHeight);
+
+        const bounds = app.canvas.bounds || visibleBounds();
+        ctx.lineCap = "round";
+        for (const edge of app.edges) {
+          const id = edge.id || "";
+          if (!app.visibleEdges.has(id)) continue;
+          const source = projectCanvas(...Object.values(layoutPosition(edge.source)), bounds);
+          const target = projectCanvas(...Object.values(layoutPosition(edge.target)), bounds);
+          const touchesSelected = app.state.selectedNode && (edge.source === app.state.selectedNode || edge.target === app.state.selectedNode);
+          ctx.strokeStyle = touchesSelected ? "rgba(17,24,39,.72)" : "rgba(112,128,153,.22)";
+          ctx.lineWidth = touchesSelected ? 1.8 : Math.max(0.5, edgeSize(edge) * 0.45);
+          ctx.beginPath();
+          ctx.moveTo(source.x, source.y);
+          ctx.lineTo(target.x, target.y);
+          ctx.stroke();
+        }
+
+        const ordered = [...app.visibleNodes]
+          .map((id) => app.nodeById.get(id))
+          .filter(Boolean)
+          .sort((a, b) => (a.degree || 0) - (b.degree || 0));
+
+        for (const node of ordered) {
+          const position = layoutPosition(node.id);
+          const p = projectCanvas(position.x, position.y, bounds);
+          const isHit = app.searchHits.has(node.id);
+          const isSelected = app.state.selectedNode === node.id;
+          const isNeighbor = app.selectedNeighborIds.has(node.id);
+          const dimmed = app.state.search && app.state.searchMode === "highlight" && !isHit && !app.lensNodes.has(node.id);
+          const radius = Math.max(1.8, nodeSize(node) * 0.72 * Math.sqrt(Math.max(p.scale, 0.2)));
+          ctx.beginPath();
+          ctx.fillStyle = isSelected ? "#111827" : isHit ? "#d97706" : isNeighbor ? "#2a91c8" : dimmed ? "#c8d0dc" : colorForType(node.type);
+          ctx.arc(p.x, p.y, Math.min(13, radius), 0, Math.PI * 2);
+          ctx.fill();
+          if (isSelected || isHit) {
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          }
+        }
+
+        if (app.state.labels) {
+          ctx.font = "12px Microsoft YaHei, Segoe UI, sans-serif";
+          ctx.textBaseline = "middle";
+          for (const node of ordered) {
+            const shouldLabel = node.id === app.state.selectedNode || app.searchHits.has(node.id) || (node.degree || 0) >= 18;
+            if (!shouldLabel) continue;
+            const position = layoutPosition(node.id);
+            const p = projectCanvas(position.x, position.y, bounds);
+            ctx.fillStyle = "rgba(22,32,51,.86)";
+            ctx.fillText(node.label || node.id, p.x + 8, p.y);
+          }
+        }
+      }
+
+      function pickCanvasNode(x, y) {
+        let best = null;
+        let bestDistance = Infinity;
+        const bounds = app.canvas.bounds || visibleBounds();
+        for (const nodeId of app.visibleNodes) {
+          const node = app.nodeById.get(nodeId);
+          if (!node) continue;
+          const position = layoutPosition(nodeId);
+          const p = projectCanvas(position.x, position.y, bounds);
+          const distance = Math.hypot(p.x - x, p.y - y);
+          const threshold = Math.max(7, nodeSize(node) * 0.9);
+          if (distance < threshold && distance < bestDistance) {
+            best = nodeId;
+            bestDistance = distance;
+          }
+        }
+        return best;
+      }
+
+      function initialize(data) {
+        if (app.renderer) {
+          try { app.renderer.kill(); } catch (error) { console.warn(error); }
+        }
+        app.data = data;
+        buildIndexes();
+        populateControls();
+        recomputeVisibility();
+        renderSearchResults();
+        renderDetail(null);
+        updateViewCopy();
+
+        try {
+          if (canUseSigma()) initSigmaRenderer();
+          else initCanvasRenderer("Sigma.js 或 Graphology CDN 未加载");
+        } catch (error) {
+          console.error(error);
+          initCanvasRenderer(error.message || "Sigma 初始化失败");
+        }
+
+        refreshRenderer();
+        window.setTimeout(fitGraph, 120);
+      }
+
+      async function boot() {
+        bindUiEvents();
+        if (canUseSigma()) {
+          setStatus(dom.renderStatus, "ok", "Sigma.js 与 Graphology 已加载，等待数据。");
+        } else {
+          setStatus(dom.renderStatus, "warn", "Sigma.js 或 Graphology 尚不可用；数据载入后将自动降级 Canvas 2D。");
+        }
+
+        try {
+          const data = await loadDataFromDefaultUrls();
+          initialize(data);
+        } catch (error) {
+          console.warn(error);
+          setStatus(dom.dataStatus, "error", error.message);
+          dom.viewMeta.textContent = "等待手动载入 graph-data.json。";
+        }
+      }
+
+      boot();
+    })();
+  </script>
+</body>
+</html>

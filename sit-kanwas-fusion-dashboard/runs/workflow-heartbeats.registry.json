@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "workflow-heartbeats.registry/v0.1",
+  "updatedAt": "2026-06-15T15:35:00+08:00",
+  "boundary": "Heartbeat registry is planned/read-only. It records bounded watcher intent and never mutates project state at L1.",
+  "heartbeats": [
+    {
+      "heartbeatId": "github-actions-green-watch",
+      "target": "GitHub Actions run for the mirrored branch",
+      "status": "planned",
+      "schedule": "manual or bounded periodic check",
+      "maxRuns": 5,
+      "maxRuntimeMinutes": 30,
+      "mutatesState": false,
+      "evidencePath": "F:/codex/reports/workflow-room-opus-review-20260615/run-manifest.md",
+      "stopCondition": "Stop after green, red, timeout, or missing permissions."
+    },
+    {
+      "heartbeatId": "gitlab-mr-duo-review-watch",
+      "target": "GitLab MR Duo review response",
+      "status": "planned",
+      "schedule": "manual follow-up only",
+      "maxRuns": 3,
+      "maxRuntimeMinutes": 20,
+      "mutatesState": false,
+      "evidencePath": "F:/codex/reports/polynoia-kanwas-strategy-opus-review-20260615",
+      "stopCondition": "Stop after response capture or visible GitLab/Duo blocking state."
+    }
+  ]
+}

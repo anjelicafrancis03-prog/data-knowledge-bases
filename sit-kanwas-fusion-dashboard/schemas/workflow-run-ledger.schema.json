@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "workflow-run-ledger.schema/v0.1",
+  "title": "Workflow run ledger entry v0.1",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "runId",
+    "roomId",
+    "status",
+    "authorityLayer",
+    "truthSource",
+    "startedAt",
+    "liveDispatch",
+    "remoteExposure",
+    "siteWorkflowBinding",
+    "artifacts",
+    "stopCondition"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "workflow-run-ledger/v0.1" },
+    "runId": { "type": "string" },
+    "roomId": { "type": "string" },
+    "status": {
+      "enum": ["planned", "queued", "active", "blocked", "complete", "archived"]
+    },
+    "authorityLayer": { "type": "string" },
+    "truthSource": { "type": "string" },
+    "startedAt": { "type": "string" },
+    "endedAt": { "type": "string" },
+    "liveDispatch": { "const": false },
+    "remoteExposure": {
+      "type": "object",
+      "required": ["cloudflareTunnel", "mutatingRoutesExposed", "authRequired"],
+      "properties": {
+        "cloudflareTunnel": { "type": "boolean" },
+        "mutatingRoutesExposed": { "const": false },
+        "authRequired": { "const": true },
+        "note": { "type": "string" }
+      }
+    },
+    "siteWorkflowBinding": {
+      "type": "object",
+      "required": [
+        "inheritsSiteWorkflowConsole",
+        "normalThreadRulesPreserved",
+        "siteDirectCliAllowed",
+        "uiIsTruthSource",
+        "evidenceLevel",
+        "requiredArtifacts",
+        "protectedActionPolicy"
+      ],
+      "properties": {
+        "inheritsSiteWorkflowConsole": { "const": true },
+        "normalThreadRulesPreserved": { "const": true },
+        "siteDirectCliAllowed": { "const": false },
+        "uiIsTruthSource": { "const": false },
+        "evidenceLevel": {
+          "enum": ["light_readonly", "review_packet", "full_site_bundle", "protected_execution"]
+        },
+        "requiredArtifacts": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "protectedActionPolicy": {
+          "type": "object",
+          "required": [
+            "approvalManifestRequiredForProtectedActions",
+            "hashBoundApprovalRequired",
+            "protectedActionLedgerRequired"
+          ],
+          "properties": {
+            "approvalManifestRequiredForProtectedActions": { "const": true },
+            "hashBoundApprovalRequired": { "const": true },
+            "protectedActionLedgerRequired": { "const": true }
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "required": ["manifestPath", "evidenceIndexPath", "taskPacketPaths"],
+      "properties": {
+        "manifestPath": { "type": "string" },
+        "evidenceIndexPath": { "type": "string" },
+        "taskPacketPaths": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "stopCondition": { "type": "string" }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "workflow-rooms.registry/v0.1",
+  "updatedAt": "2026-06-15T16:55:00+08:00",
+  "boundary": "invalid fixture",
+  "rooms": [
+    {
+      "id": "bad-room",
+      "title": "Bad Room",
+      "mode": "L1-packet-room",
+      "status": "draft-active",
+      "authorityLayer": "Harness files",
+      "truthSource": "run-manifest + evidence-index + task packets",
+      "workflowContract": "Thread-as-Agent, Room-as-Workflow v0.1",
+      "purpose": "Missing Site workflow binding should fail.",
+      "members": [],
+      "entryRules": [],
+      "forbiddenActions": [],
+      "nextSafeActions": []
+    }
+  ]
+}

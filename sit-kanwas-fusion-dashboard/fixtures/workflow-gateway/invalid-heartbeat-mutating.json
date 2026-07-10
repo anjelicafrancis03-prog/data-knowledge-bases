@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "workflow-heartbeats.registry/v0.1",
+  "updatedAt": "2026-06-15T15:35:00+08:00",
+  "boundary": "Invalid fixture: mutating heartbeat must be rejected.",
+  "heartbeats": [
+    {
+      "heartbeatId": "bad-mutating-heartbeat",
+      "target": "GitLab MR",
+      "status": "active",
+      "schedule": "*/1 * * * *",
+      "maxRuns": 999,
+      "maxRuntimeMinutes": 999,
+      "mutatesState": true,
+      "evidencePath": "",
+      "stopCondition": ""
+    }
+  ]
+}

@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex CodeGraph 图谱</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8f5;
+      --panel: #ffffff;
+      --ink: #1d2526;
+      --muted: #667276;
+      --line: #d8ded9;
+      --blue: #2b6fb8;
+      --shadow: 0 10px 30px rgba(37, 45, 41, .08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      padding: 18px 24px 12px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfa;
+    }
+    h1 { margin: 0; font-size: 22px; letter-spacing: 0; }
+    .sub { margin-top: 5px; color: var(--muted); font-size: 13px; }
+    main { max-width: 1680px; margin: 0 auto; padding: 18px 24px 28px; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .stat, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .stat { padding: 14px 15px; }
+    .stat b { display: block; font-size: 24px; line-height: 1.05; }
+    .stat span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(620px, 1.55fr) minmax(360px, .9fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .panel { overflow: hidden; }
+    .panel h2 {
+      margin: 0;
+      padding: 12px 14px;
+      font-size: 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfa;
+    }
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    button {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 7px;
+      padding: 7px 10px;
+      cursor: pointer;
+      color: var(--ink);
+    }
+    button.active { background: #1f2a2c; color: #fff; border-color: #1f2a2c; }
+    input {
+      min-width: 260px;
+      flex: 1;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 8px 10px;
+    }
+    #graph {
+      display: block;
+      width: 100%;
+      height: 660px;
+      background: linear-gradient(#fff, #fbfcfa);
+    }
+    .list { max-height: 390px; overflow: auto; }
+    .row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 9px 12px;
+      border-bottom: 1px solid #eef1ee;
+      font-size: 12px;
+    }
+    .row code { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #263033; }
+    .badge {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+      background: #eef4f0;
+      color: #34564c;
+    }
+    .bar { height: 9px; margin-top: 5px; background: #e9eeea; border-radius: 999px; overflow: hidden; }
+    .fill { height: 100%; background: var(--blue); border-radius: 999px; }
+    .meta { margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .legend { display: flex; gap: 10px; flex-wrap: wrap; padding: 8px 12px 12px; color: var(--muted); font-size: 12px; }
+    .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
+    .tooltip {
+      position: fixed;
+      z-index: 8;
+      display: none;
+      max-width: 440px;
+      pointer-events: none;
+      padding: 9px 10px;
+      border-radius: 7px;
+      background: #172023;
+      color: #fff;
+      font-size: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+    }
+    @media (max-width: 1050px) {
+      .layout, .grid2 { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      #graph { height: 560px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Codex CodeGraph 图谱</h1>
+    <div class="sub">只读快照：<span id="dbpath"></span> · 生成时间 <span id="gentime"></span></div>
+  </header>
+  <main>
+    <section class="stats" id="stats"></section>
+    <section class="layout">
+      <div class="panel">
+        <h2>文件关系网络</h2>
+        <div class="toolbar">
+          <button id="mode-files" class="active">文件网络</button>
+          <button id="mode-modules">模块体量</button>
+          <button id="reset">重置视图</button>
+          <input id="search" placeholder="过滤文件、模块、语言">
+        </div>
+        <canvas id="graph"></canvas>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="panel">
+        <h2>Top 文件</h2>
+        <div class="list" id="topFiles"></div>
+      </div>
+    </section>
+    <section class="grid2">
+      <div class="panel"><h2>语言分布</h2><div class="list" id="languages"></div></div>
+      <div class="panel"><h2>节点类型</h2><div class="list" id="kinds"></div></div>
+    </section>
+  </main>
+  <div class="tooltip" id="tip"></div>
+  <script>
+    const fmt = new Intl.NumberFormat('zh-CN');
+    const colors = {
+      typescript: '#2b6fb8', tsx: '#5a58b0', python: '#27745b', javascript: '#b7791f',
+      dart: '#1f8aa5', rust: '#9a4b29', cpp: '#7b5ea7', c: '#637086', unknown: '#6c7478'
+    };
+    const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[char]));
+
+    let data;
+    let mode = 'files';
+    let filter = '';
+    let hover = null;
+    let dragging = null;
+    let panning = null;
+    let pan = { x: 0, y: 0 };
+    let zoom = 1;
+    let simNodes = [];
+    let simLinks = [];
+
+    const canvas = document.getElementById('graph');
+    const ctx = canvas.getContext('2d');
+    const tip = document.getElementById('tip');
+
+    fetch('data.json', { cache: 'no-store' })
+      .then(response => response.json())
+      .then(payload => {
+        data = payload;
+        renderStatic();
+        buildGraph();
+        draw();
+      });
+
+    function renderStatic() {
+      document.getElementById('dbpath').textContent = data.summary.db_path;
+      document.getElementById('gentime').textContent = data.summary.generated_at;
+      document.getElementById('stats').innerHTML = [
+        ['文件', data.summary.files],
+        ['节点', data.summary.nodes],
+        ['边', data.summary.edges],
+        ['网络抽样', `${data.graph.nodes.length} / ${data.graph.links.length}`]
+      ].map(([name, value]) => `<div class="stat"><b>${typeof value === 'number' ? fmt.format(value) : value}</b><span>${name}</span></div>`).join('');
+      rows(document.getElementById('languages'), data.languages, 'language', 'count');
+      rows(document.getElementById('kinds'), data.kinds, 'kind', 'count');
+      rows(document.getElementById('topFiles'), data.topFiles, 'path', 'node_count', item => `<div class="meta">${esc(item.language)} · ${fmt.format(item.size)} bytes</div>`);
+    }
+
+    function rows(el, items, nameKey, valueKey, extra) {
+      const max = Math.max(...items.map(item => +item[valueKey] || 0), 1);
+      el.innerHTML = items.map(item => {
+        const value = +item[valueKey] || 0;
+        return `<div class="row"><div><code title="${esc(item[nameKey])}">${esc(item[nameKey])}</code>${extra ? extra(item) : ''}<div class="bar"><div class="fill" style="width:${Math.max(3, value / max * 100)}%"></div></div></div><span class="badge">${fmt.format(value)}</span></div>`;
+      }).join('');
+    }
+
+    function currentRaw() {
+      if (mode === 'modules') {
+        return {
+          nodes: data.modules.map(module => ({
+            ...module,
+            id: module.id,
+            label: module.label,
+            score: module.nodes,
+            node_count: module.nodes
+          })),
+          links: []
+        };
+      }
+      return data.graph;
+    }
+
+    function buildGraph() {
+      const raw = currentRaw();
+      const needle = filter.trim().toLowerCase();
+      simNodes = raw.nodes
+        .filter(node => !needle || [node.id, node.label, node.language].join(' ').toLowerCase().includes(needle))
+        .map((node, index) => ({
+          ...node,
+          x: Math.cos(index) * 220,
+          y: Math.sin(index) * 180,
+          vx: 0,
+          vy: 0
+        }));
+      const ids = new Set(simNodes.map(node => node.id));
+      simLinks = (raw.links || []).filter(link => ids.has(link.source) && ids.has(link.target));
+      if (mode === 'modules') layoutModules();
+      updateLegend();
+    }
+
+    function layoutModules() {
+      const cols = Math.ceil(Math.sqrt(simNodes.length));
+      simNodes.forEach((node, index) => {
+        node.x = (index % cols - cols / 2) * 92;
+        node.y = (Math.floor(index / cols) - cols / 2) * 78;
+      });
+    }
+
+    function updateLegend() {
+      const languages = [...new Set(simNodes.map(node => node.language || 'unknown'))].slice(0, 12);
+      document.getElementById('legend').innerHTML = languages
+        .map(language => `<span><i class="dot" style="background:${colors[language] || colors.unknown}"></i>${esc(language)}</span>`)
+        .join('');
+    }
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(rect.width * dpr);
+      canvas.height = Math.floor(rect.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function tick() {
+      if (mode !== 'files') return;
+      const idMap = new Map(simNodes.map(node => [node.id, node]));
+      for (let step = 0; step < 2; step++) {
+        for (const node of simNodes) {
+          node.vx += -node.x * .0007;
+          node.vy += -node.y * .0007;
+        }
+        for (const link of simLinks) {
+          const a = idMap.get(link.source);
+          const b = idMap.get(link.target);
+          if (!a || !b) continue;
+          let dx = b.x - a.x;
+          let dy = b.y - a.y;
+          let distance = Math.hypot(dx, dy) || 1;
+          const target = 65 + Math.min(100, 260 / (link.weight || 1));
+          const force = (distance - target) * .0009 * (1 + Math.min(5, link.weight || 1));
+          dx /= distance;
+          dy /= distance;
+          a.vx += dx * force;
+          a.vy += dy * force;
+          b.vx -= dx * force;
+          b.vy -= dy * force;
+        }
+        for (let i = 0; i < simNodes.length; i++) {
+          for (let j = i + 1; j < simNodes.length; j++) {
+            const a = simNodes[i];
+            const b = simNodes[j];
+            const dx = b.x - a.x;
+            const dy = b.y - a.y;
+            const distanceSq = dx * dx + dy * dy + .01;
+            if (distanceSq < 26000) {
+              const force = 46 / distanceSq;
+              a.vx -= dx * force;
+              a.vy -= dy * force;
+              b.vx += dx * force;
+              b.vy += dy * force;
+            }
+          }
+        }
+        for (const node of simNodes) {
+          if (node !== dragging) {
+            node.x += node.vx;
+            node.y += node.vy;
+          }
+          node.vx *= .86;
+          node.vy *= .86;
+        }
+      }
+    }
+
+    function draw() {
+      resize();
+      tick();
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      ctx.clearRect(0, 0, width, height);
+      ctx.save();
+      ctx.translate(width / 2 + pan.x, height / 2 + pan.y);
+      ctx.scale(zoom, zoom);
+      const idMap = new Map(simNodes.map(node => [node.id, node]));
+      ctx.lineCap = 'round';
+      for (const link of simLinks) {
+        const a = idMap.get(link.source);
+        const b = idMap.get(link.target);
+        if (!a || !b) continue;
+        ctx.strokeStyle = 'rgba(90, 103, 108, .22)';
+        ctx.lineWidth = Math.min(5, .6 + Math.log1p(link.weight || 1));
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+      for (const node of simNodes) {
+        const radius = mode === 'modules'
+          ? Math.max(7, Math.min(34, Math.sqrt(node.nodes || 1) / 9))
+          : Math.max(4, Math.min(18, Math.sqrt(node.score || node.node_count || 1) / 4));
+        node.r = radius;
+        ctx.beginPath();
+        ctx.fillStyle = colors[node.language] || colors.unknown;
+        ctx.globalAlpha = hover && hover !== node ? .35 : .92;
+        ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        if (radius > 9 || node === hover) {
+          ctx.font = '11px system-ui';
+          ctx.fillStyle = '#273033';
+          ctx.fillText(node.label, node.x + radius + 4, node.y + 4);
+        }
+      }
+      ctx.restore();
+      requestAnimationFrame(draw);
+    }
+
+    function world(event) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: (event.clientX - rect.left - canvas.clientWidth / 2 - pan.x) / zoom,
+        y: (event.clientY - rect.top - canvas.clientHeight / 2 - pan.y) / zoom
+      };
+    }
+
+    canvas.addEventListener('mousemove', event => {
+      const point = world(event);
+      hover = null;
+      for (let i = simNodes.length - 1; i >= 0; i--) {
+        const node = simNodes[i];
+        if (Math.hypot(point.x - node.x, point.y - node.y) <= (node.r || 8) + 3) {
+          hover = node;
+          break;
+        }
+      }
+      if (dragging) {
+        dragging.x = point.x;
+        dragging.y = point.y;
+      }
+      if (!dragging && panning) {
+        pan.x += event.clientX - panning.x;
+        pan.y += event.clientY - panning.y;
+        panning = { x: event.clientX, y: event.clientY };
+      }
+      if (hover) {
+        tip.style.display = 'block';
+        tip.style.left = event.clientX + 14 + 'px';
+        tip.style.top = event.clientY + 14 + 'px';
+        tip.innerHTML = `<b>${esc(hover.label)}</b><br>${esc(hover.language || 'unknown')} · 节点 ${fmt.format(hover.node_count || hover.nodes || 0)}<br><span>${esc(hover.id)}</span>`;
+      } else {
+        tip.style.display = 'none';
+      }
+    });
+
+    canvas.addEventListener('mousedown', event => {
+      const point = world(event);
+      dragging = null;
+      for (const node of simNodes) {
+        if (Math.hypot(point.x - node.x, point.y - node.y) <= (node.r || 8) + 3) dragging = node;
+      }
+      if (!dragging) panning = { x: event.clientX, y: event.clientY };
+    });
+    window.addEventListener('mouseup', () => { dragging = null; panning = null; });
+    canvas.addEventListener('wheel', event => {
+      event.preventDefault();
+      zoom *= event.deltaY < 0 ? 1.08 : .92;
+      zoom = Math.max(.35, Math.min(3, zoom));
+    }, { passive: false });
+    document.getElementById('search').addEventListener('input', event => {
+      filter = event.target.value;
+      buildGraph();
+    });
+    document.getElementById('mode-files').onclick = () => {
+      mode = 'files';
+      document.getElementById('mode-files').classList.add('active');
+      document.getElementById('mode-modules').classList.remove('active');
+      buildGraph();
+    };
+    document.getElementById('mode-modules').onclick = () => {
+      mode = 'modules';
+      document.getElementById('mode-modules').classList.add('active');
+      document.getElementById('mode-files').classList.remove('active');
+      buildGraph();
+    };
+    document.getElementById('reset').onclick = () => {
+      pan = { x: 0, y: 0 };
+      zoom = 1;
+      buildGraph();
+    };
+    window.addEventListener('resize', resize);
+  </script>
+</body>
+</html>

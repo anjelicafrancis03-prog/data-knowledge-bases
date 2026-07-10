@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>显明易说 LightRAG 审计台</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --line: #d9dee7;
+      --text: #1d2430;
+      --muted: #647084;
+      --blue: #1d4ed8;
+      --amber: #b45309;
+      --red: #b91c1c;
+      --green: #047857;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      letter-spacing: 0;
+    }
+    header {
+      padding: 22px 28px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+    h1 { margin: 0 0 8px; font-size: 24px; font-weight: 700; }
+    .sub { color: var(--muted); font-size: 14px; }
+    main { padding: 20px 28px 36px; max-width: 1500px; margin: 0 auto; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(130px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .stat b { display: block; font-size: 22px; margin-bottom: 4px; }
+    .stat span { color: var(--muted); font-size: 13px; }
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(260px, 1fr) 160px 160px 160px;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    input, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: #fff;
+      color: var(--text);
+      font-size: 14px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 16px;
+      align-items: start;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    th { background: #eef2f7; font-weight: 700; color: #334155; }
+    tr:hover td { background: #f8fafc; }
+    .file { font-weight: 600; }
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      white-space: nowrap;
+    }
+    .risk-medium { color: var(--amber); border-color: #f59e0b; background: #fffbeb; }
+    .risk-low { color: var(--green); border-color: #10b981; background: #ecfdf5; }
+    .role-catalog, .role-index { color: var(--blue); border-color: #60a5fa; background: #eff6ff; }
+    .warn { color: var(--red); font-weight: 700; }
+    aside {
+      position: sticky;
+      top: 12px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    h2 { margin: 0 0 10px; font-size: 16px; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      max-height: 330px;
+      overflow: auto;
+    }
+    .small { color: var(--muted); font-size: 12px; line-height: 1.6; }
+    @media (max-width: 1050px) {
+      .stats { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
+      .toolbar { grid-template-columns: 1fr; }
+      .layout { grid-template-columns: 1fr; }
+      aside { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>显明易说 LightRAG 审计台</h1>
+    <div class="sub">本地库：150 篇文章 · LightRAG 图谱 + sidecar 审计 · 数据只读展示</div>
+  </header>
+  <main>
+    <section class="stats" id="stats"></section>
+    <section class="toolbar">
+      <input id="q" placeholder="搜索文件名、doc_id、角色、风险..." />
+      <select id="role">
+        <option value="">全部角色</option>
+        <option value="substantive">正文</option>
+        <option value="catalog">目录型</option>
+        <option value="index">索引型</option>
+      </select>
+      <select id="risk">
+        <option value="">全部风险</option>
+        <option value="low">低风险</option>
+        <option value="medium">中风险</option>
+      </select>
+      <select id="warn">
+        <option value="">全部文档</option>
+        <option value="1">仅 warning</option>
+        <option value="0">无 warning</option>
+      </select>
+    </section>
+    <section class="layout">
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>文件</th>
+              <th>角色</th>
+              <th>风险</th>
+              <th>Chunks</th>
+              <th>Warning</th>
+              <th>长度</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <aside>
+        <h2>详情</h2>
+        <div id="detail" class="small">点击左侧文档查看详情。</div>
+        <h2 style="margin-top:16px;">一键查询</h2>
+        <pre>F:\codex\tools\lightrag_xianmingyishuo\query_xianmingyishuo.cmd "你的问题" --top-k 6 --context</pre>
+        <div class="small">引用审计会标出 catalog/index 文档和 warning chunks。重要结论请结合 context 原文片段判断。</div>
+      </aside>
+    </section>
+  </main>
+  <script>
+    let DATA = null;
+    const $ = (id) => document.getElementById(id);
+
+    function pill(text, cls) {
+      return `<span class="pill ${cls || ""}">${text}</span>`;
+    }
+
+    function renderStats() {
+      const s = DATA.summary;
+      const stats = [
+        ["文档", s.documents],
+        ["Chunks", s.chunks],
+        ["实体", s.entities],
+        ["关系", s.relationships],
+        ["Warning", s.warning_chunks],
+        ["质量标记", s.quality_flags],
+      ];
+      $("stats").innerHTML = stats.map(([label, value]) => `<div class="stat"><b>${value}</b><span>${label}</span></div>`).join("");
+    }
+
+    function filteredDocs() {
+      const q = $("q").value.trim().toLowerCase();
+      const role = $("role").value;
+      const risk = $("risk").value;
+      const warn = $("warn").value;
+      return DATA.documents.filter((d) => {
+        const hay = `${d.doc_id} ${d.file_path} ${d.role} ${d.retrieval_risk}`.toLowerCase();
+        if (q && !hay.includes(q)) return false;
+        if (role && d.role !== role) return false;
+        if (risk && d.retrieval_risk !== risk) return false;
+        if (warn === "1" && d.warning_chunks === 0) return false;
+        if (warn === "0" && d.warning_chunks !== 0) return false;
+        return true;
+      });
+    }
+
+    function renderRows() {
+      const docs = filteredDocs();
+      $("rows").innerHTML = docs.map((d, i) => `
+        <tr data-doc="${d.doc_id}">
+          <td><div class="file">${d.file_path}</div><div class="small">${d.doc_id}</div></td>
+          <td>${pill(d.role, "role-" + d.role)}</td>
+          <td>${pill(d.retrieval_risk, "risk-" + d.retrieval_risk)}</td>
+          <td>${d.chunk_count}</td>
+          <td class="${d.warning_chunks ? "warn" : ""}">${d.warning_chunks}</td>
+          <td>${d.content_length}</td>
+        </tr>
+      `).join("");
+      Array.from(document.querySelectorAll("tbody tr")).forEach((tr) => {
+        tr.addEventListener("click", () => showDetail(tr.dataset.doc));
+      });
+    }
+
+    function showDetail(docId) {
+      const d = DATA.documents.find((item) => item.doc_id === docId);
+      const warnings = DATA.warnings.filter((w) => w.doc_id === docId);
+      const flags = DATA.quality_flags.filter((f) => f.object_id === docId || f.detail === d.file_path);
+      $("detail").innerHTML = `
+        <div><b>${d.file_path}</b></div>
+        <div class="small">${d.doc_id}</div>
+        <p>${pill(d.role, "role-" + d.role)} ${pill(d.retrieval_risk, "risk-" + d.retrieval_risk)}</p>
+        <div class="small">chunks: ${d.chunk_count} · warning: ${d.warning_chunks} · length: ${d.content_length}</div>
+        <h2 style="margin-top:16px;">Warnings</h2>
+        <pre>${warnings.length ? warnings.map((w) => `${w.chunk_id}\n${w.reason}`).join("\n\n") : "无"}</pre>
+        <h2 style="margin-top:16px;">Flags</h2>
+        <pre>${flags.length ? flags.map((f) => `${f.scope} · ${f.severity} · ${f.reason}\n${f.detail || ""}`).join("\n\n") : "无"}</pre>
+      `;
+    }
+
+    async function main() {
+      DATA = await fetch("./data.json").then((r) => r.json());
+      renderStats();
+      renderRows();
+      ["q", "role", "risk", "warn"].forEach((id) => $(id).addEventListener("input", renderRows));
+    }
+    main();
+  </script>
+</body>
+</html>

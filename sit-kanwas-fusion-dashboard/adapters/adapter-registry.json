@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "fusion-adapter-registry/v0.1",
+  "updatedAt": "2026-06-14T16:50:00+08:00",
+  "boundary": "Dry-run registry only. Adapters generate packets, plans, and evidence files. They do not call providers, launch jcode, start workers, read credentials, mutate browser state, or edit Harness/Codex config.",
+  "adapters": [
+    {
+      "id": "o_review_l1_packet",
+      "label": "O Review L1 Packet",
+      "mode": "dry-run",
+      "canonicalPacket": true,
+      "targetSeat": "o3",
+      "routeId": "model-ai-api",
+      "permissionClass": "report-write",
+      "outputs": [
+        "external-agent-task/v0.1 packet",
+        "validator output",
+        "adapter dry-run summary"
+      ],
+      "blockedActions": [
+        "No provider call",
+        "No Claude Code launch",
+        "No O1/O2/O3 invocation",
+        "No credential read"
+      ]
+    },
+    {
+      "id": "jcode_l1_plan",
+      "label": "jcode L1 Plan",
+      "mode": "dry-run",
+      "canonicalPacket": false,
+      "targetSeat": "jcode",
+      "routeId": "code-dev-review",
+      "permissionClass": "report-write",
+      "outputs": [
+        "jcode-execution-plan.json",
+        "risk-review.md",
+        "cleanup-plan.md",
+        "adapter dry-run summary"
+      ],
+      "blockedActions": [
+        "No jcode launch",
+        "No Windows normal-profile install/use",
+        "No WSL worker",
+        "No provider call",
+        "No credential read"
+      ],
+      "canonicalBlocker": "external-agent-task-packet.schema.json targetSeat enum does not include jcode yet."
+    }
+  ]
+}

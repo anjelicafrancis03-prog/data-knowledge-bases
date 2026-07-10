@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agent-runtimes.registry.schema/v0.1",
+  "title": "Agent runtimes registry v0.1",
+  "type": "object",
+  "required": ["schemaVersion", "updatedAt", "boundary", "runtimes"],
+  "properties": {
+    "schemaVersion": { "const": "agent-runtimes.registry/v0.1" },
+    "updatedAt": { "type": "string" },
+    "boundary": { "type": "string" },
+    "runtimes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/runtime" }
+    }
+  },
+  "$defs": {
+    "runtime": {
+      "type": "object",
+      "required": [
+        "agentRuntimeId",
+        "displayName",
+        "kind",
+        "normalMode",
+        "roomMode",
+        "agentRelation",
+        "permissionClass",
+        "status",
+        "runtimeAuthority",
+        "credentialPolicy",
+        "allowedReads",
+        "allowedWrites",
+        "forbiddenActions",
+        "healthCheck",
+        "smokeCheck",
+        "timeoutPolicy",
+        "evidenceParser"
+      ],
+      "properties": {
+        "agentRuntimeId": { "type": "string" },
+        "displayName": { "type": "string" },
+        "kind": {
+          "enum": ["cli", "daemon", "cloud-review", "browser", "search", "desktop-cdp", "human"]
+        },
+        "normalMode": { "type": "string" },
+        "roomMode": { "type": "string" },
+        "agentRelation": {
+          "enum": ["room_subagent", "detached_handoff", "external_review", "human_controlled", "reference_only"]
+        },
+        "permissionClass": {
+          "enum": ["read-only", "report-write", "packet-write", "local-write-gated", "blocked"]
+        },
+        "status": {
+          "enum": ["available", "planned", "packet-ready", "reference-only", "blocked", "blocked-noncanonical"]
+        },
+        "runtimeAuthority": { "type": "string" },
+        "commandOrEndpoint": { "type": "string" },
+        "cwdPolicy": { "type": "string" },
+        "inputMode": { "type": "string" },
+        "outputMode": { "type": "string" },
+        "supportsStreaming": { "type": "boolean" },
+        "supportsWorktrees": { "type": "boolean" },
+        "supportsDetached": { "type": "boolean" },
+        "requiresLoginState": { "type": "boolean" },
+        "credentialPolicy": {
+          "type": "object",
+          "required": ["storesRawSecret", "pointerOnly"],
+          "properties": {
+            "storesRawSecret": { "const": false },
+            "pointerOnly": { "const": true },
+            "note": { "type": "string" }
+          }
+        },
+        "allowedReads": { "type": "array", "items": { "type": "string" } },
+        "allowedWrites": { "type": "array", "items": { "type": "string" } },
+        "forbiddenActions": { "type": "array", "items": { "type": "string" } },
+        "healthCheck": { "type": "string" },
+        "smokeCheck": { "type": "string" },
+        "timeoutPolicy": { "type": "string" },
+        "evidenceParser": { "type": "string" }
+      }
+    }
+  }
+}

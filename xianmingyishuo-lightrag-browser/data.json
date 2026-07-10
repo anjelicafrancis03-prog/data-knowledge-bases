@@ -1,0 +1,1712 @@
+{
+  "summary": {
+    "documents": 150,
+    "chunks": 495,
+    "entities": 3641,
+    "relationships": 2884,
+    "warning_chunks": 14,
+    "quality_flags": 18
+  },
+  "documents": [
+    {
+      "doc_id": "doc_001_2247499395_ab2986b5",
+      "file_path": "001_2247499395_ab2986b5_高考临近，个人有些方法也许可以帮到你。。。.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 1033,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_002_2247499365_63f6d784",
+      "file_path": "002_2247499365_63f6d784_紧急提醒！三天后火势登顶，现在调运还来得及.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 12,
+      "content_length": 11929,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_003_2247499331_6f238238",
+      "file_path": "003_2247499331_6f238238_提前预警的水灾精准应验！再讲个难以启齿的旺秘.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 6,
+      "content_length": 5701,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_004_2247499213_ded88473",
+      "file_path": "004_2247499213_ded88473_2027拐点将至：看懂黄仁勋的逻辑，抓住下一个10年红利.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 5,
+      "content_length": 4130,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_005_2247499181_aa28dac6",
+      "file_path": "005_2247499181_aa28dac6_关于健康方面的预测，最近开始应验了.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1830,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_006_2247499180_6b3e394e",
+      "file_path": "006_2247499180_6b3e394e_想要功成名就？你还得知道这些.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1631,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_007_2247499166_67909e54",
+      "file_path": "007_2247499166_67909e54_都提前告知信息差了，你却还没发财？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 7,
+      "content_length": 6953,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_009_2247499090_a0aa21e5",
+      "file_path": "009_2247499090_a0aa21e5_节日重磅福利：人生择业天赋地图.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1491,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_010_2247499061_a3889085",
+      "file_path": "010_2247499061_a3889085_那些看似偶然的巧合，藏着你命运中的“提示词”.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2937,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_011_2247499061_07c7ce2c",
+      "file_path": "011_2247499061_07c7ce2c_高考超常发挥，你需要掌握6个小方法.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 261,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_012_2247499035_25f488ae",
+      "file_path": "012_2247499035_25f488ae_3 年后的变局：当免费来临，普通人最珍贵的东西会消失。（内含福利）.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1655,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_013_2247499007_051fdc5c",
+      "file_path": "013_2247499007_051fdc5c_4年前预言成真，我又发现了“胜天半子”的唯一机会.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 3140,
+      "warning_chunks": 1,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_014_2247498976_2eb5b480",
+      "file_path": "014_2247498976_2eb5b480_脾胃即财库：财运不佳？生活不满？大概率竟是因为“吃饱撑的”？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3407,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_015_2247498938_624f2244",
+      "file_path": "015_2247498938_624f2244_留给大众的时间只剩3年，回顾过往的精准预测，我更坚定这样的判断.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 5,
+      "content_length": 4676,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_016_2247498918_599c2308",
+      "file_path": "016_2247498918_599c2308_关于“清明节”，你想知道的都在这里.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1569,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_017_2247498895_e7bb6684",
+      "file_path": "017_2247498895_e7bb6684_还会有下个张雪峰吗？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3678,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_018_2247498877_7cf63109",
+      "file_path": "018_2247498877_7cf63109_41岁猝死背后：你的心脏，还在被你透支吗？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 269,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_019_2247498818_0e14f25d",
+      "file_path": "019_2247498818_0e14f25d_只需做对这一件事，就能让你家兴业旺、财源滚滚！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3502,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_020_2247498802_400526c3",
+      "file_path": "020_2247498802_400526c3_命运悖论？首次公开专业人士也不懂的核心秘密！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 3258,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_021_2247498765_c4833204",
+      "file_path": "021_2247498765_c4833204_命运的关键藏在“主动”二字，只有极少数人知道如何运用.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 5,
+      "content_length": 4273,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_022_2247498748_dbf14e27",
+      "file_path": "022_2247498748_dbf14e27_价值万金的AI 时代终极生存逻辑，这篇文章足以决定你的整个人生！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3905,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_023_2247498711_5e087b85",
+      "file_path": "023_2247498711_5e087b85_全球变天！26年你必须开始明白这几个逻辑！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3800,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_024_2247498694_1d349058",
+      "file_path": "024_2247498694_1d349058_迎财神，今年你务必要知道这些！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 257,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_025_2247498694_725c568e",
+      "file_path": "025_2247498694_725c568e_马载丰财，五路齐通！红包封面限量发放！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 494,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_026_2247498692_f27f3efb",
+      "file_path": "026_2247498692_f27f3efb_逐穷迎吉，马到成功！红包封面限量发放！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 502,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_027_2247498691_9df47ac4",
+      "file_path": "027_2247498691_9df47ac4_灶守安康，马驮丰岁！红包封面限量发放！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 496,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_028_2247498690_65d92836",
+      "file_path": "028_2247498690_65d92836_迎财神，今年你务必要知道这些！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3619,
+      "warning_chunks": 1,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_029_2247498673_437b31e8",
+      "file_path": "029_2247498673_437b31e8_策马迎祥，德厚流光！红包封面限量发放！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 491,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_030_2247498672_70be0f7d",
+      "file_path": "030_2247498672_70be0f7d_龙马精神，万象更新！红包封面限量发放！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 520,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_031_2247498669_9a4f0383",
+      "file_path": "031_2247498669_9a4f0383_岁律更始，骏马衔春！红包封面限量发放！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 489,
+      "warning_chunks": 1,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_032_2247498668_13f7b857",
+      "file_path": "032_2247498668_13f7b857_除夕来临，有些福利和话语我想送给你。。。.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 4063,
+      "warning_chunks": 1,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_033_2247498652_394d2fd3",
+      "file_path": "033_2247498652_394d2fd3_【深度好文】为什么有人成功轻而易举？因为他们从不“努力”做事！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3752,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_034_2247498585_3062b550",
+      "file_path": "034_2247498585_3062b550_立春启运！送一波福利头像，助你马年骐骥驰骋！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1440,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_035_2247498560_72cb72ce",
+      "file_path": "035_2247498560_72cb72ce_躲春？别搞笑了.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 241,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_036_2247498557_f02f8027",
+      "file_path": "036_2247498557_f02f8027_掌握这些，让你再次超越巅峰！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3756,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_037_2247498470_f5408b14",
+      "file_path": "037_2247498470_f5408b14_十年一遇！立春跑赢小年，今年的辞旧迎新大有玄机.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3318,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_038_2247498449_52ac2cdd",
+      "file_path": "038_2247498449_52ac2cdd_岁末解惑：在变动的时代找到自己的节奏.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1930,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_039_2247498434_f4252173",
+      "file_path": "039_2247498434_f4252173_如何像孙悟空一样神通广大？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 3265,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_040_2247498383_2b4ebd55",
+      "file_path": "040_2247498383_2b4ebd55_罗振宇&显明的共识预测，帮你接住2026年暴富机遇！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 5,
+      "content_length": 4723,
+      "warning_chunks": 1,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_041_2247498354_1333af17",
+      "file_path": "041_2247498354_1333af17_25年最后一天，送上3份福利。.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1924,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_042_2247498324_b9581f28",
+      "file_path": "042_2247498324_b9581f28_大众恐慌的2026决赛淘汰年，为何我却说“精彩才刚刚开始”？（附环境 + 个人双指南）.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 5,
+      "content_length": 4382,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_043_2247498323_5ef6e54f",
+      "file_path": "043_2247498323_5ef6e54f_屠龙者不必成恶龙！于东来的良心，是普通人26年的觉醒钥匙！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2547,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_044_2247498267_d54977ed",
+      "file_path": "044_2247498267_d54977ed_拆解春晚Logo隐藏的3层狠料：不是年味，而是26年行动指令.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 3150,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_045_2247498218_f0aa112b",
+      "file_path": "045_2247498218_f0aa112b_自律总破戒、越扛越废？这套“邪修”功法让你爽起来蜕变！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3357,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_046_2247498177_518f434e",
+      "file_path": "046_2247498177_518f434e_未来前瞻：在AI成为“新权威”的时代，如何保住你的思考主权？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2762,
+      "warning_chunks": 1,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_047_2247498153_6d627a1e",
+      "file_path": "047_2247498153_6d627a1e_豆包被封、智谱掀桌：这场 AI 商战，暴露了时代的终极法则.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3593,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_048_2247498136_1a40e342",
+      "file_path": "048_2247498136_1a40e342_如何把“焦虑”变成财富？（附赠明年指南）.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3962,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_049_2247498115_ee24e779",
+      "file_path": "049_2247498115_ee24e779_颠覆认知：赤马红羊不是劫！这样布局，让你“借劫助运”！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3429,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_050_2247498088_fb9fb8bc",
+      "file_path": "050_2247498088_fb9fb8bc_影响身心的家居布局，这些传统门道要知道.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2566,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_051_2247498048_0c391621",
+      "file_path": "051_2247498048_0c391621_十二月运势不踩坑，这些建议请收好！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2347,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_052_2247498024_c236c444",
+      "file_path": "052_2247498024_c236c444_“勾引”式教育，躺平也能鸡娃！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2908,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_053_2247497964_0047a0af",
+      "file_path": "053_2247497964_0047a0af_为何努力总是原地打转？你需要一场“成长突破”.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1706,
+      "warning_chunks": 1,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_054_2247497932_ff432562",
+      "file_path": "054_2247497932_ff432562_向华强78岁揭秘证明存在改命密码！命运真的可以掌握在自己手中！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2942,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_055_2247497917_fe505aaf",
+      "file_path": "055_2247497917_fe505aaf_关于赚钱，这套“财富觉醒”方法论请收好.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1750,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_056_2247497894_4e243acc",
+      "file_path": "056_2247497894_4e243acc_“赚钱”可以像喝水一样简单！了解这个财富密码，你也能很有钱.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 3161,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_057_2247497857_e25a6ee9",
+      "file_path": "057_2247497857_e25a6ee9_警告：死守现金≈放弃暴富！看懂少走10年弯路！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2231,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_058_2247497841_69dd493d",
+      "file_path": "058_2247497841_69dd493d_关于命运，这是最接近真相的答案.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1980,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_059_2247497840_2bd155d9",
+      "file_path": "059_2247497840_2bd155d9_量子级改命：你可以“穿越到未来”来改写现在！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 3051,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_060_2247497788_5c08bfaf",
+      "file_path": "060_2247497788_5c08bfaf_未来3年不醒，家族百年无望.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2310,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_061_2247497773_b8a3b4fb",
+      "file_path": "061_2247497773_b8a3b4fb_这是最好的“投机暴富”时代，掌握这种技巧，你也可以很“富有”！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3504,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_062_2247497773_2f0f4125",
+      "file_path": "062_2247497773_2f0f4125_2026升级版电子黄历小程序使用指南.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 1355,
+      "warning_chunks": 1,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_063_2247497754_aff53a6f",
+      "file_path": "063_2247497754_aff53a6f_在时序转变中，迎接属于你的十一月好运.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2907,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_064_2247497740_e23aa986",
+      "file_path": "064_2247497740_e23aa986_“快牛”将至？但“赤马红羊”又该如何应对？有个建议，你务必要听！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2975,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_065_2247497740_f97d2108",
+      "file_path": "065_2247497740_f97d2108_1.如何兑换电子黄历.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 485,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_066_2247497740_47759ef4",
+      "file_path": "066_2247497740_47759ef4_2.上新功能相关介绍.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 455,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_067_2247497740_da950276",
+      "file_path": "067_2247497740_da950276_3.如何能快速查看.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 711,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_068_2247497740_c3bdae17",
+      "file_path": "068_2247497740_c3bdae17_4.如何获得并查询积分.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 493,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_069_2247497740_f3ef474d",
+      "file_path": "069_2247497740_f3ef474d_5.如何兑换积分商品.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 303,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_070_2247497740_48545f51",
+      "file_path": "070_2247497740_48545f51_6.如何使用每日壹签.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 435,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_071_2247497637_aa8ced54",
+      "file_path": "071_2247497637_aa8ced54_做好这项“资产配置”，比做任何投资都更靠谱.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2508,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_073_2247497569_2708c5d5",
+      "file_path": "073_2247497569_2708c5d5_这三件热搜背后，藏着影响你未来5年的“新规”.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3419,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_075_2247497386_991a2950",
+      "file_path": "075_2247497386_991a2950_如何创造出自己想要的世界？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2767,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_076_2247497362_92040da2",
+      "file_path": "076_2247497362_92040da2_人为什么永远后知后觉？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2618,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_077_2247497347_333268e7",
+      "file_path": "077_2247497347_333268e7_教你一种“稳赚不赔”的“赌法”.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2511,
+      "warning_chunks": 1,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_078_2247497331_c85eb10f",
+      "file_path": "078_2247497331_c85eb10f_火土能量交替的十月，我有这些建议想给你.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2505,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_079_2247497319_bcaa834e",
+      "file_path": "079_2247497319_bcaa834e_假期该用来摆烂还是提升？看完或许你会找到答案.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2600,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_081_2247497236_01839bba",
+      "file_path": "081_2247497236_01839bba_为什么你总“学不会”？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 2164,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_082_2247497210_1fe5d8a5",
+      "file_path": "082_2247497210_1fe5d8a5_周测应验！再送给大家价值千金的能量提升法！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3325,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_083_2247497193_b19d2334",
+      "file_path": "083_2247497193_b19d2334_三分钟掌握磁场环境中的秘密.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2619,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_084_2247497193_c9e20099",
+      "file_path": "084_2247497193_c9e20099_“神奇”的数字能量.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2399,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_087_2247497128_cd618e72",
+      "file_path": "087_2247497128_cd618e72_对“西贝”和“朦胧”事件做了些预测，发现.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2404,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_088_2247497113_c3bbb1f1",
+      "file_path": "088_2247497113_c3bbb1f1_你的人生能有多成功？只取决于这个关键点！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2822,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_089_2247497113_4287c2f7",
+      "file_path": "089_2247497113_4287c2f7_从情绪奴隶到人生掌控者.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2425,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_091_2247496919_73778414",
+      "file_path": "091_2247496919_73778414_我的歌单里，藏着一路成长的底气.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 2010,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_092_2247496881_efa9ad46",
+      "file_path": "092_2247496881_efa9ad46_凭什么你的孩子有更好的前途？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3508,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_093_2247496854_0c9d4ed5",
+      "file_path": "093_2247496854_0c9d4ed5_想让孩子赢在未来？那你要这样做.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2476,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_094_2247496804_1bad56f9",
+      "file_path": "094_2247496804_1bad56f9_成为“气运之子”，你只需这样做.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3354,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_095_2247496804_b7d437a3",
+      "file_path": "095_2247496804_b7d437a3_从准备到入住，最用心的乔迁全流程指南。.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 265,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_096_2247496777_0d8fbae8",
+      "file_path": "096_2247496777_0d8fbae8_99%的人并不懂得副业的意义，想发财致富你必须懂得.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3724,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_097_2247496742_446dc8f4",
+      "file_path": "097_2247496742_446dc8f4_特殊的日子里有些不一样的启示.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 3016,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_098_2247496742_1c3efd98",
+      "file_path": "098_2247496742_1c3efd98_中元节，什么能做，什么不能做？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2493,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_099_2247496696_5ce3281a",
+      "file_path": "099_2247496696_5ce3281a_九月的运势密码与好运提示.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2965,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_100_2247496657_f07042c2",
+      "file_path": "100_2247496657_f07042c2_爱情的存在还有没有意义？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1836,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_101_2247496639_8d8b5e13",
+      "file_path": "101_2247496639_8d8b5e13_如约而至的七夕福利.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 851,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_102_2247496639_99870a75",
+      "file_path": "102_2247496639_99870a75_好风凭借力，送我上青云。.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 4534,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_103_2247496529_eb0c5ba7",
+      "file_path": "103_2247496529_eb0c5ba7_与其羡慕别人跃迁赚大钱，不如你也这样做.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3243,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_104_2247496512_4cffd308",
+      "file_path": "104_2247496512_4cffd308_关于“爱”，你也许不懂.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2548,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_105_2247496511_55c811a1",
+      "file_path": "105_2247496511_55c811a1_你能接着这泼天的富贵吗？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2899,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_106_2247496465_a5534fa8",
+      "file_path": "106_2247496465_a5534fa8_财富正在重新分配，你是_被偷_的那波人吗？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2407,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_107_2247496434_7ac7e41f",
+      "file_path": "107_2247496434_7ac7e41f_小劳、减脂、性命双修...全方位养生指南.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2510,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_108_2247496407_3d8681bc",
+      "file_path": "108_2247496407_3d8681bc_详解“神奇”的中式环境科学.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2599,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_109_2247496382_67fec549",
+      "file_path": "109_2247496382_67fec549_错过的机会，藏着下半年的财富密码.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3158,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_110_2247496382_a347a372",
+      "file_path": "110_2247496382_a347a372_为什么你总觉得不顺？问题出在 “家的朝向” 上.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 273,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_111_2247496352_638a1653",
+      "file_path": "111_2247496352_638a1653_面相与命运.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2327,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_112_2247496299_27035a40",
+      "file_path": "112_2247496299_27035a40_从小被误解的“老人言”，实则暗藏智慧.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2924,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_113_2247496299_f6c143b5",
+      "file_path": "113_2247496299_f6c143b5_吉祥物，勿乱放！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 243,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_114_2247496282_4c817a64",
+      "file_path": "114_2247496282_4c817a64_热浪渐退的8月，关注以下建议让运势持续上扬！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2715,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_115_2247496282_35faaace",
+      "file_path": "115_2247496282_35faaace_关于“修炼”的那些事。.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1704,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_116_2247496222_f4023056",
+      "file_path": "116_2247496222_f4023056_经典再读 _ 关于钱，你可能一直想错了.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1754,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_118_2247496188_7be64734",
+      "file_path": "118_2247496188_7be64734_那些不宜摆放在室内的植物.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 251,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_119_2247496177_36d52d08",
+      "file_path": "119_2247496177_36d52d08_别说“知易行难”，其实成功很容易.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2192,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_120_2247496168_d157c57e",
+      "file_path": "120_2247496168_d157c57e_从砸窗到破局：内卷时代正在转变.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2809,
+      "warning_chunks": 1,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_121_2247496158_d0eebe3a",
+      "file_path": "121_2247496158_d0eebe3a_末日预言的启示.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2801,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_122_2247496147_90971279",
+      "file_path": "122_2247496147_90971279_水火未济的燥暑7月，请务必要重视以下建议.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2427,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_123_2247496141_e678f170",
+      "file_path": "123_2247496141_e678f170_比起文章本身，这些真实声音更值得被看见！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1379,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_130_2247496107_8bd9d244",
+      "file_path": "130_2247496107_8bd9d244_顶级大佬的财富密码是如何收割你的未来的？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 3097,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_131_2247496098_083d51b2",
+      "file_path": "131_2247496098_083d51b2_考试结束了，但也暴露了一个重大问题.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2791,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_132_2247496098_3f4dc5d2",
+      "file_path": "132_2247496098_3f4dc5d2_辗转于万千梦境间，难道只因拥有七窍玲珑心吗？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 271,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_133_2247496089_36777360",
+      "file_path": "133_2247496089_36777360_6月好运指导！抓重点避风险，方能拥有不错收益！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2152,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_134_2247496089_75f46bd2",
+      "file_path": "134_2247496089_75f46bd2_本月九宫飞星解析：从能量磁场到家居布局的趋吉避凶指南.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 279,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_135_2247496077_15e21e90",
+      "file_path": "135_2247496077_15e21e90_打假“极阳水”以及该如何真正“补阳”.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2321,
+      "warning_chunks": 1,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_136_2247496064_2305f633",
+      "file_path": "136_2247496064_2305f633_今日小满：为何二十四节气独缺 “大满”？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 267,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_137_2247496061_60b8db70",
+      "file_path": "137_2247496061_60b8db70_纷乱动荡的2025，对症下药才能“顺天改命”.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 3009,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_138_2247496032_deb8fd7f",
+      "file_path": "138_2247496032_deb8fd7f_变革时期，如何把握机会乘风而起？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3816,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_139_2247496019_29ba45a2",
+      "file_path": "139_2247496019_29ba45a2_警惕表面的和谐，并把握好难得的机遇.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 2,
+      "content_length": 1890,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_140_2247496009_d7fcf61d",
+      "file_path": "140_2247496009_d7fcf61d_“天人共怨”的时代该如何“向阳而生”？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2980,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_141_2247495994_e70f693a",
+      "file_path": "141_2247495994_e70f693a_步入五月，这些建议望你及时知晓！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2610,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_142_2247495994_252cb50c",
+      "file_path": "142_2247495994_252cb50c_本月如何借助环境的力量，提升自己的好运呢？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 269,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_143_2247495982_83205664",
+      "file_path": "143_2247495982_83205664_你的“劫难”恰是“飞升”的契机.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2713,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_144_2247495971_250d94c6",
+      "file_path": "144_2247495971_250d94c6_警惕“特朗普式博弈”，是确保美好未来的第一准则.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2790,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_145_2247495952_3aaf0504",
+      "file_path": "145_2247495952_3aaf0504_近期三个热点的背后逻辑.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2706,
+      "warning_chunks": 1,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_146_2247495952_7c354ebd",
+      "file_path": "146_2247495952_7c354ebd_你必须要知道的谷雨转运小技巧！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 257,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_147_2247495939_89fe314c",
+      "file_path": "147_2247495939_89fe314c_掌握出生时间里的健康和运势竟如此简单？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 5,
+      "content_length": 4407,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_148_2247495903_7b94bc26",
+      "file_path": "148_2247495903_7b94bc26_若一味反感宏大叙事，则会关闭你的上升通道.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2799,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_149_2247495892_ed1d266e",
+      "file_path": "149_2247495892_ed1d266e_当老天爷喂饭的时候，你可千万别厌食.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2725,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_150_2247495892_da1a78fb",
+      "file_path": "150_2247495892_da1a78fb_经典必读100篇.md",
+      "role": "index",
+      "status": "processed",
+      "chunk_count": 18,
+      "content_length": 27799,
+      "warning_chunks": 0,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_151_2247495892_40660fc9",
+      "file_path": "151_2247495892_40660fc9_公众号内容分类.md",
+      "role": "catalog",
+      "status": "processed",
+      "chunk_count": 64,
+      "content_length": 98802,
+      "warning_chunks": 2,
+      "retrieval_risk": "medium"
+    },
+    {
+      "doc_id": "doc_152_2247495883_37ce34a0",
+      "file_path": "152_2247495883_37ce34a0_缺少这种品质，就别奢望美好人生.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2901,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_153_2247495870_2807a81c",
+      "file_path": "153_2247495870_2807a81c_“焦绿” 时代，如何稳步破局？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2182,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_154_2247495849_361cafcf",
+      "file_path": "154_2247495849_361cafcf_如何收服“青龙白虎”为己所用？.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2509,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_155_2247495849_90c1c157",
+      "file_path": "155_2247495849_90c1c157_深度解析：青龙白虎在现代家居中的助力与影响.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 269,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_156_2247495830_fb2787fd",
+      "file_path": "156_2247495830_fb2787fd_四月将至，希望你能根据这些建议提早做好规划.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 3,
+      "content_length": 2336,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_157_2247495830_ee86ea6e",
+      "file_path": "157_2247495830_ee86ea6e_升级版2025年电子黄历使用说明.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 1168,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_158_2247495810_bf3fc1e8",
+      "file_path": "158_2247495810_bf3fc1e8_关于清明的离谱热点辟谣，以及一些指导和建议！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3956,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_159_2247495810_b56f5a8a",
+      "file_path": "159_2247495810_b56f5a8a_升级版2025年电子黄历使用说明.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 1168,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_160_2247495750_b70bffb1",
+      "file_path": "160_2247495750_b70bffb1_解决任何问题的终极智慧？答案在这里！.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 3413,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_161_2247495750_94af2e56",
+      "file_path": "161_2247495750_94af2e56_电子黄历兑换说明及使用指南.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 1005,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_162_2247495668_7ea59c55",
+      "file_path": "162_2247495668_7ea59c55_春分雨脚落声微，愿以好运常相随.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 257,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_163_2247495664_0af2571b",
+      "file_path": "163_2247495664_0af2571b_如何打开你的“能量账户”，开启开挂人生.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 4,
+      "content_length": 4130,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    },
+    {
+      "doc_id": "doc_164_2247495664_cb4357c0",
+      "file_path": "164_2247495664_cb4357c0_从 惊则气乱 到 气从以顺—— 卧室设计中的中医智慧与现代实践.md",
+      "role": "substantive",
+      "status": "processed",
+      "chunk_count": 1,
+      "content_length": 289,
+      "warning_chunks": 0,
+      "retrieval_risk": "low"
+    }
+  ],
+  "warnings": [
+    {
+      "chunk_id": "doc_013_2247499007_051fdc5c-chunk-002",
+      "doc_id": "doc_013_2247499007_051fdc5c",
+      "reason": "missing complete delimiter"
+    },
+    {
+      "chunk_id": "doc_028_2247498690_65d92836-chunk-002",
+      "doc_id": "doc_028_2247498690_65d92836",
+      "reason": "missing complete delimiter"
+    },
+    {
+      "chunk_id": "doc_031_2247498669_9a4f0383-chunk-000",
+      "doc_id": "doc_031_2247498669_9a4f0383",
+      "reason": "missing complete delimiter"
+    },
+    {
+      "chunk_id": "doc_032_2247498668_13f7b857-chunk-000",
+      "doc_id": "doc_032_2247498668_13f7b857",
+      "reason": "missing complete delimiter"
+    },
+    {
+      "chunk_id": "doc_040_2247498383_2b4ebd55-chunk-002",
+      "doc_id": "doc_040_2247498383_2b4ebd55",
+      "reason": "missing complete delimiter"
+    },
+    {
+      "chunk_id": "doc_046_2247498177_518f434e-chunk-000",
+      "doc_id": "doc_046_2247498177_518f434e",
+      "reason": "missing complete delimiter"
+    },
+    {
+      "chunk_id": "doc_053_2247497964_0047a0af-chunk-000",
+      "doc_id": "doc_053_2247497964_0047a0af",
+      "reason": "missing complete delimiter"
+    },
+    {
+      "chunk_id": "doc_062_2247497773_2f0f4125-chunk-000",
+      "doc_id": "doc_062_2247497773_2f0f4125",
+      "reason": "missing complete delimiter"
+    },
+    {
+      "chunk_id": "doc_077_2247497347_333268e7-chunk-001",
+      "doc_id": "doc_077_2247497347_333268e7",
+      "reason": "malformed relation fields"
+    },
+    {
+      "chunk_id": "doc_120_2247496168_d157c57e-chunk-002",
+      "doc_id": "doc_120_2247496168_d157c57e",
+      "reason": "missing complete delimiter"
+    },
+    {
+      "chunk_id": "doc_135_2247496077_15e21e90-chunk-000",
+      "doc_id": "doc_135_2247496077_15e21e90",
+      "reason": "missing complete delimiter"
+    },
+    {
+      "chunk_id": "doc_145_2247495952_3aaf0504-chunk-000",
+      "doc_id": "doc_145_2247495952_3aaf0504",
+      "reason": "missing complete delimiter"
+    },
+    {
+      "chunk_id": "doc_151_2247495892_40660fc9-chunk-008",
+      "doc_id": "doc_151_2247495892_40660fc9",
+      "reason": "missing complete delimiter"
+    },
+    {
+      "chunk_id": "doc_151_2247495892_40660fc9-chunk-028",
+      "doc_id": "doc_151_2247495892_40660fc9",
+      "reason": "malformed relation separators/fields"
+    }
+  ],
+  "quality_flags": [
+    {
+      "scope": "chunk",
+      "object_id": "doc_013_2247499007_051fdc5c-chunk-002",
+      "severity": "medium",
+      "reason": "missing complete delimiter",
+      "detail": "013_2247499007_051fdc5c_4年前预言成真，我又发现了“胜天半子”的唯一机会.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_028_2247498690_65d92836-chunk-002",
+      "severity": "medium",
+      "reason": "missing complete delimiter",
+      "detail": "028_2247498690_65d92836_迎财神，今年你务必要知道这些！.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_031_2247498669_9a4f0383-chunk-000",
+      "severity": "medium",
+      "reason": "missing complete delimiter",
+      "detail": "031_2247498669_9a4f0383_岁律更始，骏马衔春！红包封面限量发放！.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_032_2247498668_13f7b857-chunk-000",
+      "severity": "medium",
+      "reason": "missing complete delimiter",
+      "detail": "032_2247498668_13f7b857_除夕来临，有些福利和话语我想送给你。。。.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_040_2247498383_2b4ebd55-chunk-002",
+      "severity": "medium",
+      "reason": "missing complete delimiter",
+      "detail": "040_2247498383_2b4ebd55_罗振宇&显明的共识预测，帮你接住2026年暴富机遇！.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_046_2247498177_518f434e-chunk-000",
+      "severity": "medium",
+      "reason": "missing complete delimiter",
+      "detail": "046_2247498177_518f434e_未来前瞻：在AI成为“新权威”的时代，如何保住你的思考主权？.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_053_2247497964_0047a0af-chunk-000",
+      "severity": "medium",
+      "reason": "missing complete delimiter",
+      "detail": "053_2247497964_0047a0af_为何努力总是原地打转？你需要一场“成长突破”.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_062_2247497773_2f0f4125-chunk-000",
+      "severity": "medium",
+      "reason": "missing complete delimiter",
+      "detail": "062_2247497773_2f0f4125_2026升级版电子黄历小程序使用指南.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_077_2247497347_333268e7-chunk-001",
+      "severity": "medium",
+      "reason": "malformed relation fields",
+      "detail": "077_2247497347_333268e7_教你一种“稳赚不赔”的“赌法”.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_120_2247496168_d157c57e-chunk-002",
+      "severity": "medium",
+      "reason": "missing complete delimiter",
+      "detail": "120_2247496168_d157c57e_从砸窗到破局：内卷时代正在转变.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_135_2247496077_15e21e90-chunk-000",
+      "severity": "medium",
+      "reason": "missing complete delimiter",
+      "detail": "135_2247496077_15e21e90_打假“极阳水”以及该如何真正“补阳”.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_145_2247495952_3aaf0504-chunk-000",
+      "severity": "medium",
+      "reason": "missing complete delimiter",
+      "detail": "145_2247495952_3aaf0504_近期三个热点的背后逻辑.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_151_2247495892_40660fc9-chunk-008",
+      "severity": "medium",
+      "reason": "missing complete delimiter",
+      "detail": "151_2247495892_40660fc9_公众号内容分类.md"
+    },
+    {
+      "scope": "chunk",
+      "object_id": "doc_151_2247495892_40660fc9-chunk-028",
+      "severity": "medium",
+      "reason": "malformed relation separators/fields",
+      "detail": "151_2247495892_40660fc9_公众号内容分类.md"
+    },
+    {
+      "scope": "document",
+      "object_id": "doc_150_2247495892_da1a78fb",
+      "severity": "medium",
+      "reason": "index document",
+      "detail": "150_2247495892_da1a78fb_经典必读100篇.md"
+    },
+    {
+      "scope": "document",
+      "object_id": "doc_151_2247495892_40660fc9",
+      "severity": "medium",
+      "reason": "catalog document",
+      "detail": "151_2247495892_40660fc9_公众号内容分类.md"
+    },
+    {
+      "scope": "entity",
+      "object_id": "ent-27c15b6eeeec56fa215bcfb77755ab78",
+      "severity": "low",
+      "reason": "probable noisy entity",
+      "detail": "http://mp.weixin.qq.com/s?..."
+    },
+    {
+      "scope": "entity",
+      "object_id": "ent-519ecc361ab33e4a2633eed06319bb56",
+      "severity": "low",
+      "reason": "probable noisy entity",
+      "detail": "http://mp.weixin.qq.com/s?__biz=Mzg3NTg2MDY1OQ==&mid=2247499061&idx=2&sn=07c7ce2c12dd09b68d8acb50cd957a03&chksm=cf39bae9f84e33ff47ee24d0657f343b1048cbd87d59266f11f79ce34ce593b1fd95cd4390a1#rd"
+    }
+  ]
+}

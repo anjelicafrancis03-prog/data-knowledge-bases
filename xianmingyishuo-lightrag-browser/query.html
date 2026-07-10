@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>显明易说 RAG 查询台</title>
+  <style>
+    :root { --bg:#f7f8fa; --panel:#fff; --line:#d9dee7; --text:#1d2430; --muted:#647084; --blue:#1d4ed8; --amber:#b45309; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"Microsoft YaHei","Segoe UI",Arial,sans-serif; background:var(--bg); color:var(--text); letter-spacing:0; }
+    header { background:var(--panel); border-bottom:1px solid var(--line); padding:20px 28px; }
+    h1 { margin:0 0 6px; font-size:24px; }
+    .sub { color:var(--muted); font-size:14px; }
+    main { max-width:1300px; margin:0 auto; padding:20px 28px 34px; }
+    .bar { display:grid; grid-template-columns:1fr 120px 120px 130px; gap:10px; margin-bottom:12px; }
+    textarea, select, button, input { border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-size:14px; background:#fff; color:var(--text); }
+    textarea { width:100%; min-height:96px; resize:vertical; grid-column:1/-1; line-height:1.5; }
+    button { background:var(--blue); color:#fff; border-color:var(--blue); cursor:pointer; font-weight:700; }
+    button:disabled { opacity:.55; cursor:not-allowed; }
+    .layout { display:grid; grid-template-columns:1fr 400px; gap:16px; align-items:start; }
+    .panel { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px; }
+    pre { white-space:pre-wrap; word-break:break-word; margin:0; font-size:13px; line-height:1.65; }
+    .audit-item { border-top:1px solid var(--line); padding:10px 0; font-size:13px; }
+    .history-item { border-top:1px solid var(--line); padding:9px 0; cursor:pointer; font-size:13px; }
+    .history-item:hover { background:#f8fafc; }
+    .pill { display:inline-block; border-radius:999px; padding:2px 8px; font-size:12px; border:1px solid var(--line); margin-right:4px; }
+    .medium { color:var(--amber); border-color:#f59e0b; background:#fffbeb; }
+    .low { color:#047857; border-color:#10b981; background:#ecfdf5; }
+    .muted { color:var(--muted); font-size:12px; }
+    .links { margin-top:8px; }
+    .links a { color:var(--blue); margin-right:14px; text-decoration:none; }
+    @media (max-width:960px){ .bar,.layout{grid-template-columns:1fr;} textarea{grid-column:auto;} }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>显明易说 RAG 查询台</h1>
+    <div class="sub">浏览器直接查询 LightRAG，并自动附带引用风险审计。</div>
+    <div class="links"><a href="./index.html">审计台</a><a href="./data.json">数据 JSON</a></div>
+  </header>
+  <main>
+    <textarea id="question" placeholder="输入问题，例如：AI时代显明强调什么能力？"></textarea>
+    <div class="bar">
+      <select id="mode"><option value="hybrid">hybrid</option><option value="local">local</option><option value="global">global</option><option value="naive">naive</option></select>
+      <input id="topk" type="number" min="1" max="20" value="6" />
+      <label class="panel" style="padding:10px 12px;"><input id="context" type="checkbox" checked /> context</label>
+      <button id="ask">查询</button>
+    </div>
+    <div class="layout">
+      <section class="panel">
+        <pre id="answer">等待查询。</pre>
+      </section>
+      <aside class="panel">
+        <h3 style="margin-top:0;">引用审计</h3>
+        <div id="audit" class="muted">查询后显示。</div>
+        <h3>当前记录</h3>
+        <div class="muted">固定 <input id="pinned" type="checkbox" /> </div>
+        <textarea id="note" placeholder="给这次查询写备注..." style="width:100%; min-height:74px; margin-top:8px;"></textarea>
+        <button id="saveMeta" style="width:100%; margin-top:8px;" disabled>保存备注</button>
+        <div id="metaStatus" class="muted" style="margin-top:6px;"></div>
+        <h3>最近查询</h3>
+        <input id="historySearch" placeholder="搜索历史问题..." style="width:100%; margin-bottom:8px;" />
+        <div id="history" class="muted">加载中...</div>
+      </aside>
+    </div>
+  </main>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    let currentRunId = null;
+    function renderAudit(rows) {
+      if (!rows || rows.length === 0) return "未检测到 Reference Document List。建议勾选 context。";
+      const risky = rows.filter(r => r.role === "catalog" || r.role === "index" || (r.warning_chunks || 0) > 0 || r.retrieval_risk !== "low");
+      const head = `<div>引用文档数：${rows.length}</div><div>需注意文档数：${risky.length}</div>`;
+      return head + risky.map(r => `<div class="audit-item"><div>${r.file_path}</div><div>${pill(r.role)} ${pill(r.retrieval_risk)} warning=${r.warning_chunks}</div></div>`).join("");
+    }
+    function renderHistory(rows) {
+      if (!rows || rows.length === 0) return "暂无记录。";
+      return rows.map(r => `<div class="history-item" data-id="${r.id}"><div>${r.pinned ? "★ " : ""}${r.question}</div><div class="muted">${r.created_at} · refs=${r.reference_count} · caution=${r.caution_count}${r.note ? " · note" : ""}</div></div>`).join("");
+    }
+    async function loadHistory() {
+      const q = encodeURIComponent($("historySearch").value.trim());
+      const data = await fetch(`/api/history?limit=20&q=${q}`).then(r => r.json());
+      $("history").innerHTML = renderHistory(data.items || []);
+      document.querySelectorAll(".history-item").forEach(el => {
+        el.addEventListener("click", async () => {
+          const item = await fetch(`/api/history/${el.dataset.id}`).then(r => r.json());
+          currentRunId = item.id;
+          $("question").value = item.question;
+          $("answer").textContent = item.answer;
+          $("audit").innerHTML = renderAudit(item.audit || []);
+          $("note").value = item.note || "";
+          $("pinned").checked = !!item.pinned;
+          $("saveMeta").disabled = false;
+          const exported = await fetch(`/api/history/${el.dataset.id}/export`, {method:"POST"}).then(r => r.json());
+          if (exported.ok) {
+            $("audit").innerHTML += `<div class="audit-item"><a href="${exported.url}" target="_blank">导出 Markdown</a></div>`;
+          }
+        });
+      });
+    }
+    function pill(text) {
+      const cls = text === "medium" ? "medium" : text === "low" ? "low" : "";
+      return `<span class="pill ${cls}">${text}</span>`;
+    }
+    $("ask").addEventListener("click", async () => {
+      const question = $("question").value.trim();
+      if (!question) return;
+      $("ask").disabled = true;
+      $("answer").textContent = "查询中...";
+      $("audit").textContent = "等待结果...";
+      try {
+        const resp = await fetch("/api/query", {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify({
+            question,
+            mode: $("mode").value,
+            top_k: Number($("topk").value || 6),
+            context: $("context").checked
+          })
+        });
+        const data = await resp.json();
+        if (!resp.ok || !data.ok) throw new Error(data.error || resp.statusText);
+        $("answer").textContent = data.answer;
+        $("audit").innerHTML = renderAudit(data.audit);
+        currentRunId = data.run_id;
+        $("note").value = "";
+        $("pinned").checked = false;
+        $("saveMeta").disabled = false;
+        loadHistory();
+      } catch (err) {
+        $("answer").textContent = "查询失败：" + err.message;
+        $("audit").textContent = "";
+      } finally {
+        $("ask").disabled = false;
+      }
+    });
+    $("saveMeta").addEventListener("click", async () => {
+      if (!currentRunId) return;
+      $("metaStatus").textContent = "保存中...";
+      const resp = await fetch(`/api/history/${currentRunId}/meta`, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({note: $("note").value, pinned: $("pinned").checked})
+      }).then(r => r.json());
+      $("metaStatus").textContent = resp.ok ? "已保存" : ("保存失败：" + (resp.error || ""));
+      loadHistory();
+    });
+    $("historySearch").addEventListener("input", loadHistory);
+    loadHistory();
+  </script>
+</body>
+</html>

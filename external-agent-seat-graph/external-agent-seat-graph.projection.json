@@ -1,0 +1,177 @@
+{
+  "projectionVersion": "external-agent-graph-projection/v0.1",
+  "createdAt": "2026-06-13T02:45:00+08:00",
+  "mode": "read-only",
+  "runtimeEnforcement": false,
+  "canonicalSourceOfTruth": "F:\\codex\\reports\\run-manifests\\2026-06-13-kanwas-sit-side-by-side\\evidence-index.md",
+  "notes": [
+    "This graph is a Kanwas-style projection only.",
+    "No node grants execution authority.",
+    "L2 and L3 remain blocked."
+  ],
+  "nodes": [
+    {
+      "id": "manifest",
+      "type": "manifest",
+      "label": "Run Manifest",
+      "status": "written",
+      "sourcePath": "F:\\codex\\reports\\run-manifests\\2026-06-13-kanwas-sit-side-by-side",
+      "summary": "Canonical run directory for the Kanwas/SIT side-by-side and external-agent seat work."
+    },
+    {
+      "id": "evidence-index",
+      "type": "manifest",
+      "label": "Evidence Index",
+      "status": "written",
+      "sourcePath": "F:\\codex\\reports\\run-manifests\\2026-06-13-kanwas-sit-side-by-side\\evidence-index.md",
+      "summary": "Authoritative evidence list for this run."
+    },
+    {
+      "id": "checkpoint",
+      "type": "report",
+      "label": "Rolling Checkpoint",
+      "status": "written",
+      "sourcePath": "F:\\codex\\reports\\active-handoffs\\kanwas-sit-side-by-side-20260613.md",
+      "summary": "Current recovery state and next allowed actions."
+    },
+    {
+      "id": "l1-model",
+      "type": "report",
+      "label": "L1 Operating Model",
+      "status": "written",
+      "sourcePath": "F:\\codex\\docs\\harness-protocol\\external-agent-l1-operating-model-v0.1.md",
+      "summary": "Manual dispatch, saved evidence, no write authority, no runtime enforcement."
+    },
+    {
+      "id": "packet-spec",
+      "type": "packet",
+      "label": "Task Packet Spec",
+      "status": "written",
+      "sourcePath": "F:\\codex\\docs\\harness-protocol\\external-agent-task-packet-v0.1.md",
+      "summary": "Required fields, vocabularies, protected flags, and L1 write rules."
+    },
+    {
+      "id": "seat-registry",
+      "type": "seat",
+      "label": "Seat Registry",
+      "status": "written",
+      "sourcePath": "F:\\codex\\docs\\harness-protocol\\registries\\external-agent-seats.registry.json",
+      "summary": "O1, O2, O3, generic Claude Code, and Antigravity seat definitions."
+    },
+    {
+      "id": "review-format",
+      "type": "review",
+      "label": "Review Output Format",
+      "status": "written",
+      "sourcePath": "F:\\codex\\docs\\harness-protocol\\external-agent-review-output-v0.1.md",
+      "summary": "Verdict, three-blade sections, severity findings, gate grouping, JSON summary."
+    },
+    {
+      "id": "packet-validator",
+      "type": "validator",
+      "label": "Packet Validator",
+      "status": "passed",
+      "sourcePath": "F:\\codex\\tools\\harness_protocol\\validate-external-agent-packet.ps1",
+      "summary": "Declarative validator for L1 packet intent and vocabulary."
+    },
+    {
+      "id": "validator-summary",
+      "type": "validator",
+      "label": "Task 3/4 Validation Summary",
+      "status": "passed",
+      "sourcePath": "F:\\codex\\reports\\run-manifests\\external-agent-seat-examples\\validation\\task3-task4-validation-summary.json",
+      "summary": "Positive packets 4/4 accepted, negative fixtures 5/5 rejected, dispatch accepted."
+    },
+    {
+      "id": "dispatch-spec",
+      "type": "dispatch",
+      "label": "Dispatch Log Spec",
+      "status": "written",
+      "sourcePath": "F:\\codex\\docs\\harness-protocol\\external-agent-dispatch-log-v0.1.md",
+      "summary": "Formalizes created, validated, sent-manually, returned, blocked, synthesized."
+    },
+    {
+      "id": "dispatch-example",
+      "type": "dispatch",
+      "label": "O1/O3 Dispatch Example",
+      "status": "passed",
+      "sourcePath": "F:\\codex\\reports\\run-manifests\\external-agent-seat-examples\\dispatch\\o1-o3-review.dispatch.example.json",
+      "summary": "Manual L1 dispatch example with sent-manually state."
+    },
+    {
+      "id": "o1-review",
+      "type": "review",
+      "label": "O1 Review",
+      "status": "passed",
+      "sourcePath": "F:\\codex\\reports\\kanwas-sit-side-by-side\\2026-06-13\\o1-review-external-agent-seats-three-knife-plan-20260613.md",
+      "summary": "O1 verdict approve-with-changes."
+    },
+    {
+      "id": "o3-review",
+      "type": "review",
+      "label": "O3 Review",
+      "status": "passed",
+      "sourcePath": "F:\\codex\\reports\\kanwas-sit-side-by-side\\2026-06-13\\o3-review-external-agent-seats-three-knife-plan-20260613.md",
+      "summary": "O3 verdict approve-with-changes."
+    },
+    {
+      "id": "o1-o3-synthesis",
+      "type": "synthesis",
+      "label": "O1/O3 Synthesis",
+      "status": "passed",
+      "sourcePath": "F:\\codex\\reports\\kanwas-sit-side-by-side\\2026-06-13\\o1-o3-review-synthesis-external-agent-seats-three-knife-plan-20260613.md",
+      "summary": "Proceed Task 0/1/2 first; keep L2/L3 blocked."
+    },
+    {
+      "id": "claude-code-packet",
+      "type": "packet",
+      "label": "Claude Code L1 Packet",
+      "status": "passed",
+      "sourcePath": "F:\\codex\\reports\\run-manifests\\external-agent-seat-examples\\packets\\claude-code-generic-review.packet.json",
+      "summary": "Validated L1 packet for generic Claude Code closed-report review."
+    },
+    {
+      "id": "claude-code-review",
+      "type": "review",
+      "label": "Generic Claude Code Review",
+      "status": "warning",
+      "sourcePath": "F:\\codex\\reports\\kanwas-sit-side-by-side\\2026-06-13\\claude-code-generic-review-external-agent-seats-l1-20260613.md",
+      "summary": "Compact closed-report pilot succeeded, but full-file injection/argv transport failed."
+    },
+    {
+      "id": "transport-blocker",
+      "type": "blocker",
+      "label": "L1 Payload Transport Blocker",
+      "status": "blocked",
+      "sourcePath": "F:\\codex\\reports\\kanwas-sit-side-by-side\\2026-06-13\\claude-code-generic-review-external-agent-seats-l1-20260613.md",
+      "summary": "Before the next rich L1 dispatch, replace argv payloads with reliable file/stdin transport and prove source artifact ingestion."
+    },
+    {
+      "id": "projection",
+      "type": "projection",
+      "label": "Read-Only Graph Projection",
+      "status": "written",
+      "sourcePath": "F:\\codex\\reports\\kanwas-sit-side-by-side\\2026-06-13\\external-agent-seat-graph.projection.json",
+      "summary": "This graph itself. Read-only, no execution buttons, no authority."
+    }
+  ],
+  "edges": [
+    { "from": "manifest", "to": "evidence-index", "type": "links" },
+    { "from": "evidence-index", "to": "checkpoint", "type": "links" },
+    { "from": "l1-model", "to": "packet-spec", "type": "defines" },
+    { "from": "packet-spec", "to": "seat-registry", "type": "defines" },
+    { "from": "packet-spec", "to": "packet-validator", "type": "defines" },
+    { "from": "review-format", "to": "o1-review", "type": "formats" },
+    { "from": "review-format", "to": "o3-review", "type": "formats" },
+    { "from": "o1-review", "to": "o1-o3-synthesis", "type": "synthesizes" },
+    { "from": "o3-review", "to": "o1-o3-synthesis", "type": "synthesizes" },
+    { "from": "packet-validator", "to": "validator-summary", "type": "validates" },
+    { "from": "dispatch-spec", "to": "dispatch-example", "type": "defines" },
+    { "from": "claude-code-packet", "to": "packet-validator", "type": "validates" },
+    { "from": "claude-code-packet", "to": "claude-code-review", "type": "dispatches" },
+    { "from": "claude-code-review", "to": "transport-blocker", "type": "blocks" },
+    { "from": "evidence-index", "to": "projection", "type": "projects" },
+    { "from": "projection", "to": "transport-blocker", "type": "links" }
+  ]
+}
+

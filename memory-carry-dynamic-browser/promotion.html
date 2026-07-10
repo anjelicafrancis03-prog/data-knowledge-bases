@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>记忆承载 Tier-1 提案链路</title>
+  <style>
+    :root {
+      --bg:#f7f8fb; --panel:#fff; --soft:#f2f5f8; --line:#d7dee8;
+      --text:#1f2937; --muted:#667085; --blue:#2563eb; --green:#047857;
+      --amber:#b45309; --red:#b42318; --teal:#0f766e;
+      font-family:"Microsoft YaHei","Segoe UI",Arial,sans-serif;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-size:14px; line-height:1.55; }
+    header { background:var(--panel); border-bottom:1px solid var(--line); padding:14px 18px; display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+    h1 { margin:0; font-size:20px; letter-spacing:0; }
+    h2 { margin:0 0 10px; font-size:16px; letter-spacing:0; }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .sub { color:var(--muted); font-size:12px; margin-top:4px; }
+    .stats { display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; max-width:760px; }
+    .stat { background:var(--soft); border:1px solid var(--line); border-radius:6px; min-width:82px; padding:6px 9px; text-align:right; }
+    .stat strong { display:block; font-size:17px; line-height:1.1; }
+    .stat span { color:var(--muted); font-size:11px; }
+    .toolbar { background:var(--panel); border-bottom:1px solid var(--line); padding:12px 18px; display:grid; grid-template-columns:minmax(220px,1fr) 310px auto; gap:10px; align-items:center; }
+    input, select, button { min-height:36px; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--text); padding:8px 10px; font:inherit; min-width:0; }
+    button { cursor:pointer; }
+    main { padding:14px 18px; display:grid; gap:12px; }
+    .panel { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:12px; min-width:0; }
+    .cards { display:grid; gap:10px; }
+    .card { background:#fff; border:1px solid var(--line); border-radius:7px; padding:12px; }
+    .title { font-weight:700; font-size:16px; margin-bottom:6px; }
+    .meta { display:flex; flex-wrap:wrap; gap:6px; color:var(--muted); font-size:12px; }
+    .badge { display:inline-flex; align-items:center; border:1px solid var(--line); border-radius:999px; padding:2px 7px; background:#fff; white-space:nowrap; font-size:11px; max-width:100%; }
+    .badge.green { color:var(--green); border-color:#a7f3d0; background:#ecfdf5; }
+    .badge.blue { color:var(--blue); border-color:#bfdbfe; background:#eff6ff; }
+    .badge.amber { color:var(--amber); border-color:#fed7aa; background:#fff7ed; }
+    .badge.red { color:var(--red); border-color:#fecaca; background:#fef2f2; }
+    .badge.teal { color:var(--teal); border-color:#99f6e4; background:#f0fdfa; }
+    .note { margin-top:8px; color:#344054; }
+    .chain { margin-top:10px; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+    .step { border:1px solid var(--line); border-radius:6px; padding:8px; background:var(--soft); min-width:0; }
+    .step strong { display:block; margin-bottom:4px; }
+    .small { color:var(--muted); font-size:12px; overflow-wrap:anywhere; }
+    .empty, .loading { padding:24px; text-align:center; color:var(--muted); }
+    @media (max-width:900px) {
+      header { display:block; }
+      .stats { justify-content:flex-start; margin-top:10px; }
+      .toolbar, .chain { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>记忆承载 Tier-1 提案链路</h1>
+      <div class="sub">只看 3 条最高优先级候选：是否已有 P1、spotcheck、staging、final proposal。<a href="/review-packets.html">看复核包</a> · <a href="/insights.html">看洞察</a> · <a href="/graph.html">看图谱</a></div>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+  <section class="toolbar">
+    <input id="query" type="search" placeholder="搜索概念、candidate、proposal、状态">
+    <select id="status">
+      <option value="all">全部状态</option>
+      <option value="ready_for_user_or_llm_final_review">ready_for_user_or_llm_final_review</option>
+      <option value="needs_p1_proposal_and_spotcheck">needs_p1_proposal_and_spotcheck</option>
+    </select>
+    <button id="run">刷新</button>
+  </section>
+  <main>
+    <section class="panel">
+      <h2>链路状态</h2>
+      <div class="cards" id="items"></div>
+    </section>
+  </main>
+  <script>
+    const $ = id => document.getElementById(id);
+    const state = { data:null };
+    const esc = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+    const badge = (text, cls="") => `<span class="badge ${cls}">${esc(text)}</span>`;
+    const statusCls = s => s === "ready_for_user_or_llm_final_review" ? "green" : s.includes("needs") ? "amber" : "blue";
+    async function fetchJson(url) {
+      const res = await fetch(url, { cache:"no-store" });
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      return await res.json();
+    }
+    function renderStats() {
+      const run = state.data.run || {};
+      const s = state.data.stats || {};
+      const items = [
+        ["Tier-1", run.tier1_packet_count],
+        ["待最终审", run.ready_final_review_count],
+        ["缺链路", run.missing_chain_count],
+        ["当前", state.data.items?.length || 0],
+        ["正式关系", s.formal_relations],
+        ["FK", s.foreign_key_check_rows]
+      ];
+      $("stats").innerHTML = items.map(([k,v]) => `<div class="stat"><strong>${esc(v ?? "-")}</strong><span>${esc(k)}</span></div>`).join("");
+    }
+    function step(name, id, status) {
+      const present = id && id !== "null";
+      return `<div class="step"><strong>${esc(name)}</strong>${badge(present ? "present" : "missing", present ? "green" : "amber")}<div class="small">${esc(id || "none")}</div><div class="small">${esc(status || "")}</div></div>`;
+    }
+    function renderItems() {
+      const items = state.data.items || [];
+      $("items").innerHTML = items.map(x => {
+        const div = x.source_diversity || {};
+        const span = x.temporal_span || {};
+        return `
+          <article class="card">
+            <div class="title">${esc(x.concept_a)} -> ${esc(x.concept_b)}</div>
+            <div class="meta">
+              ${badge(x.readiness_status, statusCls(x.readiness_status))}
+              ${badge(x.relation_label, "blue")}
+              ${badge(`docs ${x.support_doc_count}`, "green")}
+              ${badge(`passages ${x.support_passage_count}`)}
+              ${badge(`${span.min_date || "?"} - ${span.max_date || "?"}`, "teal")}
+            </div>
+            <div class="note"><strong>下一步：</strong>${esc(x.required_next_step)}</div>
+            <div class="note">${esc(x.rationale)}</div>
+            <div class="meta" style="margin-top:8px">${badge(x.subject_entity_id || "missing subject", x.subject_entity_id ? "green" : "red")}${badge(x.object_entity_id || "missing object", x.object_entity_id ? "green" : "red")}${badge(`distinct docs ${div.distinct_doc_count ?? "-"}`, "teal")}</div>
+            <div class="chain">
+              ${step("P1 proposal", x.p1_proposal_id, x.p1_decision)}
+              ${step("Spotcheck", x.spotcheck_id, x.spotcheck_decision)}
+              ${step("Staging", x.staging_id, x.staging_status)}
+              ${step("Final proposal", x.final_proposal_id, x.final_policy_decision)}
+            </div>
+            <div class="small" style="margin-top:8px">candidate: <a href="/graph.html?q=${encodeURIComponent(x.relation_candidate_id)}">${esc(x.relation_candidate_id)}</a> · packet: <a href="/review-packets.html?q=${encodeURIComponent(x.packet_id)}">${esc(x.packet_id)}</a></div>
+          </article>
+        `;
+      }).join("") || '<div class="empty">没有匹配项</div>';
+    }
+    async function load() {
+      $("items").innerHTML = '<div class="loading">加载中...</div>';
+      const url = new URL("/api/tier1-promotion", location.origin);
+      url.searchParams.set("q", $("query").value.trim());
+      url.searchParams.set("status", $("status").value);
+      state.data = await fetchJson(url);
+      renderStats();
+      renderItems();
+    }
+    $("run").onclick = load;
+    $("query").addEventListener("keydown", event => { if (event.key === "Enter") load(); });
+    load().catch(err => {
+      $("items").innerHTML = `<div class="empty">加载失败：${esc(err.message)}</div>`;
+    });
+  </script>
+</body>
+</html>

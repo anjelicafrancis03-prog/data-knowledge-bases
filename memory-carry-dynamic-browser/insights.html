@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>记忆承载图谱洞察</title>
+  <style>
+    :root {
+      --bg:#f7f8fb; --panel:#fff; --panel-soft:#f2f5f8; --line:#d7dee8;
+      --text:#1f2937; --muted:#687385; --accent:#0f766e; --blue:#2563eb;
+      --warn:#b45309; --ok:#047857;
+      font-family:"Microsoft YaHei","Segoe UI",Arial,sans-serif;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-size:14px; line-height:1.55; }
+    header { padding:14px 18px; background:var(--panel); border-bottom:1px solid var(--line); display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+    h1 { margin:0; font-size:20px; letter-spacing:0; }
+    h2 { margin:0 0 10px; font-size:17px; letter-spacing:0; }
+    h3 { margin:12px 0 8px; font-size:14px; letter-spacing:0; }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .sub { color:var(--muted); font-size:12px; margin-top:4px; }
+    .stats { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; max-width:760px; }
+    .stat { border:1px solid var(--line); border-radius:6px; background:var(--panel-soft); padding:6px 9px; min-width:76px; text-align:right; }
+    .stat strong { display:block; font-size:17px; line-height:1.1; }
+    .stat span { color:var(--muted); font-size:11px; }
+    .toolbar { padding:12px 18px; display:grid; grid-template-columns:minmax(220px,1fr) 260px 110px auto; gap:10px; background:var(--panel); border-bottom:1px solid var(--line); align-items:center; }
+    input, select, button { min-height:36px; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--text); padding:8px 10px; font:inherit; min-width:0; }
+    button { cursor:pointer; }
+    main { padding:14px 18px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .panel { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:12px; min-width:0; }
+    .wide { grid-column:1 / -1; }
+    .cards { display:grid; gap:8px; }
+    .card { border:1px solid var(--line); border-radius:6px; padding:10px; background:#fff; }
+    .title { font-weight:700; margin-bottom:5px; }
+    .meta { display:flex; gap:6px; flex-wrap:wrap; color:var(--muted); font-size:12px; }
+    .badge { border:1px solid var(--line); border-radius:999px; padding:2px 7px; background:#fff; white-space:nowrap; font-size:11px; }
+    .badge.ok { color:var(--ok); border-color:#a7f3d0; background:#ecfdf5; }
+    .badge.warn { color:var(--warn); border-color:#fed7aa; background:#fff7ed; }
+    .badge.graph { color:var(--blue); border-color:#bfdbfe; background:#eff6ff; }
+    .note { color:#344054; margin-top:6px; }
+    .evidence { border-top:1px solid var(--line); margin-top:8px; padding-top:8px; color:#344054; }
+    .grid3 { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:8px; }
+    .bar { height:8px; border-radius:99px; background:#dbeafe; overflow:hidden; margin-top:6px; }
+    .bar span { display:block; height:100%; background:var(--accent); }
+    .empty, .loading { color:var(--muted); text-align:center; padding:24px; }
+    @media (max-width:980px) {
+      header { display:block; }
+      .stats { justify-content:flex-start; margin-top:10px; }
+      .toolbar { grid-template-columns:1fr; }
+      main, .grid3 { grid-template-columns:1fr; }
+      .wide { grid-column:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>记忆承载图谱洞察</h1>
+      <div class="sub">概念节点、概念对、候选桶和阈值社区摘要。<a href="/graph.html">看图谱</a> · <a href="/index.html">看证据库</a></div>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+  <section class="toolbar">
+    <input id="query" type="search" placeholder="搜索概念、关系、候选 ID">
+    <select id="priority">
+      <option value="all">全部优先级</option>
+      <option value="P1_specific_high_support">P1_specific_high_support</option>
+      <option value="P2_high_support_generic_or_broad">P2_high_support_generic_or_broad</option>
+      <option value="P3_medium_support">P3_medium_support</option>
+      <option value="P3_ocr_quality_review">P3_ocr_quality_review</option>
+      <option value="P4_weak_or_edge">P4_weak_or_edge</option>
+      <option value="P4_low_support">P4_low_support</option>
+    </select>
+    <input id="limit" type="number" min="1" max="100" value="40">
+    <button id="run">刷新洞察</button>
+  </section>
+  <main>
+    <section class="panel">
+      <h2>核心概念节点</h2>
+      <div class="cards" id="nodes"></div>
+    </section>
+    <section class="panel">
+      <h2>候选桶摘要</h2>
+      <div class="cards" id="buckets"></div>
+    </section>
+    <section class="panel wide">
+      <h2>概念对复盘</h2>
+      <div class="cards" id="pairs"></div>
+    </section>
+    <section class="panel wide">
+      <h2>阈值社区</h2>
+      <div class="grid3" id="communities"></div>
+    </section>
+  </main>
+  <script>
+    const state = { data:null };
+    const $ = id => document.getElementById(id);
+    const esc = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+    const badge = (text, cls="") => `<span class="badge ${cls}">${esc(text)}</span>`;
+    async function fetchJson(url) {
+      const res = await fetch(url, { cache:"no-store" });
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      return await res.json();
+    }
+    function renderStats() {
+      const s = state.data?.stats || {};
+      const run = state.data?.run || {};
+      const items = [
+        ["节点", state.data?.nodes?.length],
+        ["概念对", state.data?.pairs?.length],
+        ["社区", state.data?.communities?.length],
+        ["候选", run.source_relation_count ?? s.relation_candidates],
+        ["正式关系", s.formal_relations],
+        ["FK", s.foreign_key_check_rows]
+      ];
+      $("stats").innerHTML = items.map(([k,v]) => `<div class="stat"><strong>${esc(v ?? "-")}</strong><span>${esc(k)}</span></div>`).join("");
+    }
+    function renderNodes() {
+      const max = Math.max(...(state.data.nodes || []).map(n => n.weighted_degree), 1);
+      $("nodes").innerHTML = (state.data.nodes || []).map(n => `
+        <article class="card">
+          <div class="title">${esc(n.concept)}</div>
+          <div class="meta">${badge(`weighted ${n.weighted_degree}`, "ok")}${badge(`degree ${n.degree}`)}${badge(`strong ${n.strong_edge_count}`, "graph")}${badge(`ocr ${n.ocr_edge_count}`, "warn")}</div>
+          <div class="bar"><span style="width:${Math.max(3, n.weighted_degree / max * 100)}%"></span></div>
+          <div class="note">${esc(n.review_note)}</div>
+          <div class="note">${(n.top_neighbors || []).slice(0,5).map(x => badge(`${x.concept} ${x.support_doc_count}`)).join("")}</div>
+        </article>
+      `).join("") || '<div class="empty">没有节点</div>';
+    }
+    function renderBuckets() {
+      const max = Math.max(...(state.data.buckets || []).map(b => b.relation_count), 1);
+      $("buckets").innerHTML = (state.data.buckets || []).map(b => `
+        <article class="card">
+          <div class="title">${esc(b.confidence_bucket)}</div>
+          <div class="meta">${badge(`relations ${b.relation_count}`, "graph")}${badge(`docs ${b.total_support_docs}`)}${badge(`avg ${b.avg_support_docs}`)}</div>
+          <div class="bar"><span style="width:${Math.max(3, b.relation_count / max * 100)}%"></span></div>
+          <div class="note">${esc(b.review_note)}</div>
+        </article>
+      `).join("") || '<div class="empty">没有候选桶</div>';
+    }
+    function renderPairs() {
+      $("pairs").innerHTML = (state.data.pairs || []).map(p => `
+        <article class="card">
+          <div class="title">${esc(p.concept_a)} -> ${esc(p.concept_b)}</div>
+          <div class="meta">${badge(p.review_priority, "graph")}${badge(p.confidence_bucket)}${badge(`docs ${p.support_doc_count}`, "ok")}${badge(`passages ${p.support_passage_count}`)}${badge(p.relation_label)}</div>
+          <div class="note">${esc(p.review_note)} · <a href="/graph.html?q=${encodeURIComponent(p.relation_candidate_id)}">图谱定位</a></div>
+          <div class="evidence">${(p.top_evidence || []).slice(0,2).map(e => `<p>${esc(e.source_title)} ${esc(e.date)} p${esc(e.passage_index)} ${badge(`score ${e.candidate_score}`, "ok")}<br>${esc(e.excerpt)}</p>`).join("")}</div>
+        </article>
+      `).join("") || '<div class="empty">没有概念对</div>';
+    }
+    function renderCommunities() {
+      $("communities").innerHTML = (state.data.communities || []).map(c => `
+        <article class="card">
+          <div class="title">${esc(c.threshold_name)}</div>
+          <div class="meta">${badge(`min docs ${c.min_support_docs}`, "graph")}${badge(`nodes ${c.node_count}`)}${badge(`edges ${c.edge_count}`)}${badge(`support ${c.total_support_docs}`, "ok")}</div>
+          <div class="note">${(c.concepts || []).map(x => badge(x)).join("")}</div>
+        </article>
+      `).join("") || '<div class="empty">没有社区</div>';
+    }
+    async function load() {
+      $("nodes").innerHTML = '<div class="loading">加载中...</div>';
+      const url = new URL("/api/graph-insights", location.origin);
+      url.searchParams.set("q", $("query").value.trim());
+      url.searchParams.set("priority", $("priority").value);
+      url.searchParams.set("limit", $("limit").value || "40");
+      state.data = await fetchJson(url);
+      renderStats();
+      renderNodes();
+      renderBuckets();
+      renderPairs();
+      renderCommunities();
+    }
+    $("run").onclick = load;
+    $("query").addEventListener("keydown", event => { if (event.key === "Enter") load(); });
+    load().catch(err => {
+      $("nodes").innerHTML = `<div class="empty">加载失败：${esc(err.message)}</div>`;
+    });
+  </script>
+</body>
+</html>

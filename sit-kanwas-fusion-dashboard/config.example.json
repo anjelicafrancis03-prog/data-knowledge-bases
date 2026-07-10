@@ -1,0 +1,39 @@
+{
+  "host": "127.0.0.1",
+  "port": 8766,
+  "features": {
+    "strictOrigin": true,
+    "openTargets": false,
+    "processActions": false,
+    "dockerActions": false,
+    "taskWrites": true,
+    "adapterDryRun": true
+  },
+  "urls": {
+    "sit": "http://127.0.0.1:5173/",
+    "kanwas": "http://127.0.0.1:5174/",
+    "stage10dGateway": "http://127.0.0.1:18081/"
+  },
+  "paths": {
+    "sitRoot": ".\\external\\sit-root",
+    "kanwasRoot": ".\\external\\kanwas-root",
+    "runManifestDir": ".\\evidence\\run-manifest",
+    "routeRegistryPath": ".\\external\\routes.registry.json",
+    "packetValidatorPath": ".\\external\\validate-external-agent-packet.ps1",
+    "registryContractPath": ".\\external\\fusion-adapter-registry-contract-v0.1.md",
+    "registryValidatorPath": ".\\external\\validate-fusion-adapter-registry.ps1",
+    "evidencePack": ".\\evidence\\site-multiagent-config-and-evidence-pack.md",
+    "evidenceIndex": ".\\evidence\\evidence-index.md",
+    "handoff": ".\\evidence\\handoff.md",
+    "stage10dResult": ".\\evidence\\stage10d-result.json",
+    "stage10dWorker": ".\\evidence\\stage10d-worker-output.md",
+    "reportRoot": ".\\reports",
+    "stage10dRoot": ".\\evidence\\stage10d",
+    "externalAgentSeatsRegistry": ".\\external\\external-agent-seats.registry.json",
+    "externalAgentPacketSchema": ".\\external\\external-agent-task-packet.schema.json",
+    "jcodeDryRunEvidenceDir": ".\\evidence\\jcode_l1_plan",
+    "agentFusionConsensus": ".\\inputs\\agent-fusion-three-thread-consensus.md",
+    "workbenchComparison": ".\\inputs\\workbench-vs-site-kanwas-jcode-comparison.md",
+    "jcodeReviewBrief": ".\\inputs\\jcode-agent-review-brief.md"
+  }
+}

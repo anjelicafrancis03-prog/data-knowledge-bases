@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "agent-runtimes.registry/v0.1",
+  "updatedAt": "2026-06-15T15:35:00+08:00",
+  "boundary": "Invalid fixture: raw secret storage and live command launch must be rejected.",
+  "runtimes": [
+    {
+      "agentRuntimeId": "bad-live-agent",
+      "displayName": "Bad live agent",
+      "kind": "cli",
+      "normalMode": "ordinary",
+      "roomMode": "live dispatch",
+      "agentRelation": "room_subagent",
+      "permissionClass": "local-write-gated",
+      "status": "available",
+      "runtimeAuthority": "self-authorized",
+      "commandOrEndpoint": "powershell.exe",
+      "cwdPolicy": "anywhere",
+      "inputMode": "argv",
+      "outputMode": "stdout",
+      "supportsStreaming": true,
+      "supportsWorktrees": false,
+      "supportsDetached": false,
+      "requiresLoginState": false,
+      "credentialPolicy": {
+        "storesRawSecret": true,
+        "pointerOnly": false,
+        "note": "invalid"
+      },
+      "allowedReads": ["*"],
+      "allowedWrites": ["*"],
+      "forbiddenActions": [],
+      "healthCheck": "run command",
+      "smokeCheck": "run command",
+      "timeoutPolicy": "none",
+      "evidenceParser": "none"
+    }
+  ]
+}

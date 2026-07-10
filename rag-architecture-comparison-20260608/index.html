@@ -1,0 +1,407 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RAG 架构横向对比看板</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --panel: #ffffff;
+      --text: #18202f;
+      --muted: #687386;
+      --line: #dfe5ef;
+      --blue: #2563eb;
+      --green: #0f8a62;
+      --amber: #b7791f;
+      --red: #b42318;
+      --ink: #111827;
+      --chip: #eef2ff;
+      --shadow: 0 10px 28px rgba(15, 23, 42, .08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Microsoft YaHei", "PingFang SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .wrap { max-width: 1220px; margin: 0 auto; padding: 18px 22px; }
+    .topline { display: flex; gap: 16px; align-items: center; justify-content: space-between; }
+    h1 { font-size: 24px; margin: 0; letter-spacing: 0; }
+    .subtitle { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+    .state-strip {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      align-items: center;
+      border: 1px solid #f2c7c2;
+      border-radius: 8px;
+      background: #fff7f6;
+      color: var(--ink);
+      padding: 9px 11px;
+      font-size: 13px;
+    }
+    .state-strip code { overflow-wrap: anywhere; color: #5f1d18; }
+    .state-strip .source-note { color: var(--muted); }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tab {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+    main { max-width: 1220px; margin: 0 auto; padding: 24px 22px 48px; }
+    section { display: none; }
+    section.active { display: block; }
+    .grid { display: grid; gap: 16px; }
+    .cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    h2 { margin: 0 0 14px; font-size: 20px; }
+    h3 { margin: 0 0 10px; font-size: 17px; }
+    .kpi { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .score { font-size: 34px; font-weight: 800; color: var(--ink); }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--chip);
+      color: #243b7a;
+      white-space: nowrap;
+    }
+    .badge.green { background: #e8f7ef; color: var(--green); }
+    .badge.amber { background: #fff7e6; color: var(--amber); }
+    .badge.red { background: #fff0ee; color: var(--red); }
+    .muted { color: var(--muted); }
+    .lane-title { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .bar { height: 10px; background: #edf1f7; border-radius: 999px; overflow: hidden; margin: 8px 0 12px; }
+    .fill { height: 100%; border-radius: 999px; }
+    .fill.blue { background: var(--blue); }
+    .fill.green { background: var(--green); }
+    .fill.amber { background: var(--amber); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; background: #fff; border-radius: 8px; overflow: hidden; }
+    th, td { border-bottom: 1px solid var(--line); padding: 10px 11px; text-align: left; vertical-align: top; }
+    th { background: #f0f4fa; color: #354057; font-weight: 700; }
+    tr:last-child td { border-bottom: 0; }
+    .search { width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: 15px; margin-bottom: 12px; }
+    .flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .step { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 15px; position: relative; }
+    .step strong { display: block; margin-bottom: 6px; color: var(--ink); }
+    .arrow { text-align: center; color: var(--muted); font-size: 20px; padding-top: 42px; }
+    ul { margin: 8px 0 0 18px; padding: 0; }
+    li { margin: 5px 0; }
+    .note { border-left: 4px solid var(--blue); background: #eef5ff; padding: 12px 14px; border-radius: 6px; }
+    .warn { border-left-color: var(--amber); background: #fff8e8; }
+    .success { border-left: 4px solid var(--green); background: #f0fbf6; }
+    .metric {
+      border: 1px solid #cfeee0;
+      background: #fff;
+      border-radius: 8px;
+      padding: 12px;
+      min-height: 78px;
+    }
+    .metric span { display: block; color: var(--muted); font-size: 13px; }
+    .metric strong { display: block; margin-top: 4px; color: var(--green); font-size: 26px; line-height: 1; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    @media (max-width: 920px) {
+      .topline { align-items: flex-start; flex-direction: column; }
+      .cols-4, .cols-3, .cols-2, .flow { grid-template-columns: 1fr; }
+      .arrow { display: none; }
+      h1 { font-size: 21px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="topline">
+        <div>
+          <h1>RAG 架构横向对比看板</h1>
+          <p class="subtitle">LightRAG / Graph RAG / Production RAG，面向 Markdown 第二大脑与研究助手 · clean 24 问只读评估更新 2026-06-09 07:54</p>
+        </div>
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-tab="overview">总览</button>
+          <button class="tab" data-tab="matrix">维度矩阵</button>
+          <button class="tab" data-tab="architecture">推荐架构</button>
+          <button class="tab" data-tab="pilot">Pilot 路线</button>
+          <button class="tab" data-tab="evidence">证据索引</button>
+        </div>
+      </div>
+      <div class="state-strip current-state-badge" role="status" aria-label="当前状态">
+        <span class="badge red">当前摘要</span>
+        <strong>结论：<code>no_go_relationship_layer_not_enough_gain</code></strong>
+        <span>数据时间：2026-06-09 07:54 +08:00</span>
+        <span class="source-note">本页是展示摘要；权威依据为母报告 <code>F:\codex\reports\workflow-runs\2026-06-08-rag-architecture-comparison\final-rag-comparison-report.md</code> 和 evidence index <code>F:\codex\reports\workflow-runs\2026-06-08-rag-architecture-comparison\evidence-index.md</code>。</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="overview" class="active">
+      <div class="grid cols-3">
+        <div class="panel">
+          <div class="lane-title"><h3>Graph RAG</h3><span class="badge green">严格排名 #1</span></div>
+          <div class="kpi"><span class="score">3.70</span><span class="muted">/ 5</span></div>
+          <div class="bar"><div class="fill green" style="width:74%"></div></div>
+          <p>原生关系、路径、社区发现最强。适合深层概念拓扑，但成本、更新、出处回链风险最高。</p>
+        </div>
+        <div class="panel">
+          <div class="lane-title"><h3>LightRAG</h3><span class="badge">第一 pilot</span></div>
+          <div class="kpi"><span class="score">3.65</span><span class="muted">/ 5</span></div>
+          <div class="bar"><div class="fill blue" style="width:73%"></div></div>
+          <p>轻量关系层，适合先验证概念关系发现价值。不能单独承担引用、出处和生产底座。</p>
+        </div>
+        <div class="panel">
+          <div class="lane-title"><h3>Production RAG</h3><span class="badge amber">必需底座</span></div>
+          <div class="kpi"><span class="score">2.725</span><span class="muted">/ 5 strict</span></div>
+          <div class="bar"><div class="fill amber" style="width:55%"></div></div>
+          <p>不是关系发现赢家，但最不能缺。负责 Markdown ingestion、检索、引用、更新、eval 和观测。</p>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <h2>最终判断</h2>
+        <p class="note"><strong>实际最佳方案：</strong>Production RAG 做底座；LightRAG / broader Graph RAG 继续作为受控关系层候选，但不进入当前 corpus 的部署升级。</p>
+        <p>如果只按“概念关系发现”排序，Graph RAG 最强。如果按“最快低风险试起来”，LightRAG 最合适。如果按“系统不能缺什么”，Production RAG 最关键。</p>
+        <p class="muted">证据数据库已修订：661 条 source records 完整建库；真实 Markdown pilot、Memory-carry 181-note pilot、expanded G1-G3 precheck 和 fixed 24-question read-only eval 均已落盘。最新 clean 300-doc / 24-question 结果为 no_go_relationship_layer_not_enough_gain：关系层增加 citation/context，但没有达到预注册覆盖率增益门槛。</p>
+      </div>
+    </section>
+
+    <section id="matrix">
+      <div class="panel">
+        <h2>横向维度矩阵</h2>
+        <input class="search" id="matrixSearch" placeholder="筛选维度，例如：引用、关系、更新、CJK、成本">
+        <table id="matrixTable">
+          <thead><tr><th>维度</th><th>LightRAG</th><th>Graph RAG</th><th>Production RAG</th><th>结论</th></tr></thead>
+          <tbody>
+            <tr><td>概念关系发现</td><td>强，轻量图增强</td><td>最强，原生图结构</td><td>弱，非 native graph</td><td>Graph RAG 胜；LightRAG 最适合先试</td></tr>
+            <tr><td>跨笔记综合</td><td>强，需要源 chunk</td><td>强，适合 community/global</td><td>中，需要 diversity/rerank</td><td>Graph/LightRAG 胜</td></tr>
+            <tr><td>精准引用出处</td><td>弱到中，需底座</td><td>中，需 provenance</td><td>强，最适合做 source layer</td><td>Production RAG 胜</td></tr>
+            <tr><td>长期记忆召回</td><td>中，关系记忆</td><td>中强，memory graph 潜力</td><td>中强，稳定检索记忆</td><td>组合最好</td></tr>
+            <tr><td>更新增量成本</td><td>较好，但需实测</td><td>偏高，尤其重型图</td><td>较好，工程成熟</td><td>Production/LightRAG 更适合动态笔记</td></tr>
+            <tr><td>运维成熟度</td><td>中</td><td>中低</td><td>高</td><td>Production RAG 胜</td></tr>
+            <tr><td>CJK Markdown</td><td>需重点 pilot</td><td>需重点 pilot</td><td>较可控</td><td>任何图层都要 CJK 验收</td></tr>
+            <tr><td>本地+云端混合</td><td>可行但 extraction 成本待测</td><td>可行但隐私/成本 gate 更重</td><td>最自然</td><td>Production RAG 定边界</td></tr>
+            <tr><td>第一阶段落地风险</td><td>中</td><td>高</td><td>低到中</td><td>先底座，再 LightRAG</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <div class="panel">
+        <h2>推荐架构</h2>
+        <div class="flow">
+          <div class="step"><strong>Layer 0</strong>Markdown canonical layer<br><span class="muted">doc_id、file_path、heading、chunk、hash</span></div>
+          <div class="step"><strong>Layer 1</strong>Production RAG substrate<br><span class="muted">BM25、vector、metadata、rerank、citation、eval</span></div>
+          <div class="step"><strong>Layer 2</strong>LightRAG relationship pilot<br><span class="muted">entity、relation、graph context、source back-link</span></div>
+          <div class="step"><strong>Layer 3</strong>Broader Graph RAG option<br><span class="muted">community、path、KG、memory graph</span></div>
+        </div>
+      </div>
+      <div class="grid cols-2" style="margin-top:16px">
+        <div class="panel">
+          <h3>不要单独上图谱</h3>
+          <ul>
+            <li>图边不是引用。</li>
+            <li>抽取错误会变成错误路径。</li>
+            <li>更新和 CJK 别名需要实测。</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>不要只做向量库</h3>
+          <ul>
+            <li>向量相似不等于关系解释。</li>
+            <li>跨笔记综合容易变成片段列表。</li>
+            <li>第二大脑需要概念拓扑。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="pilot">
+      <div class="panel success" style="margin-bottom:16px">
+        <h2>真实低风险 pilot 已完成并扩大复验</h2>
+        <p>2026-06-09，已在只读 BrainVault Markdown 样本上完成 Production baseline、reviewed wikilink/semantic edges、adoption gate、answer-quality pilot 和 controlled rerun；随后在 Memory-carry 181-note corpus 上完成只读扩大 pilot。原始笔记未修改，BrainVault writeback = 0。</p>
+        <div class="grid cols-4" style="margin-top:12px">
+          <div class="metric"><span>样本笔记</span><strong>28</strong></div>
+          <div class="metric"><span>citation chunks</span><strong>256</strong></div>
+          <div class="metric"><span>平均覆盖</span><strong>0.822</strong></div>
+          <div class="metric"><span>关系候选</span><strong>240</strong></div>
+        </div>
+        <div class="grid cols-4" style="margin-top:12px">
+          <div class="metric"><span>reviewed wikilink edges</span><strong>108</strong></div>
+          <div class="metric"><span>reviewed semantic edges</span><strong>47</strong></div>
+          <div class="metric"><span>controlled final coverage</span><strong>0.793</strong></div>
+          <div class="metric"><span>encoding-risk finals</span><strong>0</strong></div>
+        </div>
+        <p class="note">结论：Production RAG 继续做第一可部署底座；reviewed wikilink 是更明确的只读增强候选；reviewed semantic edges 目前只是 28-doc / 10-question 单一小样本的 provisional 信号。raw co-mention 自动构图、BrainVault 写回、直接扩到几千篇均为 NO-GO。</p>
+      </div>
+      <div class="panel" style="margin-bottom:16px">
+        <h2>Controlled adoption evidence</h2>
+        <table>
+          <thead><tr><th>阶段</th><th>平均覆盖</th><th>平均 citations</th><th>最大 citations</th><th>平均 source docs</th><th>最大 source docs</th></tr></thead>
+          <tbody>
+            <tr><td>Production retrieval</td><td>0.710</td><td>5.0</td><td>5</td><td>3.6</td><td>5</td></tr>
+            <tr><td>Controlled + reviewed wikilinks</td><td>0.760</td><td>6.5</td><td>8</td><td>5.1</td><td>7</td></tr>
+            <tr><td>Controlled + reviewed wikilinks + reviewed semantic edges</td><td>0.793</td><td>7.4</td><td>9</td><td>5.5</td><td>7</td></tr>
+          </tbody>
+        </table>
+        <p class="success">Controlled rerun 全部 acceptance targets 通过：raw co-mention answer usage = 0，BrainVault writeback = 0，encoding-risk final citations = 0，final chunks <= 9，final source docs <= 7。</p>
+        <p class="muted">注意：0.793 是 expected-term retrieval coverage，不是人工事实正确性评分；这些 delta 来自 6-10 个问题的小样本，属于方向性工程信号，未做显著性检验。</p>
+      </div>
+      <div class="panel" style="margin-bottom:16px">
+        <h2>Memory-carry 181-note expansion pilot</h2>
+        <p>该扩大 pilot 用于验证 100-300 篇只读 Markdown 的低风险扩展可行性。结果是 Production RAG baseline 能跑通，但由于 corpus 非链接密集且 wikilink candidates = 0，导航层没有输入，因此应表述为 navigation untestable / no-op。</p>
+        <div class="grid cols-4" style="margin-top:12px">
+          <div class="metric"><span>locked docs</span><strong>181</strong></div>
+          <div class="metric"><span>derived chunks</span><strong>4322</strong></div>
+          <div class="metric"><span>baseline coverage</span><strong>0.611</strong></div>
+          <div class="metric"><span>navigation coverage</span><strong>0.611</strong></div>
+        </div>
+        <div class="grid cols-4" style="margin-top:12px">
+          <div class="metric"><span>coverage delta</span><strong>0</strong></div>
+          <div class="metric"><span>wikilink candidates</span><strong>0</strong></div>
+          <div class="metric"><span>accepted nav edges</span><strong>0</strong></div>
+          <div class="metric"><span>writeback / embedding / graph DB</span><strong>0</strong></div>
+        </div>
+        <p class="note">结论：Production RAG 仍是底座；LightRAG / Graph RAG 关系层只在有显式链接、稳定主题关系或可审计关系证据时继续验证。该 pilot 不支持更强的 graph/navigation-layer、semantic graph 或 embedding 结论，也不能被解读为导航方法已经失败。</p>
+      </div>
+      <div class="panel warn" style="margin-bottom:16px">
+        <h2>Fixed 24-question relationship-dense eval</h2>
+        <p>已在 expanded corpus 上执行最终 clean 只读评估：`private Markdown corpus A` + `memory-carry corpus B`，300 docs、3795 chunks、543 relationship records、24 fixed questions。结论为 <strong>no_go_relationship_layer_not_enough_gain</strong>。</p>
+        <table>
+          <thead><tr><th>Stage</th><th>含义</th><th>平均覆盖</th><th>Delta</th><th>平均 citations</th><th>最大 citations</th><th>最大 source docs</th><th>Pass</th></tr></thead>
+          <tbody>
+            <tr><td>A</td><td>Production-only lexical/BM25-style retrieval</td><td>0.492</td><td>n/a</td><td>5</td><td>5</td><td>5</td><td>n/a</td></tr>
+            <tr><td>B</td><td>Production + explicit wikilink navigation</td><td>0.500</td><td>+0.008 vs A</td><td>6.417</td><td>8</td><td>7</td><td>false</td></tr>
+            <tr><td>C</td><td>Stage B + explicit Markdown tag/link semantic signals</td><td>0.500</td><td>+0 vs B</td><td>7.042</td><td>9</td><td>7</td><td>false</td></tr>
+          </tbody>
+        </table>
+        <p class="note">双 O 审后已做 clean rerun：旧 295-doc run 被 supersede；最终 manifest 保护路径命中 0，source chunk 高风险保护词内容命中 0，path/target 字段保护命中 0。该结果是 deterministic lexical/BM25-style overlay simulation，不是 LightRAG / Graph RAG engine benchmark，也不是人工事实正确性评分。</p>
+      </div>
+      <div class="grid cols-3">
+        <div class="panel">
+          <h3>Phase A：Production Baseline</h3>
+          <ul>
+            <li>100-300 篇 Markdown</li>
+            <li>全文/BM25 + vector</li>
+            <li>metadata + rerank</li>
+            <li>引用 QA</li>
+            <li>update/delete/reindex</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Phase B：LightRAG Pilot</h3>
+          <ul>
+            <li>10-30 篇高关系密度笔记</li>
+            <li>1/3/10/30 分阶段 ingest</li>
+            <li>relation -> chunk 回链</li>
+            <li>CJK alias audit</li>
+            <li>成本和延迟记录</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Phase C：Graph RAG Deep Pilot</h3>
+          <ul>
+            <li>100-300 篇稳定主题域</li>
+            <li>community / path / KG</li>
+            <li>多跳关系问答</li>
+            <li>人工边质量审计</li>
+            <li>不替代 citation substrate</li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <h2>通过标准</h2>
+        <table>
+          <thead><tr><th>类型</th><th>最低要求</th></tr></thead>
+          <tbody>
+            <tr><td>关系质量</td><td>每条 sampled relation 能追溯到原始 Markdown chunk。</td></tr>
+            <tr><td>引用质量</td><td>答案中的关键 claim 带文件路径、标题、heading/chunk。</td></tr>
+            <tr><td>CJK</td><td>中文实体、别名、短名、日期不丢失不过度合并。</td></tr>
+            <tr><td>更新</td><td>新增、修改、删除、重命名后无明显 stale relation。</td></tr>
+            <tr><td>对比</td><td>关系问题明显优于 Production RAG baseline。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="panel">
+        <h2>证据与产物</h2>
+        <table>
+          <thead><tr><th>类别</th><th>路径 / 状态</th></tr></thead>
+          <tbody>
+            <tr><td>Markdown 母报告</td><td>F:\codex\reports\workflow-runs\2026-06-08-rag-architecture-comparison\final-rag-comparison-report.md</td></tr>
+            <tr><td>Synthesis</td><td>F:\codex\reports\workflow-runs\2026-06-08-rag-architecture-comparison\synthesis.md</td></tr>
+            <tr><td>当前审计</td><td>F:\codex\reports\workflow-runs\2026-06-08-rag-architecture-comparison\rag-comparison-evidence-post-merge-audit.md</td></tr>
+            <tr><td>Source records</td><td>LightRAG 251；Graph RAG 200；Production RAG 210；合计 661</td></tr>
+            <tr><td>Final deep-read</td><td>LightRAG 251；Graph RAG 200；Production RAG 210；合计 661。历史 Batch 4 口径曾为 Production 150 deep-read / 14 follow-up，现已被 final resolution pass 收敛。</td></tr>
+            <tr><td>Final validation</td><td>LightRAG 122 validated + 129 local_path；Graph RAG 200 validated；Production RAG 190 validated + 10 local_path + 10 unverified。</td></tr>
+            <tr><td>Actionable backlog</td><td>当前 backlog = 0；Production RAG 有 10 条来源被 evidence resolution ledger 保守排除在 final-claim 支撑之外。</td></tr>
+            <tr><td>真实 Markdown pilot</td><td>28 docs、256 chunks、6 queries、avg coverage 0.822、240 relationship candidates；private/system/image path matches = 0。</td></tr>
+            <tr><td>Reviewed edges</td><td>140 explicit wikilinks reviewed -> 108 document_navigation edges；100 co-mentions reviewed -> 47 accepted semantic edges；raw co_occurs_with accepted = 0。</td></tr>
+            <tr><td>Controlled answer-quality rerun</td><td>10 questions；final avg expected-term coverage 0.793；avg citations 7.4；max citations 9；max source docs 7；all acceptance targets passed。0.793 是检索覆盖率，不是人工事实正确性评分。</td></tr>
+            <tr><td>Memory-carry 181-note pilot</td><td>181 docs；4322 chunks；baseline coverage 0.611；navigation coverage 0.611；delta 0；wikilink candidates 0；结论为 navigation_untestable_zero_links / no-op，不是导航失败；BrainVault writeback / embedding / graph DB / source mutation = 0。</td></tr>
+            <tr><td>Fixed 24-question eval</td><td>final clean run：300 docs；3795 chunks；543 relationship records；24 questions；Stage A coverage 0.492；Stage B coverage 0.500，delta +0.008，pass false；Stage C coverage 0.500，delta 0，pass false；verdict = no_go_relationship_layer_not_enough_gain；all protected/writeback/embedding/graph/runtime boundaries = 0。</td></tr>
+            <tr><td>Fixed eval 产物</td><td>F:\codex\reports\workflow-runs\2026-06-08-rag-architecture-comparison\relationship-dense-eval-run</td></tr>
+            <tr><td>Pilot 产物</td><td>F:\codex\reports\workflow-runs\2026-06-08-rag-architecture-comparison\pilot-real-markdown</td></tr>
+            <tr><td>关键 caveat</td><td>Production RAG 的证据 caveat 已显著降低，但被 ledger 排除的来源仍不能作为高影响 claim 的唯一支撑；LightRAG/Graph RAG 必须保留 source chunk provenance；raw co-mention 不允许自动入图或写回。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel warn" style="margin-top:16px">
+        <h3>最终使用说明</h3>
+        <p>严格排名用于判断“关系发现谁最强”；实施架构用于真正落地。不要把 strict score 当成直接部署顺序。</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const sections = document.querySelectorAll('section');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+    const search = document.getElementById('matrixSearch');
+    const rows = [...document.querySelectorAll('#matrixTable tbody tr')];
+    if (search) {
+      search.addEventListener('input', () => {
+        const q = search.value.trim().toLowerCase();
+        rows.forEach(row => {
+          row.style.display = row.innerText.toLowerCase().includes(q) ? '' : 'none';
+        });
+      });
+    }
+  </script>
+</body>
+</html>
