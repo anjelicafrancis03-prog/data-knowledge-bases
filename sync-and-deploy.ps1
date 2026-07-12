@@ -39,7 +39,8 @@ $dirs = @(
     "follow-builders-browser",
     "external-agent-seat-graph",
     "codegraph-browser",
-    "rag-architecture-comparison-20260608"
+    "rag-architecture-comparison-20260608",
+    "dbx-tool"
 )
 $copied = 0
 foreach ($d in $dirs) {
@@ -52,6 +53,8 @@ foreach ($d in $dirs) {
         New-Item -Path $dst -ItemType Directory -Force | Out-Null
         Get-ChildItem $src | Copy-Item -Destination $dst -Recurse -Force
         $copied++
+    } else {
+        Write-Host "  📋 $d (已存在于仓库，跳过复制)" -ForegroundColor Gray
     }
 }
 Write-Host "  ✅ 共复制 $copied 个数据库" -ForegroundColor Green
