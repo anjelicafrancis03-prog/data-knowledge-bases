@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>GitHubDaily 技术资讯</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f5f5f5;color:#333;min-height:100vh}
+.header{background:linear-gradient(135deg,#0d4a3e,#1a3a5c);color:#fff;padding:40px 32px;text-align:center}
+.header h1{font-size:28px;margin-bottom:8px}
+.header .subtitle{font-size:14px;color:#8ab4d0;margin-bottom:16px}
+.header .back-link{display:inline-block;color:#8ab4d0;font-size:13px;text-decoration:none;margin-top:8px}
+.header .back-link:hover{color:#fff}
+.container{max-width:900px;margin:0 auto;padding:24px}
+.toolbar{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.toolbar button{background:#fff;border:1px solid #ddd;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;transition:all 0.2s}
+.toolbar button.active{background:#1a3a5c;color:#fff;border-color:#1a3a5c}
+.toolbar button:hover:not(.active){background:#f0f0f0}
+.search-box{flex:1;min-width:200px;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px}
+.card{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:box-shadow 0.2s}
+.card:hover{box-shadow:0 3px 12px rgba(0,0,0,.12)}
+.card-title{font-size:16px;font-weight:600;color:#1a1a2e;margin-bottom:6px}
+.card-title a{color:inherit;text-decoration:none}
+.card-title a:hover{color:#2c6fa8}
+.card-meta{font-size:12px;color:#999;display:flex;gap:12px;margin-top:6px}
+.card-preview{font-size:13px;color:#666;line-height:1.5;margin-top:8px}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.badge-ai{background:#e8f1f9;color:#2c6fa8}
+.badge-open{background:#e6f4e6;color:#2d7d3a}
+.badge-tool{background:#fef0e6;color:#a4651b}
+.badge-lang{background:#f0e6f6;color:#6b3fa0}
+.badge-other{background:#f0f0f0;color:#666}
+.stats{background:#fff;padding:16px 20px;border-radius:10px;margin-bottom:16px;display:flex;gap:24px;font-size:13px;flex-wrap:wrap}
+.stat-item{display:flex;align-items:center;gap:4px}
+.stat-num{font-size:18px;font-weight:700;color:#1a3a5c}
+.footer{text-align:center;padding:24px;color:#999;font-size:12px}
+.footer a{color:#2c6fa8;text-decoration:none}
+</style>
+</head>
+<body>
+<div class=header>
+<a class=back-link href=../>← 知识库合集</a>
+<h1>📡 GitHubDaily 技术资讯</h1>
+<div class=subtitle>每日 GitHub 热门项目 & AI 工具推荐</div>
+</div>
+<div class=container>
+
+<div class=stats id=stats></div>
+
+<div class=toolbar>
+  <input class=search-box id=searchBox placeholder="搜索文章标题或内容...">
+  <button class=filter-btn data-cat=all>全部</button>
+  <button class=filter-btn data-cat=AI/LLM>AI/LLM</button>
+  <button class=filter-btn data-cat=开源项目>开源项目</button>
+  <button class=filter-btn data-cat=工具>工具</button>
+  <button class=filter-btn data-cat=编程语言>编程语言</button>
+  <button class=filter-btn data-cat=其他>其他</button>
+</div>
+
+<div id=articles></div>
+
+</div>
+<div class=footer>
+<a href=https://github.com/anjelicafrancis03-prog/data-knowledge-bases>GitHub</a> ·
+Cloudflare Pages ·
+<a href=../>返回知识库合集</a>
+</div>
+
+<script>
+fetch('data.json')
+  .then(r => r.json())
+  .then(d => {
+    const stats = document.getElementById('stats');
+    const cats = d.summary.categories || {};
+    let statsHtml = `<div class=stat-item>共 <span class=stat-num>${d.summary.total}</span> 篇</div>`;
+    for (const [k, v] of Object.entries(cats)) {
+      statsHtml += `<div class=stat-item>${k} <span class=stat-num>${v}</span></div>`;
+    }
+    stats.innerHTML = statsHtml;
+
+    let currentCat = 'all';
+    const search = document.getElementById('searchBox');
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons[0].classList.add('active');
+    buttons.forEach(btn => {
+      btn.onclick = () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCat = btn.dataset.cat;
+        render();
+      };
+    });
+    search.oninput = render;
+
+    function render() {
+      const q = (search.value || '').toLowerCase();
+      const filtered = d.articles.filter(a => {
+        const catMatch = currentCat === 'all' || a.category === currentCat;
+        const qMatch = !q || a.title.toLowerCase().includes(q) || (a.preview || '').toLowerCase().includes(q);
+        return catMatch && qMatch;
+      });
+      const badgeClass = {
+        'AI/LLM': 'badge-ai', '开源项目': 'badge-open', '工具': 'badge-tool',
+        '编程语言': 'badge-lang', '其他': 'badge-other'
+      };
+      const html = filtered.map(a => `
+        <div class=card>
+          <div class=card-title>
+            ${a.url ? `<a href="${a.url}" target=_blank>${a.title}</a>` : a.title}
+            <span class="badge ${badgeClass[a.category] || 'badge-other'}">${a.category}</span>
+          </div>
+          <div class=card-meta>
+            <span>${a.date}</span>
+            <span>RSS ID: ${a.id}</span>
+          </div>
+          ${a.preview ? `<div class=card-preview>${a.preview.slice(0, 200)}...</div>` : ''}
+        </div>
+      `).join('');
+      document.getElementById('articles').innerHTML = html || '<p style="text-align:center;color:#999">无匹配文章</p>';
+    }
+    render();
+  });
+</script>
+</body>
+</html>
