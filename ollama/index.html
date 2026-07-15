@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<script defer src="https://umami-wgdv.vercel.app/script.js" data-website-id="1e49746e-4b48-45ec-8e3b-72e9562c6f1c"></script>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width,initial-scale=1'>
+<title>Ollama 本地模型 · AI 推理引擎</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f5f5f5;color:#333;min-height:100vh}
+.header{background:linear-gradient(135deg,#1a1a2e,#3a1a5e);color:#fff;padding:40px 32px;text-align:center}
+.header h1{font-size:28px;margin-bottom:8px}
+.header p{font-size:14px;color:#b0a0c0}
+.container{max-width:1000px;margin:0 auto;padding:24px}
+.section-title{font-size:20px;font-weight:700;margin:32px 0 16px;border-left:4px solid #5a2d82;padding-left:12px;color:#1a1a2e}
+.section-title .sub{font-size:13px;font-weight:400;color:#999;margin-left:8px}
+.card{background:#fff;border-radius:10px;padding:20px 24px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card h3{font-size:16px;font-weight:600;margin-bottom:8px;color:#3a1a5e}
+.card p,.card li{font-size:14px;line-height:1.7;color:#555}
+.card ul{padding-left:18px;margin:8px 0}
+.card code{background:#f3eef7;padding:2px 6px;border-radius:4px;font-size:13px;color:#5a2d82}
+.tag{display:inline-block;padding:1px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-left:8px}
+.tag-purple{background:#f3eef7;color:#5a2d82}
+.tag-green{background:#e6f4e6;color:#2d7d3a}
+.tag-blue{background:#e3f2fd;color:#1565c0}
+.tag-orange{background:#fff3e0;color:#e65100}
+pre{background:#263238;color:#e2e8f0;padding:16px;border-radius:8px;font-size:13px;overflow-x:auto;margin:12px 0}
+.footer{text-align:center;padding:24px;color:#999;font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;padding:8px;color:#666;font-weight:600;border-bottom:1px solid #eee}
+td{padding:8px;border-bottom:1px solid #f5f5f5;color:#555}
+</style>
+</head>
+<body>
+<div class=header>
+<h1>🤖 Ollama 本地模型引擎</h1>
+<p>Windows 本机本地大模型推理 · 2 个模型 · API 运行中</p>
+</div>
+<div class=container>
+
+<div class=section-title>📦 运行状态 <span class=sub>2026-07-15</span></div>
+<div class=card>
+  <h3>Ollama <span class="tag tag-green">API 运行中</span></h3>
+  <ul>
+    <li>API 地址: <code>http://127.0.0.1:11434</code></li>
+    <li>运行方式: 前台进程（非 Windows 服务）</li>
+    <li>安装位置: 标准安装路径</li>
+  </ul>
+</div>
+
+<div class=section-title>🧠 已安装模型 <span class=sub>2 个模型，共 ~3.0 GB</span></div>
+
+<div class=card>
+  <table>
+    <tr>
+      <th style="width:30%">模型</th>
+      <th style="width:12%">大小</th>
+      <th style="width:12%">量化</th>
+      <th style="width:16%">上下文</th>
+      <th>能力</th>
+    </tr>
+    <tr>
+      <td><strong>qwen3:4b</strong> <span class="tag tag-purple">主力</span></td>
+      <td>2.5 GB</td>
+      <td>Q4_K_M</td>
+      <td>262K</td>
+      <td>推理 · 工具调用 · 思考 (thinking)</td>
+    </tr>
+    <tr>
+      <td><strong>qwen3-embedding:0.6b</strong> <span class="tag tag-blue">嵌入</span></td>
+      <td>639 MB</td>
+      <td>Q8_0</td>
+      <td>32K</td>
+      <td>文本嵌入 (embedding)</td>
+    </tr>
+  </table>
+</div>
+
+<div class=section-title>🔧 常用命令</div>
+<div class=card>
+  <h3>模型管理</h3>
+  <pre>ollama list                    # 列出模型
+ollama ps                      # 查看当前加载的模型
+ollama pull qwen3:4b           # 下载模型
+ollama rm qwen3:4b             # 删除模型</pre>
+
+  <h3 style=margin-top:20px>运行推理</h3>
+  <pre>ollama run qwen3:4b            # 交互式对话
+ollama run qwen3:4b "你好"     # 单轮推理
+
+# 嵌入
+curl http://127.0.0.1:11434/api/embed -d '{
+  "model": "qwen3-embedding:0.6b",
+  "input": "要嵌入的文本"
+}'</pre>
+
+  <h3 style=margin-top:20px>API 调用</h3>
+  <pre># Chat 补全
+curl http://127.0.0.1:11434/api/chat -d '{
+  "model": "qwen3:4b",
+  "messages": [{"role":"user","content":"你好"}],
+  "stream": false
+}'
+
+# 生成补全
+curl http://127.0.0.1:11434/api/generate -d '{
+  "model": "qwen3:4b",
+  "prompt": "写一首诗",
+  "stream": false
+}'</pre>
+</div>
+
+<div class=section-title>🔌 集成状态</div>
+<div class=card>
+  <table>
+    <tr>
+      <th>应用</th>
+      <th>状态</th>
+      <th>说明</th>
+    </tr>
+    <tr>
+      <td>OmniRoute AI 网关</td>
+      <td><span class="tag tag-blue">待集成</span></td>
+      <td>可将 Ollama 注册为 OmniRoute provider，让所有槽位通过 OmniRoute 调用本机模型</td>
+    </tr>
+    <tr>
+      <td>桌面槽位直连</td>
+      <td><span class="tag tag-blue">待测试</span></td>
+      <td>配置 claude-code 使用 Ollama 作为 provider（需 OpenAI 兼容代理）</td>
+    </tr>
+    <tr>
+      <td>Agent 工具箱</td>
+      <td><span class="tag tag-blue">待测试</span></td>
+      <td>本地模型可用于 Agent 子任务（总结/嵌入/分类），节省 API 费用</td>
+    </tr>
+  </table>
+</div>
+
+<div class=section-title>📊 与云端模型对比</div>
+<div class=card>
+  <table>
+    <tr>
+      <th>维度</th>
+      <th>Ollama (qwen3:4b)</th>
+      <th>云端 (deepseek-v4-flash / grok)</th>
+    </tr>
+    <tr>
+      <td>速度</td>
+      <td>~20-40 tok/s（本地）</td>
+      <td>~100+ tok/s（云端）</td>
+    </tr>
+    <tr>
+      <td>质量</td>
+      <td>⭐⭐⭐ 4B 小模型，适合简单任务</td>
+      <td>⭐⭐⭐⭐⭐ 大模型，全面</td>
+    </tr>
+    <tr>
+      <td>费用</td>
+      <td>🆓 免费（仅耗电）</td>
+      <td>💰 按量计费</td>
+    </tr>
+    <tr>
+      <td>隐私</td>
+      <td>✅ 数据不出本机</td>
+      <td>⚠️ 数据发送到云端</td>
+    </tr>
+    <tr>
+      <td>可用性</td>
+      <td>🟢 离线可用</td>
+      <td>🔴 需联网</td>
+    </tr>
+    <tr>
+      <td>适合场景</td>
+      <td>嵌入/分类/简单QA/离线任务</td>
+      <td>复杂推理/编程/长文/Agent 主模型</td>
+    </tr>
+  </table>
+</div>
+
+<div class=section-title>📋 推荐扩展</div>
+<div class=card>
+  <ul>
+    <li><strong>更多模型</strong> — 可下载 qwen3:7b/14b/32b、llama3、mistral 等</li>
+    <li><strong>Open WebUI</strong> — Ollama 的 Web 管理界面（Docker 部署）</li>
+    <li><strong>接入 OmniRoute</strong> — 让所有桌面槽位可切换使用本地模型做简单任务</li>
+  </ul>
+</div>
+
+</div>
+<div class=footer>Ollama · data-knowledge-bases.pages.dev</div>
+</body>
+</html>
