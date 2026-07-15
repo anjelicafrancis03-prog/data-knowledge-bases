@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width,initial-scale=1'>
+<title>CapsWriter-Offline 离线语音输入 — 本地工具</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f5f5f5;color:#333;min-height:100vh}
+.header{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:40px 32px;text-align:center}
+.header h1{font-size:28px;margin-bottom:8px}
+.header p{font-size:14px;color:#aaa}
+.container{max-width:700px;margin:0 auto;padding:24px}
+.card{background:#fff;border-radius:10px;padding:20px 24px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card-title{font-size:16px;font-weight:600;margin-bottom:8px}
+code{background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:13px}
+pre{background:#1a1a2e;color:#e0e0e0;padding:14px;border-radius:8px;overflow-x:auto;font-size:13px;line-height:1.5;margin:10px 0}
+.footer{text-align:center;padding:24px;color:#999;font-size:12px}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600}
+.badge-ok{background:#e6f4e6;color:#2d7d3a}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+td,th{border:1px solid #ddd;padding:6px 10px;text-align:left}
+th{background:#f0f0f0}
+</style>
+</head>
+<body>
+<div class=header>
+<h1>🎤 CapsWriter-Offline</h1>
+<p>Windows 离线语音输入 · 按住就说 · 松开上屏</p>
+</div>
+<div class=container>
+
+<div class=card>
+<div class=card-title>📋 说明</div>
+<p>完全离线的 Windows 语音输入工具。按住 <strong>CapsLock</strong> 或鼠标侧键说话，松开自动上屏。所有识别在本地完成，不上传任何数据。</p>
+<p>GitHub 6.2k Star | 开源免费 | v2.6</p>
+</div>
+
+<div class=card>
+<div class=card-title><span class="badge badge-ok">✅ 已安装 · 已测试通过</span></div>
+<table>
+<tr><th>项目</th><th>值</th></tr>
+<tr><td>安装路径</td><td><code>C:\Tools\CapsWriter-Offline\app\CapsWriter-Offline\</code></td></tr>
+<tr><td>模型</td><td>Qwen3-ASR-1.7B-q5_k（GPU Vulkan 加速）</td></tr>
+<tr><td>GPU</td><td>NVIDIA RTX 2060 · 29/29 层 offloaded</td></tr>
+<tr><td>实时率</td><td>~0.55x（16s 音频 ~9s 处理）</td></tr>
+<tr><td>测试</td><td>15/15 全部通过</td></tr>
+</table>
+</div>
+
+<div class=card>
+<div class=card-title>🚀 启动方式</div>
+<pre>cd C:\Tools\CapsWriter-Offline\app\CapsWriter-Offline
+start_server.exe    ← 启动服务端（加载模型到托盘）
+start_client.exe    ← 启动客户端（按住 CapsLock 说话）</pre>
+</div>
+
+<div class=card>
+<div class=card-title>📊 支持的模型</div>
+<table>
+<tr><th>引擎</th><th>准确率</th><th>速度</th><th>显卡加速</th></tr>
+<tr><td>Qwen3-ASR-1.7B</td><td>★★★★★</td><td>★★★☆☆</td><td>✅ 已装</td></tr>
+<tr><td>Fun-ASR-Nano</td><td>★★★★☆</td><td>★★★★☆</td><td>✅ 可下载</td></tr>
+<tr><td>SenseVoice-Small</td><td>★★★☆☆</td><td>★★★★★</td><td>✅ 可下载</td></tr>
+</table>
+</div>
+
+<div class=card>
+<div class=card-title>🔧 功能特色</div>
+<ul style=margin-left:20px;line-height:1.8>
+<li>完全离线，不传云端，隐私安全</li>
+<li>文件转录 → SRT/TXT/JSON 字幕</li>
+<li>音素级热词替换（hot.txt）</li>
+<li>正则规则替换（hot-rule.txt）</li>
+<li>LLM 润色角色（DeepSeek API）</li>
+<li>数字 ITN（十五六个 → 15~16个）</li>
+<li>按日期归档录音文件</li>
+</ul>
+</div>
+
+<div class=card>
+<div class=card-title>📁 安装测试报告</div>
+<p>详细测试结果：<code>C:\Tools\CapsWriter-Offline\app\CapsWriter-Offline\test_results\test_report.json</code></p>
+<p>原始文章：<code>C:\HTML MD 网络来源\离线语音输入，开源免费，这也许是 windows 最好用的！-开源先锋-2026-07-14.md</code></p>
+</div>
+
+</div>
+<div class=footer>CapsWriter-Offline v2.6 · 离线语音输入 · Qwen3-ASR-1.7B · RTX 2060</div>
+</body>
+</html>
