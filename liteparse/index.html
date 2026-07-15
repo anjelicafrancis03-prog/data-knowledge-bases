@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<script defer src="https://umami-wgdv.vercel.app/script.js" data-website-id="1e49746e-4b48-45ec-8e3b-72e9562c6f1c"></script>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width,initial-scale=1'>
+<title>LiteParse · 本地 PDF/OCR 解析工具</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f5f5f5;color:#333;min-height:100vh}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:#fff;padding:40px 32px;text-align:center}
+.header h1{font-size:28px;margin-bottom:8px}
+.header p{font-size:14px;color:#b2dfdb}
+.container{max-width:1000px;margin:0 auto;padding:24px}
+.section-title{font-size:20px;font-weight:700;margin:32px 0 16px;border-left:4px solid #00695c;padding-left:12px;color:#004d40}
+.section-title .sub{font-size:13px;font-weight:400;color:#999;margin-left:8px}
+.card{background:#fff;border-radius:10px;padding:20px 24px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card h3{font-size:16px;font-weight:600;margin-bottom:8px;color:#00695c}
+.card p,.card li{font-size:14px;line-height:1.7;color:#555}
+.card ul{padding-left:18px;margin:8px 0}
+.card code{background:#e0f2f1;padding:2px 6px;border-radius:4px;font-size:13px;color:#00695c}
+pre{background:#263238;color:#e2e8f0;padding:16px;border-radius:8px;font-size:13px;overflow-x:auto;margin:12px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;padding:8px;color:#666;font-weight:600;border-bottom:1px solid #eee}
+td{padding:8px;border-bottom:1px solid #f5f5f5;color:#555}
+.tag{display:inline-block;padding:1px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-left:8px}
+.tag-green{background:#e6f4e6;color:#2d7d3a}
+.tag-blue{background:#e3f2fd;color:#1565c0}
+.tag-orange{background:#fff3e0;color:#e65100}
+.footer{text-align:center;padding:24px;color:#999;font-size:12px}
+</style>
+</head>
+<body>
+<div class=header>
+<h1>📄 LiteParse · 本地文档解析</h1>
+<p>快速本地 PDF/Office/图片 OCR 工具 · Rust 编写 · v2.1.0</p>
+</div>
+<div class=container>
+
+<div class=section-title>📦 安装状态 <span class=sub>2026-07-15</span></div>
+<div class=card>
+  <h3>LiteParse <span class="tag tag-green">已安装</span></h3>
+  <ul>
+    <li>CLI 命令: <code>lit</code></li>
+    <li>版本: <code>lit 2.1.0</code></li>
+    <li>路径: <code>C:\Users\64998\AppData\Local\Programs\Python\Python312\Scripts\lit</code></li>
+    <li>语言: Rust 编写（速度极快）</li>
+  </ul>
+</div>
+
+<div class=section-title>🔧 命令参考</div>
+<div class=card>
+  <h3>支持的命令</h3>
+  <table>
+    <tr><th>命令</th><th>说明</th></tr>
+    <tr><td><code>lit parse</code></td><td>解析文档（PDF/DOCX/XLSX/PPTX/图片等）</td></tr>
+    <tr><td><code>lit screenshot</code></td><td>生成文档页面截图</td></tr>
+    <tr><td><code>lit batch-parse</code></td><td>批量解析多文档</td></tr>
+  </table>
+
+  <h3 style=margin-top:20px>常用用法</h3>
+  <pre># 解析 PDF 为 Markdown
+lit parse document.pdf > output.md
+
+# 解析并指定格式为 JSON
+lit parse document.pdf --format json
+
+# 生成截图
+lit screenshot document.pdf
+
+# 批量解析
+lit batch-parse ./input-dir/ --output ./output-dir/</pre>
+</div>
+
+<div class=section-title>📊 支持的文件类型</div>
+<div class=card>
+  <table>
+    <tr><th>类型</th><th>格式</th></tr>
+    <tr><td>文档</td><td>PDF, DOCX, XLSX, PPTX</td></tr>
+    <tr><td>图片</td><td>PNG, JPG, JPEG, BMP, TIFF, WebP</td></tr>
+    <tr><td>输出格式</td><td>Markdown, JSON, 纯文本</td></tr>
+    <tr><td>OCR</td><td>内置 OCR 引擎（图片型 PDF/扫描件自动识别）</td></tr>
+  </table>
+</div>
+
+<div class=section-title>⚡ 性能特点</div>
+<div class=card>
+  <ul>
+    <li><strong>速度极快</strong> — Rust 编写，比 Python 解析器快 10-50x</li>
+    <li><strong>OCR 内建</strong> — 扫描件/图片型 PDF 自动调用 OCR，无需额外安装</li>
+    <li><strong>布局保留</strong> — 输出 Markdown 保留原文档的标题层级、表格、列表结构</li>
+    <li><strong>轻量</strong> — 单二进制，无外部依赖</li>
+  </ul>
+</div>
+
+<div class=section-title>📎 相关文件</div>
+<div class=card>
+  <table>
+    <tr><th>文件</th><th>路径</th></tr>
+    <tr><td>OKF 知识包</td><td style="font-family:monospace;font-size:13px;color:#888">F:\codex\okf-bundles\liteparse\index.md</td></tr>
+    <tr><td>CLI 详情</td><td style="font-family:monospace;font-size:13px;color:#888">F:\codex\okf-bundles\liteparse\components\cli.md</td></tr>
+    <tr><td>Python API</td><td style="font-family:monospace;font-size:13px;color:#888">F:\codex\okf-bundles\liteparse\components\python-api.md</td></tr>
+    <tr><td>评估报告</td><td style="font-family:monospace;font-size:13px;color:#888">F:\codex\reports\run-manifests\2026-06-18-liteparse-eval\eval-report.md</td></tr>
+  </table>
+</div>
+
+</div>
+<div class=footer>LiteParse · data-knowledge-bases.pages.dev</div>
+</body>
+</html>
