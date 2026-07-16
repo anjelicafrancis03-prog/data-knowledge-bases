@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width,initial-scale=1'>
+<title>右键长按截图工具 — Windows 本地工具</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f5f5f5;color:#333;min-height:100vh}
+.header{background:#24333f;color:#fff;padding:40px 32px;text-align:center}
+.header h1{font-size:28px;margin-bottom:8px;letter-spacing:0}
+.header p{font-size:14px;color:#c8d4dc}
+.container{max-width:760px;margin:0 auto;padding:24px}
+.card{background:#fff;border-radius:8px;padding:20px 24px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card-title{font-size:16px;font-weight:600;margin-bottom:8px}
+p,li{font-size:14px;line-height:1.75;color:#555}
+ul{margin-left:20px}
+code{background:#eef1f3;padding:2px 6px;border-radius:4px;font-size:13px;color:#24333f}
+pre{background:#24333f;color:#e8eef2;padding:14px;border-radius:8px;overflow-x:auto;font-size:13px;line-height:1.55;margin:10px 0}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600}
+.badge-ok{background:#e6f4e6;color:#2d7d3a}
+.badge-local{background:#e8f1f9;color:#2c6fa8}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+td,th{border:1px solid #ddd;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#f0f2f3}
+.footer{text-align:center;padding:24px;color:#888;font-size:12px}
+.back{display:inline-block;margin-bottom:12px;color:#2c6fa8;text-decoration:none;font-size:13px}
+</style>
+</head>
+<body>
+<div class=header>
+<h1>右键长按截图工具</h1>
+<p>Windows 本地框选截图 · 自动保存 · 自动复制到剪贴板</p>
+</div>
+<div class=container>
+<a class=back href=../>← 返回数据资产门户</a>
+
+<div class=card>
+<div class=card-title>当前正式版本</div>
+<p><span class="badge badge-ok">已安装并由守护程序保活</span> <span class="badge badge-local">仅限本机</span></p>
+<p>正式版本使用<strong>鼠标右键</strong>：短按保持普通右键功能，长按约 0.5 秒后拖动框选区域，松开即保存 PNG 并复制到剪贴板。</p>
+</div>
+
+<div class=card>
+<div class=card-title>操作方式</div>
+<table>
+<tr><th>动作</th><th>结果</th></tr>
+<tr><td>短按鼠标右键</td><td>正常打开右键菜单</td></tr>
+<tr><td>长按右键并拖动</td><td>显示框选层，松开后保存截图并复制到剪贴板</td></tr>
+</table>
+</div>
+
+<div class=card>
+<div class=card-title>文件与输出</div>
+<table>
+<tr><th>项目</th><th>位置</th></tr>
+<tr><td>正式程序</td><td><code>F:\codex\tools\MiddleButtonScreenshot\publish\MiddleButtonScreenshot.exe</code></td></tr>
+<tr><td>守护脚本</td><td><code>F:\codex\tools\right-button-screenshot-watchdog.ps1</code></td></tr>
+<tr><td>运行状态</td><td><code>F:\codex\logs\right-button-screenshot-watchdog\status.json</code></td></tr>
+<tr><td>当前截图</td><td><code>F:\360MoveData\Users\64998\Desktop\screenshot\</code></td></tr>
+<tr><td>历史归档</td><td><code>F:\screenshot\</code></td></tr>
+</table>
+</div>
+
+<div class=card>
+<div class=card-title>启动与检查</div>
+<p>正式版本由 Windows 守护程序和启动链自动运行。排障时先读取状态文件和应用日志，只按精确程序路径处理进程，不要批量结束 PowerShell。</p>
+<pre>powershell -ExecutionPolicy Bypass -File F:\codex\tools\right-button-screenshot-watchdog.ps1 -Once</pre>
+</div>
+
+<div class=card>
+<div class=card-title>命名说明</div>
+<p>程序目录沿用早期名称 <code>MiddleButtonScreenshot</code>，旧 URL <code>/middle-button-screenshot/</code> 为兼容已有链接而保留。产品名称和实际交互统一以“右键长按截图工具”为准。</p>
+</div>
+
+</div>
+<div class=footer>Mouse Hold Screenshot · Windows local utility · data-knowledge-bases.pages.dev</div>
+</body>
+</html>
