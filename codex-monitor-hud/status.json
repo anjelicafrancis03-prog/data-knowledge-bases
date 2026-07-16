@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-07-16T15:44:00+08:00",
+  "source": "Windows Codex Monitor HUD",
+  "transport": "sanitized-static-snapshot",
+  "hud": {
+    "desktopProcess": "running",
+    "singleInstance": true,
+    "refreshSeconds": 5,
+    "windowTitle": "Codex Model HUD"
+  },
+  "codex": {
+    "activeProfile": "custom",
+    "effectiveProfile": "custom",
+    "configuredProfiles": ["primary", "pptoken", "liusu", "duckingmind", "ip34"],
+    "credentialState": "masked"
+  },
+  "widgets": [
+    { "id": "core", "label": "CORE", "state": "local-only" },
+    { "id": "system", "label": "SYS", "state": "local-only" },
+    { "id": "feishu", "label": "FEISHU", "state": "local-only" }
+  ],
+  "controls": {
+    "switch": "desktop-only",
+    "test": "desktop-only",
+    "call": "desktop-only"
+  }
+}
